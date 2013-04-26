@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.AspNet.WebApi.OData</id>
+    <version>4.0.1</version>
+    <title>Microsoft ASP.NET Web API OData</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/aspnet_and_web_tools_2012_2_RTW_EULA_ENU.htm</licenseUrl>
+    <projectUrl>http://www.asp.net/web-api</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>This package contains everything you need to create OData endpoints using ASP.NET Web API and to support OData query syntax for your web APIs.</description>
+    <language>en-US</language>
+    <tags>Microsoft AspNet WebApi AspNetWebApi OData</tags>
+    <dependencies>
+      <dependency id="Microsoft.Net.Http" version="[2.0.20710.0, 2.1)" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="[4.0.20710.0, 4.1)" />
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="[4.0.20710.0, 4.1)" />
+      <dependency id="Microsoft.Data.OData" version="[5.2.0, 6.0.0)" />
+    </dependencies>
+    <references>
+      <reference file="System.Web.Http.OData.dll" />
+    </references>
+  </metadata>
+</package>

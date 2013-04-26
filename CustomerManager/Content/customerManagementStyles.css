@@ -1,0 +1,89 @@
+﻿body {
+    padding: 65px;
+}
+
+.view {
+    left: 60px;
+    position: relative;
+    opacity: 0.0;
+}
+
+.card {
+    background-color:#efefef;
+    border: 1px solid black;
+    height:75px;
+    width: 225px;
+    margin-bottom: 20px;
+}
+
+.cardHeader {
+    background-color: #006dcc;
+    font-size:14pt;
+    color:white;
+    padding:5px;
+}
+
+.cardClose {
+    color: white;
+    font-weight:bold;
+    margin-right:5px;
+}
+
+.cardContainer {
+    width:90%;
+}
+
+.cardBody {
+    padding-left: 5px;
+}
+
+.lastRow {
+    background-color: #ccc;
+}
+
+.indent {
+    margin-left:20px;
+}
+
+.ordersTable {
+    width:800px;
+    margin-left:20px;
+}
+
+.orders th, .customerOrders th {
+    width:25%;
+    cursor: pointer;
+}
+
+.ordersTable tr:first-child th {
+    background-color: #006dcc;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+#submitCustomer {
+    margin-left:50px;
+    margin-top: -8px;
+}
+
+footer {
+    margin-top:10px;
+    font-weight: bold;
+}
+
+
+/* Bootstrap overrides */
+.navbar-inner {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.navbar .nav {
+    margin-left:50px;
+    margin-top:15px;
+}
+
+.close {
+    opacity: 1.0;
+}

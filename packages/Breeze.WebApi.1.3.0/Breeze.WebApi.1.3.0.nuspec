@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Breeze.WebApi</id>
+    <version>1.3.0</version>
+    <title>Breeze for ASP.NET Web Api projects</title>
+    <authors>Jay Traband</authors>
+    <owners>Jay Traband</owners>
+    <licenseUrl>http://www.breezejs.com/license</licenseUrl>
+    <projectUrl>http://www.breezejs.com/</projectUrl>
+    <iconUrl>http://www.breezejs.com/sites/all/images/breezepkg.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The files and references that are essential for a Breeze ASP.NET Web Api application.  We recommend installing this package shortly after creating a project with the "ASP.NET Empty Web Application" template or one of the MVC 4 templates such as the "ASP.NET MVC 4 Empty" template.  To see an example Breeze application, try the  'Breeze.WebApiSample' package which creates a simple MVC4 WebApi app.</description>
+    <summary>Breeze ASP.NET Web Api support package</summary>
+    <releaseNotes>Please review the BreezeJS release notes at http://www.breezejs.com/documentation/download</releaseNotes>
+    <copyright>Copyright IdeaBlade 2012</copyright>
+    <language>en-US</language>
+    <tags>javascript WebApi EntityFramework Breeze SPA</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.WebApi" />
+      <dependency id="Microsoft.AspNet.WebApi.OData" />
+      <dependency id="WebActivator" />
+      <dependency id="EntityFramework" version="[4.4, 6.0)" />
+      <dependency id="Q" />
+    </dependencies>
+    <references>
+      <reference file="Breeze.WebApi.dll" />
+      <reference file="Irony.dll" />
+    </references>
+  </metadata>
+</package>
