@@ -25,19 +25,19 @@ app.config(function ($routeProvider) {
         .when('/customers',
             {
                 controller: 'CustomersController',
-                templateUrl: '/app/partials/customers.html'
+                templateUrl: '/app/views/customers.html'
             })
         //Define a route that has a route parameter in it (:customerID)
         .when('/customerorders/:customerID',
             {
                 controller: 'CustomerOrdersController',
-                templateUrl: '/app/partials/customerOrders.html'
+                templateUrl: '/app/views/customerOrders.html'
             })
         //Define a route that has a route parameter in it (:customerID)
         .when('/orders',
             {
                 controller: 'OrdersController',
-                templateUrl: '/app/partials/orders.html'
+                templateUrl: '/app/views/orders.html'
             })
         .otherwise({ redirectTo: '/customers' });
 });

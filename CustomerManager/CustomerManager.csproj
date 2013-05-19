@@ -112,10 +112,10 @@
     <Content Include="app\controllers\orderChildController.js" />
     <Content Include="app\controllers\ordersController.js" />
     <Content Include="app\directives\animatedView.js" />
-    <Content Include="app\partials\customerOrders.html" />
-    <Content Include="app\partials\customers.html" />
-    <Content Include="app\partials\orders.html" />
-    <Content Include="app\partials\ordersTable.html" />
+    <Content Include="app\views\customerOrders.html" />
+    <Content Include="app\views\customers.html" />
+    <Content Include="app\views\orders.html" />
+    <Content Include="app\views\ordersTable.html" />
     <Content Include="app\services\config.js" />
     <Content Include="app\services\customersBreezeService.js" />
     <Content Include="app\services\customersService.js" />
