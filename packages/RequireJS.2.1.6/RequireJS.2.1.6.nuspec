@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>RequireJS</id>
+    <version>2.1.6</version>
+    <title>RequireJS</title>
+    <authors>James Burke</authors>
+    <owners>James Burke</owners>
+    <licenseUrl>https://github.com/jrburke/requirejs/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://requirejs.org/</projectUrl>
+    <iconUrl>http://requirejs.org/i/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A JavaScript module loader.</description>
+    <releaseNotes />
+    <copyright>Copyright 2010-2012</copyright>
+    <language />
+    <tags>JavaScript</tags>
+  </metadata>
+</package>

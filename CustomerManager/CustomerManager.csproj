@@ -105,13 +105,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\controllers\controllers.js" />
     <Content Include="app\controllers\customerOrdersController.js" />
     <Content Include="app\controllers\customersController.js" />
     <Content Include="app\controllers\navBarController.js" />
     <Content Include="app\controllers\orderChildController.js" />
     <Content Include="app\controllers\ordersController.js" />
     <Content Include="app\directives\animatedView.js" />
+    <Content Include="app\services\routeResolver.js" />
     <Content Include="app\views\customerOrders.html" />
     <Content Include="app\views\customers.html" />
     <Content Include="app\views\orders.html" />
@@ -133,15 +133,14 @@
     <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\angular-1.1.4.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\breeze.intellisense.js" />
-    <Content Include="Scripts\breeze.debug.js" />
     <Content Include="Scripts\breeze.min.js" />
-    <Content Include="Scripts\jquery.min.js" />
-    <Content Include="Scripts\q.js" />
+    <Content Include="Scripts\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\q.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

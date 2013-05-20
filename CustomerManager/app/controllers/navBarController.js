@@ -1,12 +1,11 @@
-﻿app.controller('NavbarController', ['$scope', '$location', 'config', function ($scope, $location, config) {
+﻿'use strict';
 
-    $scope.appTitle = config.appTitle + (config.useBreeze ? ' with Breeze' : '');
+define(['angular', 'app'], function (angular, app) {
 
-    $scope.getClass = function (path) {
-        if ($location.path().substr(0, path.length) == path) {
-            return true
-        } else {
-            return false;
+    app.controller('NavbarController', ['$scope', '$location', function ($scope, $location) {
+        $scope.highlight = function (path) {
+            return $location.path().substr(0, path.length) == path;
         }
-    }
-}]);
+    }]);
+
+});

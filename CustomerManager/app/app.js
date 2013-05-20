@@ -1,46 +1,53 @@
-﻿/// <reference path="../Scripts/angular-1.1.4.js" />
-
-/*#######################################################################
+﻿/*#######################################################################
   
   Dan Wahlin
   http://twitter.com/DanWahlin
   http://weblogs.asp.net/dwahlin
   http://pluralsight.com/training/Authors/Details/dan-wahlin
 
-  Ward Bell
+  Ward Bell - Breeze Integration
   http://twitter.com/WardBell
   http://neverindoubtnet.blogspot.com
 
-  Normally like the break AngularJS controllers into separate files.
-  Kept them together here since they're small and it's easier to look through them.
-  example. 
-
   #######################################################################*/
 
-var app = angular.module('customersApp', []);
+'use strict';
 
-//This configures the routes and associates each route with a view and a controller
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/customers',
+define(['angular', 'services/routeResolver'], function () {
+
+    var app = angular.module('customersApp', ['routeResolverServices']);
+
+    app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
+        function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {
+
+            //Change default views and controllers directory using the following:
+            //routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
+
+            app.register =
             {
-                controller: 'CustomersController',
-                templateUrl: '/app/views/customers.html'
-            })
-        //Define a route that has a route parameter in it (:customerID)
-        .when('/customerorders/:customerID',
-            {
-                controller: 'CustomerOrdersController',
-                templateUrl: '/app/views/customerOrders.html'
-            })
-        //Define a route that has a route parameter in it (:customerID)
-        .when('/orders',
-            {
-                controller: 'OrdersController',
-                templateUrl: '/app/views/orders.html'
-            })
-        .otherwise({ redirectTo: '/customers' });
+                controller: $controllerProvider.register,
+                directive: $compileProvider.directive,
+                filter: $filterProvider.register,
+                factory: $provide.factory,
+                service: $provide.service
+            };
+
+            //$locationProvider.html5Mode(true);
+
+            //Define routes - controllers will be loaded dynamically
+            var route = routeResolverProvider.route;
+
+            $routeProvider
+                .when('/customers', route.resolve('Customers'))
+                .when('/customerorders/:customerID', route.resolve('CustomerOrders'))
+                .when('/orders', route.resolve('Orders'))
+                .otherwise({ redirectTo: '/customers' });
+
+    }]);
+
+    return app;
 });
+
 
 
 

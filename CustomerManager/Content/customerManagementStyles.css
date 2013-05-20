@@ -3,9 +3,7 @@
 }
 
 .view {
-    left: 60px;
-    position: relative;
-    opacity: 0.0;
+
 }
 
 .card {
@@ -86,4 +84,41 @@ footer {
 
 .close {
     opacity: 1.0;
+}
+
+/* Animations */
+.view-enter-setup, .view-leave-setup, .slide-enter-setup, .slide-leave-setup, .wave-enter-setup, .wave-leave-setup {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.view-enter-setup {
+  opacity:0;
+  left:100px;
+  width:100%;
+  position:absolute;
+}
+.view-enter-setup.view-enter-start {
+  left:0;
+  opacity:1;
+}
+
+.view-leave-setup {
+  position:absolute;
+  left:0;
+  width:100%;
+  opacity:1;
+}
+.view-leave-setup.view-leave-start {
+  left:-100px;
+  opacity:0;
+}
+
+body.skip-animations * {
+  -webkit-transition:none!important;
+  -moz-transition:none!important;
+  -o-transition:none!important;
+  transition:none!important;
 }
