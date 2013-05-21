@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['angular', 'app'], function (angular, app) {
+define(['app'], function (app) {
 
     app.controller('NavbarController', ['$scope', '$location', function ($scope, $location) {
         $scope.highlight = function (path) {

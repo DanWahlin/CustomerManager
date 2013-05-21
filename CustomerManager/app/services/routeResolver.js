@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['angular'], function () {
+define([], function () {
 
     var services = angular.module('routeResolverServices', []);
 

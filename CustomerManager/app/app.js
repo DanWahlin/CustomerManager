@@ -13,7 +13,7 @@
 
 'use strict';
 
-define(['angular', 'services/routeResolver'], function () {
+define(['services/routeResolver'], function () {
 
     var app = angular.module('customersApp', ['routeResolverServices']);
 
@@ -43,9 +43,9 @@ define(['angular', 'services/routeResolver'], function () {
                 .when('/orders', route.resolve('Orders'))
                 .otherwise({ redirectTo: '/customers' });
 
-    }]);
+                }]);
 
-    return app;
+            return app;
 });
 
 
