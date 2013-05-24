@@ -32,8 +32,6 @@ define(['services/routeResolver'], function () {
                 service: $provide.service
             };
 
-            //$locationProvider.html5Mode(true);
-
             //Define routes - controllers will be loaded dynamically
             var route = routeResolverProvider.route;
 
