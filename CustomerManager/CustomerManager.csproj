@@ -112,6 +112,7 @@
     <Content Include="app\controllers\orderChildController.js" />
     <Content Include="app\controllers\ordersController.js" />
     <Content Include="app\directives\animatedView.js" />
+    <Content Include="app\partials\customerDeleteModal.html" />
     <Content Include="app\services\routeResolver.js" />
     <Content Include="app\views\customerEdit.html" />
     <Content Include="app\views\customerOrders.html" />
@@ -136,6 +137,7 @@
     <Content Include="index.html" />
     <Content Include="Scripts\angular-1.1.4.js" />
     <Content Include="Scripts\angular-1.1.5.js" />
+    <Content Include="Scripts\angular-strap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\breeze.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />

@@ -15,7 +15,7 @@
 }
 
 .card {
-    background-color:#efefef;
+    background-color:#fff;
     border: 1px solid black;
     height:100px;
     width: 225px;
@@ -41,6 +41,15 @@
 
 .cardBody {
     padding-left: 5px;
+}
+
+.cardBodyRight {
+    margin-left:20px;
+    margin-top:10px;
+}
+
+.cardImage {
+    height:50px;width:50px;margin-top:10px;
 }
 
 .lastRow {

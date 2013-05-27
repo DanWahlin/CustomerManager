@@ -16,7 +16,8 @@ namespace CustomerManager.Repository
                     Address = "1234 Anywhere St.",
                     City = "Phoenix",
                     State = "AZ",
-                    Zip = 85229
+                    Zip = 85229,
+                    Gender = Model.Gender.Male
                 },
                 new Customer()
                 {
@@ -26,7 +27,8 @@ namespace CustomerManager.Repository
                     Address = "345 Main St.",
                     City = "San Francisco",
                     State = "CA",
-                    Zip = 85229
+                    Zip = 85229,
+                    Gender = Model.Gender.Female,
                 },
                 new Customer()
                 {
@@ -36,7 +38,8 @@ namespace CustomerManager.Repository
                     Address = "1 Atomic St.",
                     City = "Atom",
                     State = "AZ",
-                    Zip = 85229
+                    Zip = 85229,
+                    Gender = Model.Gender.Male,
                 }
             };
 

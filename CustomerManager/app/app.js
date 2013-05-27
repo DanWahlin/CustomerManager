@@ -15,7 +15,7 @@
 
 define(['services/routeResolver'], function () {
 
-    var app = angular.module('customersApp', ['routeResolverServices']);
+    var app = angular.module('customersApp', ['routeResolverServices', '$strap']);
 
     app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
         function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {
@@ -42,9 +42,9 @@ define(['services/routeResolver'], function () {
                 .when('/orders', route.resolve('Orders'))
                 .otherwise({ redirectTo: '/customers' });
 
-                }]);
+    }]);
 
-            return app;
+    return app;
 });
 
 

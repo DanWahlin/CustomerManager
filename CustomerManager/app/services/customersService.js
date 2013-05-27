@@ -26,13 +26,9 @@ define(['app'], function (app) {
             });
         };
 
-        customersFactory.insertCustomer = function (firstName, lastName, city) {
-            var topID = customers.length + 1;
-            customers.push({
-                id: topID,
-                firstName: firstName,
-                lastName: lastName,
-                city: city
+        customersFactory.insertCustomer = function (customer) {
+            return $http.post(serviceBase + 'InsertCustomer', customer).then(function (results) {
+                return results.data;
             });
         };
 
@@ -43,12 +39,9 @@ define(['app'], function (app) {
         };
 
         customersFactory.deleteCustomer = function (id) {
-            for (var i = customers.length - 1; i >= 0; i--) {
-                if (customers[i].id === id) {
-                    customers.splice(i, 1);
-                    break;
-                }
-            }
+            return $http.delete(serviceBase + 'DeleteCustomer/' + id).then(function (status) {
+                return status.data;
+            });
         };
 
         customersFactory.getCustomer = function (id) {

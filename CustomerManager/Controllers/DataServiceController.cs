@@ -35,7 +35,8 @@ namespace CustomerManager.Controllers
                 LastName = c.LastName,
                 City = c.City,
                 State = c.State,
-                OrderCount = c.Orders.Count()
+                OrderCount = c.Orders.Count(),
+                Gender = c.Gender
             });
         }
 
@@ -47,8 +48,22 @@ namespace CustomerManager.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public OperationStatus InsertCustomer([FromBody]Customer customer)
         {
+            var opStatus = new OperationStatus();
+            try
+            {
+                _Context.Customers.Add(customer);
+                _Context.SaveChanges();
+                opStatus.Status = true;
+                opStatus.OperationID = customer.Id;
+            }
+            catch (Exception exp)
+            {
+                return OperationStatus.CreateFromException("Error updating customer", exp);
+            }
+            return opStatus;
         }
 
         // PUT api/<controller>/5
@@ -71,8 +86,29 @@ namespace CustomerManager.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        [HttpDelete]
+        public OperationStatus DeleteCustomer(int id)
         {
+            var opStatus = new OperationStatus();
+            try
+            {
+                var cust = _Context.Customers.SingleOrDefault(c => c.Id == id);
+                if (cust != null)
+                {
+                    _Context.Customers.Remove(cust);
+                    _Context.SaveChanges();
+                    opStatus.Status = true;
+                }
+                else
+                {
+                    opStatus.Message = "Customer not found!";
+                }
+            }
+            catch (Exception exp)
+            {
+                return OperationStatus.CreateFromException("Error deleting customer", exp);
+            }
+            return opStatus;
         }
     }
 }

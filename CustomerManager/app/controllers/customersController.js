@@ -21,13 +21,15 @@ define(['app'], function (app) {
         }
 
         $scope.insertCustomer = function () {
-            var firstName = $scope.newCustomer.firstName;
-            var lastName = $scope.newCustomer.lastName;
-            var city = $scope.newCustomer.city;
-            dataService.insertCustomer(firstName, lastName, city);
-            $scope.newCustomer.firstName = '';
-            $scope.newCustomer.lastName = '';
-            $scope.newCustomer.city = '';
+            var customer = angular.copy($scope.newCustomer);
+            dataService.insertCustomer(customer)
+                .then(function (opStatus) {
+                    customer.id = opStatus.operationId;
+                    $scope.customers.push(customer);
+                    $scope.newCustomer = {};
+                }, function (error) {
+                    alert(error.message);
+                });
         };
 
         $scope.deleteCustomer = function (id) {

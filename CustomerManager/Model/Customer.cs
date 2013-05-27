@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +16,14 @@ namespace CustomerManager.Model
         public string City { get; set; }
         public string State { get; set; }
         public int Zip { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Gender Gender { get; set; }
         public ICollection<Order> Orders { get; set; }
+    }
+
+    public enum Gender
+    {
+        Female,
+        Male
     }
 }

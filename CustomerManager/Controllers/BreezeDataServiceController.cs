@@ -40,7 +40,8 @@ namespace CustomerManager.Controllers
                     LastName = c.LastName,
                     City = c.City,
                     State = c.State,
-                    OrderCount = c.Orders.Count()                    
+                    OrderCount = c.Orders.Count(),
+                    Gender = c.Gender
                 });
         }
 
