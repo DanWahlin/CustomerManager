@@ -2,6 +2,7 @@
 using CustomerManager.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,6 +34,7 @@ namespace CustomerManager.Controllers
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 City = c.City,
+                State = c.State,
                 OrderCount = c.Orders.Count()
             });
         }
@@ -50,8 +52,22 @@ namespace CustomerManager.Controllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public OperationStatus UpdateCustomer(int id, [FromBody]Customer customer)
         {
+            var opStatus = new OperationStatus();
+            try
+            {
+                _Context.Customers.Attach(customer);
+                _Context.Entry<Customer>(customer).State = System.Data.EntityState.Modified;
+                _Context.SaveChanges();
+                opStatus.Status = true;
+            }
+            catch (Exception exp)
+            {
+                return OperationStatus.CreateFromException("Error updating customer", exp);
+            }
+            return opStatus;
         }
 
         // DELETE api/<controller>/5

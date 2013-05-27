@@ -36,6 +36,12 @@ define(['app'], function (app) {
             });
         };
 
+        customersFactory.updateCustomer = function (customer) {
+            return $http.put(serviceBase + 'UpdateCustomer/' + customer.id, customer).then(function (status) {
+                return status.data;
+            });
+        };
+
         customersFactory.deleteCustomer = function (id) {
             for (var i = customers.length - 1; i >= 0; i--) {
                 if (customers[i].id === id) {
@@ -55,6 +61,7 @@ define(['app'], function (app) {
         };
 
         //Can't call $scope.$apply() for this one since $http is already handling it
+        //This is hear since the Breeze service needs a call to apply and we can switch between the two easily
         customersFactory.apply = function (scope) {
 
         };

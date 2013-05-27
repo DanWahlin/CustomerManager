@@ -1,0 +1,77 @@
+﻿<div class="view">
+    <div class="container">
+        <header>
+            <h3>Edit Customer</h3>
+        </header>
+        <div>
+            <div class="row">
+                <div class="span12">
+                    <h4>{{ customer.firstName + ' ' + customer.lastName }}</h4>
+                    <br />
+                </div>                    
+            </div>
+            <div class="row">
+                <div class="span2">
+                    First Name:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.firstName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    Last Name:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.lastName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    Address:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.address" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    City:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.city" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    State:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.state" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    Zip:
+                </div>
+                <div class="span10">
+                    <input type="text" data-ng-model="customer.zip" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <button class="btn btn-primary" data-ng-click="updateCustomer()">Update</button>
+                </div>
+            </div>
+            <div class="row">
+                <br />
+                <div class="span10 label label-success" data-ng-show="updateStatus">
+                    <i class="icon-thumbs-up icon-white"></i>&nbsp;&nbsp;Customer updated!
+                </div>
+                <div class="span10 label label-important" data-ng-show="errorMessage">
+                    <i class="icon-thumbs-down icon-white"></i>&nbsp;&nbsp;Error: {{ errorMessage }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

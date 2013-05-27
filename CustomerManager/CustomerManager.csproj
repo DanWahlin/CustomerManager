@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\customerEditController.js" />
     <Content Include="app\controllers\customerOrdersController.js" />
     <Content Include="app\controllers\customersController.js" />
     <Content Include="app\controllers\navBarController.js" />
@@ -112,6 +113,7 @@
     <Content Include="app\controllers\ordersController.js" />
     <Content Include="app\directives\animatedView.js" />
     <Content Include="app\services\routeResolver.js" />
+    <Content Include="app\views\customerEdit.html" />
     <Content Include="app\views\customerOrders.html" />
     <Content Include="app\views\customers.html" />
     <Content Include="app\views\orders.html" />
@@ -130,7 +132,6 @@
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\people.png" />
     <Content Include="Content\images\report.png" />
-    <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Scripts\angular-1.1.4.js" />

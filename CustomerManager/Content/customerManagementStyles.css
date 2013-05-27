@@ -6,10 +6,18 @@
 
 }
 
+.white {
+    color: white;
+}
+
+.white:hover{
+    color: white;
+}
+
 .card {
     background-color:#efefef;
     border: 1px solid black;
-    height:75px;
+    height:100px;
     width: 225px;
     margin-bottom: 20px;
 }
@@ -28,7 +36,7 @@
 }
 
 .cardContainer {
-    width:90%;
+    width:95%;
 }
 
 .cardBody {
@@ -40,12 +48,11 @@
 }
 
 .indent {
-    margin-left:20px;
+    margin-left:5px;
 }
 
 .ordersTable {
     width:800px;
-    margin-left:20px;
 }
 
 .orders th, .customerOrders th {
@@ -122,4 +129,9 @@ body.skip-animations * {
   -moz-transition:none!important;
   -o-transition:none!important;
   transition:none!important;
+}
+
+/* ng-cloak */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng.ng-cloak {
+    display: none;
 }

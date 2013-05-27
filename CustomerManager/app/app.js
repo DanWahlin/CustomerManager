@@ -38,6 +38,7 @@ define(['services/routeResolver'], function () {
             $routeProvider
                 .when('/customers', route.resolve('Customers'))
                 .when('/customerorders/:customerID', route.resolve('CustomerOrders'))
+                .when('/customeredit/:customerID', route.resolve('CustomerEdit'))
                 .when('/orders', route.resolve('Orders'))
                 .otherwise({ redirectTo: '/customers' });
 

@@ -39,6 +39,7 @@ namespace CustomerManager.Controllers
                     FirstName = c.FirstName,
                     LastName = c.LastName,
                     City = c.City,
+                    State = c.State,
                     OrderCount = c.Orders.Count()                    
                 });
         }
