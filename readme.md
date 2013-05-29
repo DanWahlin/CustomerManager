@@ -1,4 +1,4 @@
-﻿Customer Manager
+﻿Customer Manager with AngularJS
 ===============
 
 ### Customer Manager AngularJS/BreezeJS Application
