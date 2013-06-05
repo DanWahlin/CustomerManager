@@ -11,8 +11,10 @@
         </div>
         <div>
             <div class="row cardContainer indent">
-                <div class="span3 card" data-ng-repeat="customer in customers | orderBy:'lastName'">
-<!--                    <button class="btn close cardClose" data-ng-click="deleteCustomer(customer.id)">&times;</button>-->
+                <div class="span3 card" 
+                    data-ng-repeat="customer in customers | orderBy:'lastName'" 
+                    data-ng-animate="{leave:'list-leave', enter:'list-enter'}">
+                    <button class="btn close cardClose" data-bs-modal="'app/partials/customerDeleteModal.html'">&times;</button>
                     <div class="cardHeader"><a href="#/customeredit/{{customer.id}}" class="white">{{customer.firstName + ' ' + customer.lastName}}</a></div>
                     <div class="cardBody">
                         <div class="clearfix">

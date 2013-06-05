@@ -13,5 +13,10 @@ namespace CustomerManager.Model
         public int Quantity { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
+
+        public Order Clone()
+        {
+            return (Order)this.MemberwiseClone();
+        }
     }
 }

@@ -20,6 +20,7 @@
     height:100px;
     width: 225px;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .cardHeader {
@@ -93,6 +94,13 @@ footer {
     border-radius: 0px;
 }
 
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+  -webkit-box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+     -moz-box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+          box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
+}
+
 .navbar .nav {
     margin-left:50px;
     margin-top:15px;
@@ -101,6 +109,13 @@ footer {
 .close {
     opacity: 1.0;
 }
+
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+
 
 /* Animations */
 .view-enter, .view-leave {

@@ -15,7 +15,7 @@
 
 define(['services/routeResolver'], function () {
 
-    var app = angular.module('customersApp', ['routeResolverServices', '$strap']);
+    var app = angular.module('customersApp', ['routeResolverServices', 'CustomAnimations', '$strap']);
 
     app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
         function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {

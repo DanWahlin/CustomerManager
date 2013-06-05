@@ -6,6 +6,7 @@
 require(
     [
         'app',
+        'animations/listAnimations',
         'services/routeResolver',
         'services/config',
         'services/customersBreezeService',

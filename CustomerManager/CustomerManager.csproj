@@ -104,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\animations\listAnimations.js" />
     <Content Include="app\app.js" />
     <Content Include="app\controllers\customerEditController.js" />
     <Content Include="app\controllers\customerOrdersController.js" />
@@ -127,7 +128,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\customerManagementStyles.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="Content\images\angularShield.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
@@ -140,11 +141,11 @@
     <Content Include="Scripts\angular-strap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\breeze.min.js" />
-    <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\tweenmax-1.9.7.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
