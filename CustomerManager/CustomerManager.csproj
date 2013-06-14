@@ -106,18 +106,18 @@
   <ItemGroup>
     <Content Include="app\animations\listAnimations.js" />
     <Content Include="app\app.js" />
-    <Content Include="app\controllers\customerEditController.js" />
-    <Content Include="app\controllers\customerOrdersController.js" />
-    <Content Include="app\controllers\customersController.js" />
+    <Content Include="app\controllers\customers\customerEditController.js" />
+    <Content Include="app\controllers\customers\customerOrdersController.js" />
+    <Content Include="app\controllers\customers\customersController.js" />
     <Content Include="app\controllers\navBarController.js" />
     <Content Include="app\controllers\orderChildController.js" />
     <Content Include="app\controllers\ordersController.js" />
     <Content Include="app\directives\animatedView.js" />
     <Content Include="app\partials\customerDeleteModal.html" />
     <Content Include="app\services\routeResolver.js" />
-    <Content Include="app\views\customerEdit.html" />
-    <Content Include="app\views\customerOrders.html" />
-    <Content Include="app\views\customers.html" />
+    <Content Include="app\views\customers\customerEdit.html" />
+    <Content Include="app\views\customers\customerOrders.html" />
+    <Content Include="app\views\customers\customers.html" />
     <Content Include="app\views\orders.html" />
     <Content Include="app\views\ordersTable.html" />
     <Content Include="app\services\config.js" />
