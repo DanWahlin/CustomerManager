@@ -13,7 +13,7 @@ require(
         'services/customersService',
         'services/dataService',
         'controllers/navbarController',
-        'controllers/orderChildController'
+        'controllers/orders/orderChildController'
     ],
     function () {
         angular.bootstrap(document, ['customersApp']);

@@ -38,9 +38,7 @@ define([], function () {
         this.route = function (routeConfig) {
 
             var resolve = function (baseName, path) {
-                if (path == undefined) {
-                    path = "";
-                }
+                if (!path) path = '';
 
                 var routeDef = {};
                 routeDef.templateUrl = routeConfig.getViewsDirectory() + path + baseName + '.html';
