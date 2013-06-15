@@ -37,13 +37,17 @@ define([], function () {
 
         this.route = function (routeConfig) {
 
-            var resolve = function (baseName) {
+            var resolve = function (baseName, path) {
+                if (path == undefined) {
+                    path = "";
+                }
+
                 var routeDef = {};
-                routeDef.templateUrl = routeConfig.getViewsDirectory() + baseName + '.html';
+                routeDef.templateUrl = routeConfig.getViewsDirectory() + path + baseName + '.html';
                 routeDef.controller = baseName + 'Controller';
                 routeDef.resolve = {
                     load: ['$q', '$rootScope', function ($q, $rootScope) {
-                        var dependencies = [routeConfig.getControllersDirectory() + baseName + 'Controller.js'];
+                        var dependencies = [routeConfig.getControllersDirectory() + path + baseName + 'Controller.js'];
                         return resolveDependencies($q, $rootScope, dependencies);
                     }]
                 };
