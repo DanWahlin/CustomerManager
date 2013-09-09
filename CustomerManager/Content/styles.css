@@ -1,5 +1,15 @@
-﻿body {
-    padding: 65px;
+﻿html {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+body {
+
+}
+
+#ng-view {
+    position: relative;
+    padding-top: 65px;
 }
 
 .view {
@@ -116,34 +126,36 @@ footer {
 }
 
 
-
 /* Animations */
-.view-enter, .view-leave {
+.slide-animation.ng-enter, .slide-animation.ng-leave {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  min-height:1000px;
 }
 
-.view-enter {
+.slide-animation.ng-enter {
   opacity:0;
   left:100px;
-  width:100%;
-  position:absolute;
 }
-.view-enter.view-enter-active {
+
+.slide-animation.ng-enter.ng-enter-active {
   left:0;
   opacity:1;
 }
 
-.view-leave {
-  position:absolute;
+.slide-animation.ng-leave {
   left:0;
-  width:100%;
   opacity:1;
 }
 
-.view-leave.view-leave-active {
+.slide-animation.ng-leave.ng-leave-active {
   left:-100px;
   opacity:0;
 }

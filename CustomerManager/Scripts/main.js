@@ -5,13 +5,14 @@
 
 require(
     [
-        'app',
         'animations/listAnimations',
+        'app',
         'services/routeResolver',
         'services/config',
         'services/customersBreezeService',
         'services/customersService',
         'services/dataService',
+        'services/dialogService',
         'controllers/navbarController',
         'controllers/orders/orderChildController'
     ],

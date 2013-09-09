@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div data-ng-view="" id="ng-view" data-ng-animate="{enter: 'view-enter'}"></div>
+    <div data-ng-view="" id="ng-view" class="slide-animation"></div>
 
     <div id="footer">
         <div class="navbar navbar-fixed-bottom">
@@ -47,29 +47,18 @@
     </div>
 
     <!-- 3rd party libraries -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.9.7/TweenMax.min.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/angular-strap.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="Scripts/angular-1.2.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-ui-custom.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+
     <script src="/Scripts/q.min.js"></script>
     <script src="/Scripts/breeze.min.js"></script>
 
     <!-- Load custom scripts via RequireJS -->
     <script src="/Scripts/require.js" data-main="/scripts/main"></script>
 
-    <!-- 
-    <script src="app/app.js"></script>
-    <script src="app/controllers/customerOrdersController.js"></script>
-    <script src="app/controllers/customersController.js"></script>
-    <script src="app/controllers/navBarController.js"></script>
-    <script src="app/controllers/orderChildController.js"></script>
-    <script src="app/controllers/ordersController.js"></script>
-    <script src="app/services/customersService.js"></script>
-    <script src="app/services/customersBreezeService.js"></script>
-    <script src="app/services/dataService.js"></script>
-    <script src="app/services/config.js"></script>
-    <script src="app/directives/animatedView.js"></script>
-    -->
 </body>
 </html>

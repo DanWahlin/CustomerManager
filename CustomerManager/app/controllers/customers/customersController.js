@@ -2,9 +2,10 @@
 
 define(['app'], function (app) {
 
-    //This controller retrieves data from the customersService and associates it with the $scope
-    //The $scope is ultimately bound to the customers view
-    app.register.controller('CustomersController', ['$scope', 'config', 'dataService', function ($scope, config, dataService) {
+    app.register.controller('CustomersController', ['$scope', 'config', 'dataService', 'dialogService',
+        function ($scope, config, dataService, dialogService) {
+
+        init();
 
         function init() {
             dataService.getCustomersSummary()
@@ -28,22 +29,34 @@ define(['app'], function (app) {
         //        });
         //};
 
-        $scope.delete = function (id) {
-            dataService.deleteCustomer(id).then(function (opStatus) {
-                for (var i = 0; i < $scope.customers.length; i++) {
-                    if ($scope.customers[i].id == id) {
-                        $scope.customers.splice(i, 1);
-                        break;
-                    }
+        $scope.deleteCustomer = function (id) {
+            var dialogOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Delete Customer',
+                headerText: 'Delete Customer?',
+                bodyText: 'Are you sure you want to delete this customer?',
+                callback: function () {
+                    dataService.deleteCustomer(id).then(function (opStatus) {
+                        if (opStatus.status) {
+                            for (var i = 0; i < $scope.customers.length; i++) {
+                                if ($scope.customers[i].id == id) {
+                                    $scope.customers.splice(i, 1);
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            alert('Error deleting customer: ' + opStatus.message);
+                        }
+                            
+                    }, function (error) {
+                        alert('Error deleting customer: ' + error.message);
+                    });
                 }
-            }, function (error) {
-                alert('Error deleting customer: ' + error.message);
-            });
-        };
+            };
 
-        //I like to have an init() for controllers that need to perform some initialization. Keeps things in
-        //one place...not required though especially in the simple example below
-        init();
+            dialogService.showModalDialog({}, dialogOptions);
+        };
 
     }]);
 

@@ -79,7 +79,7 @@
                     <div class="span12">
                         <button class="btn btn-primary" data-ng-click="saveCustomer()">{{buttonText}}</button>
                         &nbsp;&nbsp;
-                        <button class="btn btn-danger" data-ng-if="customer.id > 0" data-bs-modal="'app/partials/customerDeleteModal.html'">Delete</button>
+                        <button class="btn btn-danger" data-ng-if="customer.id > 0" data-ng-click="deleteCustomer()">Delete</button>
                     </div>
                 </div>
                 <div class="row">
