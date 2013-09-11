@@ -122,7 +122,7 @@
     <Content Include="app\views\customers\customerOrders.html" />
     <Content Include="app\views\customers\customers.html" />
     <Content Include="app\views\orders\orders.html" />
-    <Content Include="app\views\ordersTable.html" />
+    <Content Include="app\views\orders\ordersTable.html" />
     <Content Include="app\services\config.js" />
     <Content Include="app\services\customersBreezeService.js" />
     <Content Include="app\services\customersService.js" />

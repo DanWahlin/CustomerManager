@@ -64,7 +64,9 @@ namespace CustomerManager.Controllers
         [HttpGet]
         public Customer CustomerById(int id)
         {
-            return _Context.Customers.Include("Orders")
+            return _Context.Customers
+                    .Include("Orders")
+                    .Include("State")
                     .SingleOrDefault(c => c.Id == id);
         }
 
