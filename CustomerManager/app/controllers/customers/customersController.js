@@ -5,6 +5,8 @@ define(['app'], function (app) {
     app.register.controller('CustomersController', ['$scope', '$location', 'config', 'dataService', 'dialogService',
         function ($scope, $location, config, dataService, dialogService) {
 
+        $scope.customers = [];
+
         init();
 
         function init() {
@@ -17,11 +19,23 @@ define(['app'], function (app) {
                 });
         }
 
+        function getCustomerById(id) {
+            for (var i = 0; i < $scope.customers.length; i++) {
+                var cust = $scope.customers[i];
+                if (cust.id === id) {
+                    return cust;
+                }
+            }
+        }        
+
         $scope.deleteCustomer = function (id) {
+            var cust = getCustomerById(id);
+            var custName = cust.firstName + ' ' + cust.lastName;
+
             var dialogOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete Customer',
-                headerText: 'Delete Customer?',
+                headerText: 'Delete ' + custName + '?',
                 bodyText: 'Are you sure you want to delete this customer?',
                 callback: function () {
                     dataService.deleteCustomer(id).then(function (opStatus) {

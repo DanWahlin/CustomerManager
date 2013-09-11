@@ -4,12 +4,17 @@
             <h3>All Customer Orders</h3>
         </header>
         <div>
-            <div class="row indent">
+            <div class="row">
                 <div class="span12" data-ng-repeat="customer in customers | orderBy:'lastName'">
                     <div>
                         <h4><a href="#/customerorders/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
                     </div>
                     <div data-ng-include="'/app/views/orders/ordersTable.html'" />
+                </div>
+            </div>
+            <div class="row" data-ng-show="customers.length == 0">
+                <div class="span12">
+                    <h4>No customers found</h4>
                 </div>
             </div>
         </div>

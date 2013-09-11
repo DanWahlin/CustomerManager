@@ -64,7 +64,8 @@ namespace CustomerManager.Controllers
         [HttpGet]
         public Customer CustomerById(int id)
         {
-            return _Context.Customers.Include("Orders").Include("State").SingleOrDefault(c => c.Id == id);
+            return _Context.Customers.Include("Orders")
+                    .SingleOrDefault(c => c.Id == id);
         }
 
         // POST api/<controller>
@@ -87,6 +88,8 @@ namespace CustomerManager.Controllers
         }
 
         // PUT api/<controller>/5
+        //var response = Request.CreateResponse(HttpStatusCode.Accepted, customer);
+        //response.Headers.Location = new Uri(Request.RequestUri, string.Format("Customer/{0}", customer.CustomerId));
         [HttpPut]
         public OperationStatus UpdateCustomer(int id, [FromBody]Customer customer)
         {

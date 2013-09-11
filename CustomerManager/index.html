@@ -5,6 +5,7 @@
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="Content/styles.css" rel="stylesheet" />
+    <link href="Content/animations.css" rel="stylesheet" />
 </head>
 <body data-ng-cloak="">
 
@@ -14,9 +15,10 @@
                 <a class="brand " href="#/">
                     <img src="Content/Images/people.png" alt="logo"> {{ appTitle }}
                 </a>
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills navBarPadding">
                     <li data-ng-class="{'active':highlight('/customers')}"><a href="#/customers">Customers</a></li>
                     <li data-ng-class="{'active':highlight('/orders')}"><a href="#/orders">Orders</a></li>
+                    <li data-ng-class="{'active':highlight('/about')}"><a href="#/about">About</a></li>
                 </ul>
             </div>
         </div>
@@ -26,18 +28,12 @@
 
     <div id="footer">
         <div class="navbar navbar-fixed-bottom">
-            <div class="navbar-inner">
+            <div class="navbar-inner footer">
                 <div class="container">
                     <footer>
                         <div class="row">
-                            <div class="span4">
-                                Created by Dan Wahlin
-                            </div>
-                            <div class="span4">
-                                Twitter: <a href="http://twitter.com/DanWahlin">@DanWahlin</a>
-                            </div>
-                            <div class="span4">
-                                Blog: <a href="http://weblogs.asp.net/dwahlin">weblogs.asp.net/dwahlin</a>
+                            <div class="span12">
+                                Created by <a href="http://twitter.com/DanWahlin" target="_blank">Dan Wahlin</a>
                             </div>
                         </div>
                    </footer>

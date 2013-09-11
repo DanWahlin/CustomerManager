@@ -106,6 +106,7 @@
   <ItemGroup>
     <Content Include="app\animations\listAnimations.js" />
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\aboutController.js" />
     <Content Include="app\controllers\customers\customerEditController.js" />
     <Content Include="app\controllers\customers\customerOrdersController.js" />
     <Content Include="app\controllers\customers\customersController.js" />
@@ -116,15 +117,17 @@
     <Content Include="app\partials\dialog.html" />
     <Content Include="app\services\dialogService.js" />
     <Content Include="app\services\routeResolver.js" />
+    <Content Include="app\views\about.html" />
     <Content Include="app\views\customers\customerEdit.html" />
     <Content Include="app\views\customers\customerOrders.html" />
     <Content Include="app\views\customers\customers.html" />
     <Content Include="app\views\orders\orders.html" />
-    <Content Include="app\views\orders\ordersTable.html" />
+    <Content Include="app\views\ordersTable.html" />
     <Content Include="app\services\config.js" />
     <Content Include="app\services\customersBreezeService.js" />
     <Content Include="app\services\customersService.js" />
     <Content Include="app\services\dataService.js" />
+    <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />

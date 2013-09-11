@@ -26,7 +26,7 @@ body {
 
 .card {
     background-color:#fff;
-    border: 1px solid black;
+    border: 1px solid #d4d4d4;
     height:100px;
     width: 225px;
     margin-bottom: 20px;
@@ -34,7 +34,7 @@ body {
 }
 
 .cardHeader {
-    background-color: #006dcc;
+    background-color:#027FF4;
     font-size:14pt;
     color:white;
     padding:5px;
@@ -81,7 +81,7 @@ body {
 }
 
 .ordersTable tr:first-child th {
-    background-color: #006dcc;
+    background-color: #027FF4;
     color: #fff;
     font-weight: bold;
 }
@@ -103,10 +103,56 @@ footer {
 
 
 /* Bootstrap overrides */
+
 .navbar-inner {
     -webkit-border-radius: 0px;
     border-radius: 0px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #027FF4;
+    background-image: none;
 }
+
+.navbar-inner.toolbar {
+    background-color: #fafafa;
+}
+
+.navbar-inner.footer {
+    background-color: #fafafa;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    background-color: #efefef;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar .nav li.toolbaritem a:hover, .navbar .nav li a:hover {
+    color: #E03930;
+}
+
+.navbar .nav > li  {
+    cursor:pointer;
+}
+
+    .navbar .nav > li > a {
+        color: white;
+        font-weight:bold;
+        -webkit-text-shadow: none;
+        text-shadow: none;
+    }
+
+    .navbar .nav > li.toolbaritem > a {
+        color: black;
+        font-weight:bold;
+        -webkit-text-shadow: none;
+        text-shadow: none;
+    }
+
 
 .navbar-fixed-top .navbar-inner,
 .navbar-static-top .navbar-inner {
@@ -115,9 +161,13 @@ footer {
           box-shadow: 0 1px 00px rgba(0, 0, 0, 0);
 }
 
-.navbar .nav {
+.nav.navBarPadding {
     margin-left:10px;
     margin-top:15px;
+}
+
+.navbarText {
+    font-weight:bold;
 }
 
 .close {
@@ -133,82 +183,28 @@ footer {
   background-color: #f7f7f7;
 }
 
-
-/* Animations */
-.slide-animation.ng-enter, .slide-animation.ng-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  min-height:1000px;
-}
-
-.slide-animation.ng-enter {
-  opacity:0;
-  left:100px;
-}
-
-.slide-animation.ng-enter.ng-enter-active {
-  left:0;
-  opacity:1;
-}
-
-.slide-animation.ng-leave {
-  left:0;
-  opacity:1;
-}
-
-.slide-animation.ng-leave.ng-leave-active {
-  left:-100px;
-  opacity:0;
-}
-
-body.skip-animations * {
-  -webkit-transition:none!important;
-  -moz-transition:none!important;
-  -o-transition:none!important;
-  transition:none!important;
-}
-
-.animate-hide.ng-hide-add, 
-.animate-hide.ng-hide-remove {
-  -webkit-transition:all linear 0.5s;
-  -moz-transition:all linear 0.5s;
-  -o-transition:all linear 0.5s;
-  transition:all linear 0.5s;
-}
- 
-.animate-hide.ng-hide-add.ng-hide-add-active,
-.animate-hide.ng-hide-remove {
-  opacity:0;
-}
- 
-.animate-hide.ng-hide-add,
-.animate-hide.ng-hide-remove.ng-hide-remove-active {
-  opacity:1;
-}
-
 /* ng-cloak */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng.ng-cloak {
     display: none;
 }
 
+.novalidate {
+    border-left: none !important;
+}
+
 input.ng-invalid, select.ng-invalid {
-  border-left: 5px solid red;
+  border-left: 5px solid #E03930;
 }
 input.ng-valid, select.ng-valid {
-  border-left: 5px solid green;
+  border-left: 5px solid #57A83F;
 }
+
+
 
 .error {
     position:absolute;
     padding: 5px;
-    background-color: red;
+    background-color: #E03930;
     color:white;
 }
 

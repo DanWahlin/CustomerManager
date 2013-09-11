@@ -1,24 +1,29 @@
-﻿<div class="customers view">
+﻿<div class="customers view indent">
     <div class="container">
         <header>
             <h3>Customers</h3>
         </header>
-        <div class="row indent">
-            <div class="span12 btn-group">
-              <button class="btn" data-ng-click="changeView(ViewEnum.Card)" data-ng-class="{active: !listViewEnabled}">
-                  <i class="icon-th-large"></i> Card View
-              </button>
-              <button class="btn" data-ng-click="changeView(ViewEnum.List)" data-ng-class="{active: listViewEnabled}">
-                  <i class="icon-align-justify"></i> List View
-              </button>
-              <button class="btn" data-ng-click="navigate('/customeredit/0')"><i class="icon-plus"></i> Add Customer</button>
+        <div class="row">
+            <div class="span10">
+                <div class="navbar">
+                    <div class="navbar-inner toolbar">
+                        <ul class="nav">
+                          <li data-ng-class="{active: !listViewEnabled}" class="toolbaritem"><a data-ng-click="changeView(ViewEnum.Card)"><i class="icon-th-large"></i> Card View</a></li>
+                          <li data-ng-class="{active: listViewEnabled}" class="toolbaritem"><a data-ng-click="changeView(ViewEnum.List)"><i class="icon-align-justify"></i> List View</a></li>
+                          <li class="toolbaritem"><a data-ng-click="navigate('/customeredit/0')"><i class="icon-plus"></i> Add Customer</a></li>
+                        </ul>
+                        <form class="navbar-form pull-right">
+                            <span class="navbarText">Filter:</span>&nbsp;&nbsp;<input type="text" data-ng-model="customersFilter" class="novalidate" />
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <br />
         <div>
-            <div class="row cardContainer indent animate-hide" data-ng-hide="listViewEnabled">
+            <div class="row cardContainer show-hide-animation" data-ng-hide="listViewEnabled">
                 <div class="span3 card card-animation" 
-                    data-ng-repeat="customer in customers | orderBy:'lastName'">
+                    data-ng-repeat="customer in customers | orderBy:'lastName' | filter:customersFilter">
                     <button class="btn close cardClose" data-ng-click="deleteCustomer(customer.id)">&times;</button>
                     <div class="cardHeader"><a href="#/customeredit/{{customer.id}}" class="white">{{customer.firstName + ' ' + customer.lastName}}</a></div>
                     <div class="cardBody">
@@ -35,19 +40,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row gridContainer indent animate-hide" data-ng-show="listViewEnabled">
-                <div class="span8">
+            <div class="row gridContainer show-hide-animation" data-ng-show="listViewEnabled">
+                <div class="span10">
                     <table class="table table-striped table-condensed">
                         <tbody>
-                            <tr data-ng-repeat="customer in customers | orderBy:'lastName'">
-                                <td><img data-ng-src="/Content/Images/{{customer.gender}}.png" class="cardImage" /></td>
+                            <tr data-ng-repeat="customer in customers | orderBy:'lastName' | filter:customersFilter" class="repeat-animation">
+                                <td><img data-ng-src="/Content/Images/{{customer.gender}}.png" class="cardImage" alt="Customer Image" /></td>
                                 <td><a href="#/customeredit/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></td>
                                 <td>{{customer.address}}</td>
                                 <td>{{customer.city}}, {{customer.state.name}}</td>
                                 <td><a href="#/customerorders/{{customer.id}}" class="btn-link">{{ customer.orderCount }} Orders</a></td>
+                                <td><button class="btn btn-danger" data-ng-click="deleteCustomer(customer.id)">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row" data-ng-show="customers.length == 0">
+                <div class="span12">
+                    <h4>No customers found</h4>
+                </div>
+            </div>
+            <div class="row" data-ng-show="customers.length > 0">
+                <div class="span12">
+                    <h5>{{ customers.length }} customers</h5>
                 </div>
             </div>
         </div>
