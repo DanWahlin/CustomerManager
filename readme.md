@@ -3,6 +3,8 @@
 
 ### Customer Manager AngularJS/BreezeJS Application
 
+![Customer Management App](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/customerApp.png)
+
 This application demonstrates using AngularJS with $http in a factory as well as BreezeJS in a factory. The factories can be switched by changing the app/services/config useBreeze setting.
 
 #### Requirements:
