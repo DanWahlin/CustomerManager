@@ -20,6 +20,20 @@ define(['app'], function (app) {
             });
         };
 
+        customersFactory.getStates = function () {
+            return $http.get(serviceBase + 'States').then(
+                function (results) {
+                    return results.data;
+                });                
+        }
+
+        customersFactory.checkUniqueValue = function (id, property, value) {
+            return $http.get(serviceBase + 'CheckUnique/' + id + '?property=' + property + '&value=' + escape(value)).then(
+                function (results) {
+                    return results.data.status;
+                });
+        };
+
         customersFactory.getCustomersSummary = function () {
             return $http.get(serviceBase + 'CustomersSummary').then(function (results) {
                 return results.data;
@@ -54,7 +68,7 @@ define(['app'], function (app) {
         };
 
         //Can't call $scope.$apply() for this one since $http is already handling it
-        //This is hear since the Breeze service needs a call to apply and we can switch between the two easily
+        //This is here since the Breeze service needs a call to apply and we can switch between the two easily
         customersFactory.apply = function (scope) {
 
         };

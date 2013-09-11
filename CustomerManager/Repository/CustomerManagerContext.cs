@@ -24,5 +24,6 @@ namespace CustomerManager.Repository
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<State> States { get; set; }
     }
 }

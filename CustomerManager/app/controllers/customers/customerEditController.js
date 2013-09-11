@@ -8,6 +8,7 @@ define(['app'], function (app) {
         var timer;
 
         $scope.customer = {};
+        $scope.states = [];
         $scope.title = 'Edit';
         $scope.buttonText = 'Update';        
 
@@ -19,24 +20,44 @@ define(['app'], function (app) {
                 dataService.getCustomer(customerID)
                     .then(function (customer) {
                         $scope.customer = customer;
+
+                        //Get States
+                        getStates();
                         dataService.apply($scope); //Handles calling $apply() if needed (mainly for breeze since it's a 3rd party library)
+
                     }, processError);
             }
             else {
                 $scope.title = 'Add';
                 $scope.buttonText = 'Add';
+                getStates();
             }
         }
 
+        function getStates() {
+            dataService.getStates().then(function (states) {
+                $scope.states = states;
+            }, processError);
+        }
+
+        $scope.isStateSelected = function (customerStateId, stateId) {
+            return customerStateId === stateId;
+        };
+
         $scope.saveCustomer = function () {
-            if ($scope.customer.id === undefined) {
-                dataService.insertCustomer($scope.customer).then(processSuccess, processError).then(function () {
-                    alert('in')
-                });
-            }
-            else {
-                dataService.updateCustomer($scope.customer).then(processSuccess, processError);
-            }
+            if ($scope.editForm.$valid) {
+                if ($scope.customer.id === undefined) {
+                    dataService.insertCustomer($scope.customer).then(processSuccess, processError).then(function () {
+                        alert('in')
+                    });
+                }
+                else {
+                    dataService.updateCustomer($scope.customer).then(processSuccess, processError);
+                }
+            } else {
+                $scope.editForm.submitted = true;
+            };
+
         };
 
         $scope.deleteCustomer = function () {

@@ -10,7 +10,7 @@
                         <h4>Orders for <a href="#/customeredit/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
                         {{customer.address}}
                         <br />
-                        {{customer.city}}, {{customer.state}}
+                        {{customer.city}}, {{customer.state.name}}
                         <br /><br />
                     </div>
                     <div data-ng-include="'/app/views/orders/ordersTable.html'" />

@@ -11,21 +11,28 @@ namespace CustomerManager.Repository
         {
             var random = new Random();
 
+            var sortedStates = states.OrderBy(s => s.Name);
+            foreach (var state in sortedStates)
+            {
+                context.States.Add(state);
+            }
+
             //Generate customers and orders
             for (int i = 0; i < customerNames.Length; i++)
             {
-                var nameGender = SplitValue(customerNames[i]);
+                var nameGenderHost = SplitValue(customerNames[i]);
                 var cityState = SplitValue(citiesStates[i]);
                 var cust = new Customer 
                 {
                     Id = i + 1,
-                    FirstName = nameGender[0],
-                    LastName = nameGender[1],
+                    FirstName = nameGenderHost[0],
+                    LastName = nameGenderHost[1],
+                    Email= String.Format("{0}.{1}@{2}", nameGenderHost[0], nameGenderHost[1], nameGenderHost[3]),
                     Address = addresses[i],
                     City = cityState[0],
-                    State = cityState[1],
+                    State = sortedStates.Where(state => state.Abbreviation == cityState[1]).SingleOrDefault(),
                     Zip = zip + i,
-                    Gender = (Gender)Enum.Parse(typeof(Gender), nameGender[2])
+                    Gender = (Gender)Enum.Parse(typeof(Gender), nameGenderHost[2])
                 };
                 context.Customers.Add(cust);
 
@@ -39,27 +46,27 @@ namespace CustomerManager.Repository
                     custOrder.CustomerId = cust.Id;
                     context.Orders.Add(custOrder);
                 }
-            }     
+            }
              
         }
 
         private static string[] SplitValue(string val)
         {
-            return val.Split(' ');
+            return val.Split(',');
         }
 
         static string[] customerNames = 
         { 
-            "Marcus HighTower Male", 
-            "Jesse Smith Female", 
-            "Albert Einstein Male", 
-            "Dan Wahlin Male", 
-            "Ward Bell Male", 
-            "Brad Green Male", 
-            "Igor Minar Male", 
-            "Miško Hevery Male", 
-            "Michelle Avery Female", 
-            "Heedy Wahlin Female" 
+            "Marcus,HighTower,Male,acmecorp.com", 
+            "Jesse,Smith,Female,gmail.com", 
+            "Albert,Einstein,Male,outlook.com", 
+            "Dan,Wahlin,Male,yahoo.com", 
+            "Ward,Bell,Male,gmail.com", 
+            "Brad,Green,Male,gmail.com", 
+            "Igor,Minar,Male,gmail.com", 
+            "Miško,Hevery,Male,gmail.com", 
+            "Michelle,Avery,Female,acmecorp.com", 
+            "Heedy,Wahlin,Female,hotmail.com" 
         };
         static string[] addresses = 
         { 
@@ -76,16 +83,69 @@ namespace CustomerManager.Repository
 
         static string[] citiesStates = 
         { 
-            "Phoenix AZ", 
-            "San Diego CA", 
-            "Seattle WA", 
-            "Chandler AZ", 
-            "San Francisco CA", 
-            "Mountain View CA", 
-            "Mountain View CA", 
-            "Mountain View CA", 
-            "Dallas TX", 
-            "Chandler AZ" 
+            "Phoenix,AZ", 
+            "Encinitas,CA", 
+            "Seattle,WA", 
+            "Chandler,AZ", 
+            "Dallas,TX", 
+            "Orlando,FL", 
+            "Carey,NC", 
+            "Anaheim,CA", 
+            "Dallas,TX", 
+            "Chandler,AZ" 
+        };
+
+        static List<State> states = new List<State> {
+            new State { Name="Alabama", Abbreviation="AL"},
+            new State { Name=" Montana", Abbreviation="MT"},
+            new State { Name=" Alaska", Abbreviation="AK"},
+            new State { Name=" Nebraska", Abbreviation="NE"},
+            new State { Name=" Arizona", Abbreviation="AZ"},
+            new State { Name=" Nevada", Abbreviation="NV"},
+            new State { Name="Arkansas", Abbreviation="AR"},
+            new State { Name=" New Hampshire", Abbreviation="NH"},
+            new State { Name="California", Abbreviation="CA"},
+            new State { Name="New Jersey", Abbreviation="NJ"},
+            new State { Name="Colorado", Abbreviation="CO"}, 
+            new State { Name="New Mexico", Abbreviation="NM"},
+            new State { Name="Connecticut", Abbreviation="CT"}, 
+            new State { Name="New York", Abbreviation="NY"},
+            new State { Name="Delaware", Abbreviation="DE"},
+            new State { Name="North Carolina", Abbreviation="NC"},
+            new State { Name="Florida", Abbreviation="FL"},
+            new State { Name="North Dakota", Abbreviation="ND"},
+            new State { Name="Georgia", Abbreviation="GA"}, 
+            new State { Name="Ohio", Abbreviation="OH"},
+            new State { Name="Hawaii", Abbreviation="HI"},
+            new State { Name="Oklahoma", Abbreviation="OK"},
+            new State { Name="Idaho", Abbreviation="ID"}, 
+            new State { Name="Oregon", Abbreviation="OR"},
+            new State { Name="Illinois", Abbreviation="IL"}, 
+            new State { Name="Pennsylvania", Abbreviation="PA"},
+            new State { Name="Indiana", Abbreviation="IN"}, 
+            new State { Name=" Rhode Island", Abbreviation="RI"},
+            new State { Name="Iowa", Abbreviation="IA"}, 
+            new State { Name="South Carolina", Abbreviation="SC"},
+            new State { Name="Kansas", Abbreviation="KS"}, 
+            new State { Name="South Dakota", Abbreviation="SD"},
+            new State { Name="Kentucky", Abbreviation="KY"}, 
+            new State { Name="Tennessee", Abbreviation="TN"},
+            new State { Name="Louisiana", Abbreviation="LA"}, 
+            new State { Name="Texas", Abbreviation="TX"},
+            new State { Name="Maine", Abbreviation="ME"}, 
+            new State { Name="Utah", Abbreviation="UT"},
+            new State { Name="Maryland", Abbreviation="MD"}, 
+            new State { Name="Vermont", Abbreviation="VT"},
+            new State { Name="Massachusetts", Abbreviation="MA"}, 
+            new State { Name="Virginia", Abbreviation="VA"},
+            new State { Name="Michigan", Abbreviation="MI"}, 
+            new State { Name="Washington", Abbreviation="WA"},
+            new State { Name="Minnesota", Abbreviation="MN"}, 
+            new State { Name="West Virginia", Abbreviation="WV"},
+            new State { Name="Mississippi", Abbreviation="MS"}, 
+            new State { Name="Wisconsin", Abbreviation="WI"},
+            new State { Name="Missouri", Abbreviation="MO"}, 
+            new State { Name="Wyoming", Abbreviation="WY"}
         };
 
         static int zip = 85229;

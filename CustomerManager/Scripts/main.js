@@ -13,6 +13,7 @@ require(
         'services/customersService',
         'services/dataService',
         'services/dialogService',
+        'directives/unique',
         'controllers/navbarController',
         'controllers/orders/orderChildController'
     ],

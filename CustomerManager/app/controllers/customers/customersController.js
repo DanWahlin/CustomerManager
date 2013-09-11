@@ -2,8 +2,8 @@
 
 define(['app'], function (app) {
 
-    app.register.controller('CustomersController', ['$scope', 'config', 'dataService', 'dialogService',
-        function ($scope, config, dataService, dialogService) {
+    app.register.controller('CustomersController', ['$scope', '$location', 'config', 'dataService', 'dialogService',
+        function ($scope, $location, config, dataService, dialogService) {
 
         init();
 
@@ -16,18 +16,6 @@ define(['app'], function (app) {
                     alert(error.message);
                 });
         }
-
-        //$scope.insertCustomer = function () {
-        //    var customer = angular.copy($scope.newCustomer);
-        //    dataService.insertCustomer(customer)
-        //        .then(function (opStatus) {
-        //            customer.id = opStatus.operationId;
-        //            $scope.customers.push(customer);
-        //            $scope.newCustomer = {};
-        //        }, function (error) {
-        //            alert(error.message);
-        //        });
-        //};
 
         $scope.deleteCustomer = function (id) {
             var dialogOptions = {
@@ -57,6 +45,26 @@ define(['app'], function (app) {
 
             dialogService.showModalDialog({}, dialogOptions);
         };
+
+        $scope.ViewEnum = {
+            Card: 0,
+            List: 1
+        }
+
+        $scope.changeView = function (view) {
+            switch (view) {
+                case $scope.ViewEnum.Card:
+                    $scope.listViewEnabled = false;
+                    break;
+                case $scope.ViewEnum.List:
+                    $scope.listViewEnabled = true;
+                    break;
+            }
+        }
+
+        $scope.navigate = function (url) {
+            $location.path(url);
+        }
 
     }]);
 

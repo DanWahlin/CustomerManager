@@ -20,15 +20,21 @@ namespace CustomerManager.Controllers
         }
 
         [HttpGet]
-        public IQueryable<Customer> Customers()
+        public List<Customer> Customers()
         {
-            return _Context.Customers.Include("Orders");
+            return _Context.Customers.Include("Orders").Include("State").ToList();
+        }
+
+        [HttpGet]
+        public List<State> States()
+        {
+            return _Context.States.OrderBy(s => s.Name).ToList();
         }
 
         [HttpGet]
         public IQueryable<CustomerSummary> CustomersSummary()
         {
-            return _Context.Customers.Select(c => new CustomerSummary
+            return _Context.Customers.Include("States").Select(c => new CustomerSummary
             {
                 Id = c.Id,
                 FirstName = c.FirstName,
@@ -40,11 +46,25 @@ namespace CustomerManager.Controllers
             });
         }
 
+        [HttpGet]
+        public OperationStatus CheckUnique(int id, string property, string value)
+        {
+            switch (property.ToLower())
+            {
+                case "email":
+                    var unique = !_Context.Customers.Any(c => c.Id != id && c.Email == value);
+                    return new OperationStatus { Status = unique };
+                default:
+                    return new OperationStatus();
+            }
+            
+        }
+
         // GET api/<controller>/5
         [HttpGet]
         public Customer CustomerById(int id)
         {
-            return _Context.Customers.Include("Orders").SingleOrDefault(c => c.Id == id);
+            return _Context.Customers.Include("Orders").Include("State").SingleOrDefault(c => c.Id == id);
         }
 
         // POST api/<controller>

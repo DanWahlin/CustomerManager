@@ -86,6 +86,10 @@ body {
     font-weight: bold;
 }
 
+.gridContainer td {
+    vertical-align: middle;
+}
+
 
 #submitCustomer {
     margin-left:50px;
@@ -112,7 +116,7 @@ footer {
 }
 
 .navbar .nav {
-    margin-left:50px;
+    margin-left:10px;
     margin-top:15px;
 }
 
@@ -123,6 +127,10 @@ footer {
 .modal-backdrop, .modal-backdrop.fade.in {
     opacity: 0.5;
     filter: alpha(opacity=50);
+}
+
+.btn.active {
+  background-color: #f7f7f7;
 }
 
 
@@ -167,7 +175,40 @@ body.skip-animations * {
   transition:none!important;
 }
 
+.animate-hide.ng-hide-add, 
+.animate-hide.ng-hide-remove {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+ 
+.animate-hide.ng-hide-add.ng-hide-add-active,
+.animate-hide.ng-hide-remove {
+  opacity:0;
+}
+ 
+.animate-hide.ng-hide-add,
+.animate-hide.ng-hide-remove.ng-hide-remove-active {
+  opacity:1;
+}
+
 /* ng-cloak */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng.ng-cloak {
     display: none;
 }
+
+input.ng-invalid, select.ng-invalid {
+  border-left: 5px solid red;
+}
+input.ng-valid, select.ng-valid {
+  border-left: 5px solid green;
+}
+
+.error {
+    position:absolute;
+    padding: 5px;
+    background-color: red;
+    color:white;
+}
+
