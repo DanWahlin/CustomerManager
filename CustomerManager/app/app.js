@@ -5,7 +5,7 @@
   http://weblogs.asp.net/dwahlin
   http://pluralsight.com/training/Authors/Details/dan-wahlin
 
-  Ward Bell - Breeze Integration
+  Thanks to Ward Bell for helping with the Breeze Integration
   http://twitter.com/WardBell
   http://neverindoubtnet.blogspot.com
 

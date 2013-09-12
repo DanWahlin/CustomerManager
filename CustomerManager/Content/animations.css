@@ -41,10 +41,10 @@ body.skip-animations * {
 
 .show-hide-animation.ng-hide-add, 
 .show-hide-animation.ng-hide-remove {
-  -webkit-transition:all linear 0.5s;
-  -moz-transition:all linear 0.5s;
-  -o-transition:all linear 0.5s;
-  transition:all linear 0.5s;
+  -webkit-transition:all linear 0.3s;
+  -moz-transition:all linear 0.3s;
+  -o-transition:all linear 0.3s;
+  transition:all linear 0.3s;
 }
  
 .show-hide-animation.ng-hide-remove {

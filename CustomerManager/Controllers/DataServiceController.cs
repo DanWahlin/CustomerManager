@@ -98,6 +98,7 @@ namespace CustomerManager.Controllers
             var opStatus = new OperationStatus();
             try
             {
+                customer.State.ID = customer.StateID;
                 _Context.Customers.Attach(customer);
                 _Context.Entry<Customer>(customer).State = System.Data.EntityState.Modified;
                 _Context.SaveChanges();

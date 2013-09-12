@@ -2,7 +2,7 @@
 
 define(['app'], function (app) {
 
-    app.controller('AboutController', ['$scope', function ($scope) {
+    app.register.controller('AboutController', ['$scope', function ($scope) {
 
     }]);
 

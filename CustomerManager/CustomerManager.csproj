@@ -110,7 +110,7 @@
     <Content Include="app\controllers\customers\customerEditController.js" />
     <Content Include="app\controllers\customers\customerOrdersController.js" />
     <Content Include="app\controllers\customers\customersController.js" />
-    <Content Include="app\controllers\navBarController.js" />
+    <Content Include="app\controllers\navbarController.js" />
     <Content Include="app\controllers\orders\orderChildController.js" />
     <Content Include="app\controllers\orders\ordersController.js" />
     <Content Include="app\directives\unique.js" />
