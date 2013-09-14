@@ -7,12 +7,14 @@
 
 This application demonstrates:
 
+* A complete application with read-only and editable data
 * Using AngularJS with $http in a factory to access a backend Web API service
 * Using BreezeJS in a factory to access a backend Web API Service
-* Techniques for showing multiple views of data
+* Techniques for showing multiple views of data (card view and list view)
+* A custom filter for filtering customer data
 * A custom routing mechanism that allows a controller & template to be downloaded dynamically "on the fly" and provides a standard convention for controller and view names
 * A custom directive to ensure unique values in a form for email 
-* A custom directive that intercepts $http and jQuery requests (in case either are used) and displays a loading dialog
+* A custom directive that intercepts $http and jQuery XHR requests (in case either are used) and displays a loading dialog
 
 The factories can be switched by changing the app/services/config useBreeze setting to true.
 
