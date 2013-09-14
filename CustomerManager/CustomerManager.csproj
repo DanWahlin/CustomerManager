@@ -113,8 +113,8 @@
     <Content Include="app\controllers\navbarController.js" />
     <Content Include="app\controllers\orders\orderChildController.js" />
     <Content Include="app\controllers\orders\ordersController.js" />
-    <Content Include="app\directives\overlay.js" />
-    <Content Include="app\directives\unique.js" />
+    <Content Include="app\directives\wcOverlay.js" />
+    <Content Include="app\directives\wcUnique.js" />
     <Content Include="app\filters\nameCityStateFilter.js" />
     <Content Include="app\partials\dialog.html" />
     <Content Include="app\services\dialogService.js" />

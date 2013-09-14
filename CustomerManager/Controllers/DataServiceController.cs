@@ -17,6 +17,7 @@ namespace CustomerManager.Controllers
         public DataServiceController()
         {
             _Context = new CustomerManagerContext();
+            //System.Threading.Thread.Sleep(5000); 
         }
 
         [HttpGet]

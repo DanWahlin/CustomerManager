@@ -17,6 +17,11 @@ namespace CustomerManager.Controllers
         readonly EFContextProvider<CustomerManagerContext> _contextProvider =
             new EFContextProvider<CustomerManagerContext>();
 
+        public BreezeDataServiceController()
+        {
+            //System.Threading.Thread.Sleep(5000); 
+        }
+
         [HttpGet]
         public string Metadata()
         {

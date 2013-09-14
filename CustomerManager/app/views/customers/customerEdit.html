@@ -58,9 +58,10 @@
                         Email:
                     </div>
                     <div class="span10">
+                        <!-- type="email" causing a problem with Breeze so using regex -->
                         <input type="text" name="email"
                             data-ng-model="customer.email" 
-                            data-unique="{key: customer.id, property: 'email'}"
+                            data-wc-unique="{key: customer.id, property: 'email'}"
                             required /> 
                         <span class="errorMessage" ng-show="editForm.email.$dirty && editForm.email.$error.unique">
                             Email already in use

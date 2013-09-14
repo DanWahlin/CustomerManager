@@ -7,8 +7,8 @@ require(
     [
         'animations/listAnimations',
         'app',
-        'directives/unique',
-        'directives/overlay',
+        'directives/wcUnique',
+        'directives/wcOverlay',
         'services/routeResolver',
         'services/config',
         'services/customersBreezeService',

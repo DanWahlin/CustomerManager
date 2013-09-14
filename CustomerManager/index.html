@@ -7,11 +7,6 @@
     <link href="Content/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="Content/styles.css" rel="stylesheet" />
     <link href="Content/animations.css" rel="stylesheet" />
-    <style type="text/css">
-        .overlayContainer { display: none;}
-        .overlayBackground { top:0px; left:0px; padding-left:100px;position:absolute; z-index:1000;height:100%;width:100%;background-color:#808080;opacity:0.3;}
-        .overlayContent { position:absolute; border: 1px solid #000; background-color:#fff; font-weight: bold;height: 100px;width: 300px;z-index:1000;text-align:center;}
-    </style>
 </head>
 <body data-ng-cloak="">
 
@@ -48,7 +43,7 @@
         </div>
     </div>
 
-    <div data-overlay="" data-overlay-delay="500">
+    <div data-wc-overlay="" data-wc-overlay-delay="300">
         <br /><img src="/Content/images/spinner.gif" />&nbsp;&nbsp;Loading
     </div>
 
