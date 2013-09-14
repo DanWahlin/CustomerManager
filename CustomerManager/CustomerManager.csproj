@@ -135,6 +135,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.icon-large.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\appFolders.png" />
     <Content Include="Content\images\ColorPalette.png" />
     <Content Include="Content\images\customerApp.png" />
     <Content Include="Content\images\female.png" />
