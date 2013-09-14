@@ -30,9 +30,15 @@ namespace CustomerManager.Controllers
         }
 
         [HttpGet]
+        public List<State> States()
+        {
+            return _contextProvider.Context.States.OrderBy(s => s.Name).ToList();
+        }
+
+        [HttpGet]
         public IQueryable<CustomerSummary> CustomersSummary()
         {
-            return _contextProvider.Context.Customers.Select(c => 
+            return _contextProvider.Context.Customers.Include("States").Select(c => 
                 new CustomerSummary
                 { 
                     Id = c.Id,
@@ -45,10 +51,32 @@ namespace CustomerManager.Controllers
                 });
         }
 
+        [HttpGet]
+        public OperationStatus CheckUnique(int id, string property, string value)
+        {
+            switch (property.ToLower())
+            {
+                case "email":
+                    var unique = !_contextProvider.Context.Customers.Any(c => c.Id != id && c.Email == value);
+                    return new OperationStatus { Status = unique };
+                default:
+                    return new OperationStatus();
+            }
+
+        }
+
         [HttpPost]
         public SaveResult SaveChanges(JObject saveBundle)
         {
-            return _contextProvider.SaveChanges(saveBundle);
+            try
+            {
+                return _contextProvider.SaveChanges(saveBundle);
+            }
+            catch (Exception exp)
+            {                
+                throw;
+            }
+
         }
 
     }

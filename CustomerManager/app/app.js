@@ -15,10 +15,10 @@
 
 define(['services/routeResolver'], function () {
 
-    var app = angular.module('customersApp', ['ngRoute', 'ngAnimate', 'routeResolverServices', 'CustomAnimations', 'ui.bootstrap']);
+    var app = angular.module('customersApp', ['ngRoute', 'ngAnimate', 'routeResolverServices', 'wc.Directives', 'wc.Animations', 'ui.bootstrap']);
 
-    app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-        function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide) {
+    app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
+        function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $httpProvider) {
 
             //Change default views and controllers directory using the following:
             //routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
@@ -49,6 +49,12 @@ define(['services/routeResolver'], function () {
                 .when('/about', route.resolve('About'))
                 .otherwise({ redirectTo: '/customers' });
 
+    }]);
+
+    //Only needed for Breeze. Maps Q (used by default in Breeze) to $q to make $rootScope.$apply() calls unecessary
+    app.run(['$q', '$rootScope',
+        function ($q, $rootScope) {
+            breeze.core.extendQ($rootScope, $q);
     }]);
 
     return app;

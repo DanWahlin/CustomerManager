@@ -1,6 +1,6 @@
 ﻿define([], function () {
-    angular.module('CustomAnimations', [])
-      .animation('.card-animation', function () {
+    var app = angular.module('wc.Animations', [])
+    app.animation('.card-animation', function () {
           var duration = 0.5;
           return {
               enter: function (element, done) {

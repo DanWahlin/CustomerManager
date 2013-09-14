@@ -6,7 +6,7 @@ define(['app'], function (app) {
     //each doing the same thing just structuring the functions/data differently.
 
     //Although this is an AngularJS factory I prefer the term "service" for data operations
-    app.factory('customersService', function ($http) {
+    app.factory('customersService', ['$http', '$q', function ($http, $q) {
         var serviceBase = '/api/dataservice/',
             customers = null,
             customersFactory = {};
@@ -28,6 +28,7 @@ define(['app'], function (app) {
         }
 
         customersFactory.checkUniqueValue = function (id, property, value) {
+            if (!id) id = 0;
             return $http.get(serviceBase + 'CheckUnique/' + id + '?property=' + property + '&value=' + escape(value)).then(
                 function (results) {
                     return results.data.status;
@@ -41,13 +42,18 @@ define(['app'], function (app) {
         };
 
         customersFactory.insertCustomer = function (customer) {
-            return $http.post(serviceBase + 'InsertCustomer', customer).then(function (results) {
+            return $http.post(serviceBase + 'PostCustomer', customer).then(function (results) {
+                customer.id = results.data.id;
                 return results.data;
             });
         };
 
+        customersFactory.newCustomer = function () {
+            return $q.when({});
+        };
+
         customersFactory.updateCustomer = function (customer) {
-            return $http.put(serviceBase + 'UpdateCustomer/' + customer.id, customer).then(function (status) {
+            return $http.put(serviceBase + 'PutCustomer/' + customer.id, customer).then(function (status) {
                 return status.data;
             });
         };
@@ -65,12 +71,6 @@ define(['app'], function (app) {
                 extendCustomers([results.data]);
                 return results.data;
             });
-        };
-
-        //Can't call $scope.$apply() for this one since $http is already handling it
-        //This is here since the Breeze service needs a call to apply and we can switch between the two easily
-        customersFactory.apply = function (scope) {
-
         };
 
         function extendCustomers(customers) {
@@ -105,6 +105,6 @@ define(['app'], function (app) {
 
         return customersFactory;
 
-    });
+    }]);
 
 });

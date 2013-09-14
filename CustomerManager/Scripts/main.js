@@ -7,13 +7,15 @@ require(
     [
         'animations/listAnimations',
         'app',
+        'directives/unique',
+        'directives/overlay',
         'services/routeResolver',
         'services/config',
         'services/customersBreezeService',
         'services/customersService',
         'services/dataService',
         'services/dialogService',
-        'directives/unique',
+        'filters/nameCityStateFilter',
         'controllers/navbarController',
         'controllers/orders/orderChildController'
     ],

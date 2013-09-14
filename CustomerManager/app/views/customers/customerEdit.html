@@ -3,11 +3,11 @@
         <header>
             <h3>{{title}} Customer</h3>
         </header>
-        <form name="editForm" novalidate data-ng-submit="saveCustomer()">
+        <form name="editForm" novalidate>
             <div>
                 <div class="row">
                     <div class="span12">
-                        <h4>{{ customer.firstName + ' ' + customer.lastName }}</h4>
+                        <h4>{{ customer.firstName + ' ' + customer.lastName }}&nbsp;</h4>
                         <br />
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="span10">
                         <input type="text" name="firstName" data-ng-model="customer.firstName" required />
-                        <span class="error" ng-show="editForm.firstName.$dirty && editForm.firstName.$invalid">
+                        <span class="errorMessage" ng-show="editForm.firstName.$dirty && editForm.firstName.$invalid">
                             First name is required
                         </span>
                     </div>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="span10">
                         <input type="text" data-ng-model="customer.lastName" required />
-                        <span class="error" ng-show="editForm.lastName.$dirty && editForm.lastName.$invalid">
+                        <span class="errorMessage" ng-show="editForm.lastName.$dirty && editForm.lastName.$invalid">
                             Last name is required
                         </span>
                     </div>
@@ -58,12 +58,11 @@
                         Email:
                     </div>
                     <div class="span10">
-                        <input type="email" name="email"
+                        <input type="text" name="email"
                             data-ng-model="customer.email" 
                             data-unique="{key: customer.id, property: 'email'}"
-                            data-ng-class="{hello: !editForm.email.$error.unique}"
                             required /> 
-                        <span class="error" ng-show="editForm.email.$dirty && editForm.email.$error.unique">
+                        <span class="errorMessage" ng-show="editForm.email.$dirty && editForm.email.$error.unique">
                             Email already in use
                         </span>
                     </div>
@@ -74,7 +73,7 @@
                     </div>
                     <div class="span10">
                         <input type="text" name="address" data-ng-model="customer.address" required />
-                        <span class="error" ng-show="editForm.address.$dirty && editForm.address.$invalid">
+                        <span class="errorMessage" ng-show="editForm.address.$dirty && editForm.address.$invalid">
                             Address is required
                         </span>                    
                     </div>
@@ -85,7 +84,7 @@
                     </div>
                     <div class="span10">
                         <input type="text" name="city" data-ng-model="customer.city" required />
-                        <span class="error" ng-show="editForm.city.$dirty && editForm.city.$invalid">
+                        <span class="errorMessage" ng-show="editForm.city.$dirty && editForm.city.$invalid">
                             City is required
                         </span>  
                     </div>
@@ -96,11 +95,11 @@
                     </div>
                     <div class="span10">
                         <select name="state" required
-                            data-ng-model="customer.stateID" 
+                            data-ng-model="customer.stateId" 
                             data-ng-options="state.id as state.name for state in states">
                             <option value=""></option>
                         </select>
-                        <span class="error" ng-show="editForm.state.$dirty && editForm.state.$invalid">
+                        <span class="errorMessage" ng-show="editForm.state.$dirty && editForm.state.$invalid">
                             2 character state is required
                         </span>  
                     </div>
@@ -111,24 +110,24 @@
                     </div>
                     <div class="span10">
                         <input type="number" name="zip" data-ng-model="customer.zip" required />
-                        <span class="error" ng-show="editForm.zip.$dirty && editForm.zip.$invalid">
+                        <span class="errorMessage" ng-show="editForm.zip.$dirty && editForm.zip.$invalid">
                             Zip is required
                         </span>  
                     </div>
                 </div>
                 <div class="row">
                     <div class="span12">
-                        <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid">{{buttonText}}</button>
+                        <button type="submit" class="btn btn-primary" data-ng-click="saveCustomer()" ng-disabled="editForm.$invalid">{{buttonText}}</button>
                         &nbsp;&nbsp;
                         <button class="btn btn-danger" data-ng-if="customer.id > 0" data-ng-click="deleteCustomer()">Delete</button>
                     </div>
                 </div>
                 <div class="row">
                     <br />
-                    <div class="span10 label label-success" data-ng-show="updateStatus">
+                    <div class="span10 label label-success show-hide-animation" data-ng-show="updateStatus">
                         <i class="icon-thumbs-up icon-white"></i>&nbsp;&nbsp;Customer updated!
                     </div>
-                    <div class="span10 label label-important" data-ng-show="errorMessage">
+                    <div class="span10 label label-important show-hide-animation" data-ng-show="errorMessage">
                         <i class="icon-thumbs-down icon-white"></i>&nbsp;&nbsp;Error: {{ errorMessage }}
                     </div>
                 </div>

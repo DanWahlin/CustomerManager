@@ -105,6 +105,7 @@ footer {
 /* Bootstrap overrides */
 
 .navbar-inner {
+    padding-left: 0px;
     -webkit-border-radius: 0px;
     border-radius: 0px;
     -webkit-box-shadow: none;
@@ -170,7 +171,15 @@ footer {
     font-weight:bold;
 }
 
+.navbar .brand {
+    margin-top: 2px;
+    color: #fff;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+
 .close {
+    font-size:15pt;
     opacity: 1.0;
 }
 
@@ -201,10 +210,10 @@ input.ng-valid, select.ng-valid {
 
 
 
-.error {
+.errorMessage {
     position:absolute;
     padding: 5px;
     background-color: #E03930;
-    color:white;
+    color:black;
 }
 

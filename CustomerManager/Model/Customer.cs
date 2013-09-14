@@ -16,7 +16,7 @@ namespace CustomerManager.Model
         public string Address { get; set; }
         public string City { get; set; }
         public State State { get; set; }
-        public int StateID { get; set; }
+        public int StateId { get; set; }
         public int Zip { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public Gender Gender { get; set; }

@@ -7,6 +7,11 @@
     <link href="Content/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="Content/styles.css" rel="stylesheet" />
     <link href="Content/animations.css" rel="stylesheet" />
+    <style type="text/css">
+        .overlayContainer { display: none;}
+        .overlayBackground { top:0px; left:0px; padding-left:100px;position:absolute; z-index:1000;height:100%;width:100%;background-color:#808080;opacity:0.3;}
+        .overlayContent { position:absolute; border: 1px solid #000; background-color:#fff; font-weight: bold;height: 100px;width: 300px;z-index:1000;text-align:center;}
+    </style>
 </head>
 <body data-ng-cloak="">
 
@@ -43,15 +48,22 @@
         </div>
     </div>
 
+    <div data-overlay="" data-overlay-delay="500">
+        <br /><img src="/Content/images/spinner.gif" />&nbsp;&nbsp;Loading
+    </div>
+
     <!-- 3rd party libraries -->
-    <script src="Scripts/angular-1.2.js"></script>
-    <script src="Scripts/angular-route.js"></script>
-    <script src="Scripts/angular-animate.js"></script>
-    <script src="Scripts/angular-ui-custom.js"></script>
-    <script src="Scripts/TweenMax.min.js"></script>
+    <!-- jQuery only needed with Breeze -->
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts/angular-animate.js"></script>
+    <script src="/Scripts/angular-ui.js"></script>
+    <script src="/Scripts/TweenMax.min.js"></script>
 
     <script src="/Scripts/q.min.js"></script>
     <script src="/Scripts/breeze.min.js"></script>
+    <script src="/Scripts/to$q.js"></script>
 
     <!-- Load custom scripts via RequireJS -->
     <script src="/Scripts/require.js" data-main="/scripts/main"></script>

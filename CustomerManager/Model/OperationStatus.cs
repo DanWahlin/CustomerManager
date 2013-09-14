@@ -9,7 +9,7 @@ namespace CustomerManager.Model
         public bool Status { get; set; }
         public int RecordsAffected { get; set; }
         public string Message { get; set; }
-        public Object OperationID { get; set; }
+        public Object OperationId { get; set; }
         public string ExceptionMessage { get; set; }
         public string ExceptionStackTrace { get; set; }
         public string ExceptionInnerMessage { get; set; }
@@ -21,7 +21,7 @@ namespace CustomerManager.Model
             {
                 Status = false,
                 Message = message,
-                OperationID = null
+                OperationId = null
             };
 
             if (ex != null)

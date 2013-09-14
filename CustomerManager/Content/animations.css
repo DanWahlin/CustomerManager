@@ -71,7 +71,7 @@ body.skip-animations * {
 }
 
 .repeat-animation.ng-enter {
-  left:-10px;
+  left:10px;
   opacity:0;
 }
 .repeat-animation.ng-enter.ng-enter-active {
@@ -80,7 +80,7 @@ body.skip-animations * {
 }
 
 .repeat-animation.ng-leave {
-  left:0;
+  left:10px;
   opacity:1;
 }
 .repeat-animation.ng-leave.ng-leave-active {

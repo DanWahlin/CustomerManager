@@ -113,7 +113,9 @@
     <Content Include="app\controllers\navbarController.js" />
     <Content Include="app\controllers\orders\orderChildController.js" />
     <Content Include="app\controllers\orders\ordersController.js" />
+    <Content Include="app\directives\overlay.js" />
     <Content Include="app\directives\unique.js" />
+    <Content Include="app\filters\nameCityStateFilter.js" />
     <Content Include="app\partials\dialog.html" />
     <Content Include="app\services\dialogService.js" />
     <Content Include="app\services\routeResolver.js" />
@@ -138,6 +140,7 @@
     <Content Include="Content\images\female.png" />
     <Content Include="Content\images\glyphicons.png" />
     <Content Include="Content\images\male.png" />
+    <Content Include="Content\images\spinner.gif" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\images\angularShield.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
@@ -146,16 +149,17 @@
     <Content Include="Content\images\report.png" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Scripts\angular-1.2.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-ui-custom.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\angular-ui.js" />
     <Content Include="Scripts\breeze.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\to%24q.js" />
     <Content Include="Scripts\TweenMax.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -179,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -71,49 +71,44 @@ namespace CustomerManager.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public OperationStatus InsertCustomer([FromBody]Customer customer)
+        public HttpResponseMessage PostCustomer([FromBody]Customer customer)
         {
             var opStatus = new OperationStatus();
             try
             {
                 _Context.Customers.Add(customer);
                 _Context.SaveChanges();
-                opStatus.Status = true;
-                opStatus.OperationID = customer.Id;
+                var response = Request.CreateResponse<Customer>(HttpStatusCode.Created, customer);
+                string uri = Url.Link("DefaultApi", new { id = customer.Id });
+                response.Headers.Location = new Uri(uri);
+                return response;
             }
             catch (Exception exp)
             {
-                return OperationStatus.CreateFromException("Error updating customer", exp);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, exp.Message);
             }
-            return opStatus;
         }
 
         // PUT api/<controller>/5
-        //var response = Request.CreateResponse(HttpStatusCode.Accepted, customer);
-        //response.Headers.Location = new Uri(Request.RequestUri, string.Format("Customer/{0}", customer.CustomerId));
-        [HttpPut]
-        public OperationStatus UpdateCustomer(int id, [FromBody]Customer customer)
+        public HttpResponseMessage PutCustomer(int id, [FromBody]Customer customer)
         {
             var opStatus = new OperationStatus();
             try
             {
-                customer.State.ID = customer.StateID;
+                //customer.State.Id = customer.StateId;
                 _Context.Customers.Attach(customer);
                 _Context.Entry<Customer>(customer).State = System.Data.EntityState.Modified;
                 _Context.SaveChanges();
-                opStatus.Status = true;
+                return Request.CreateResponse<Customer>(HttpStatusCode.Accepted, customer);
             }
             catch (Exception exp)
             {
-                return OperationStatus.CreateFromException("Error updating customer", exp);
+                return Request.CreateResponse(HttpStatusCode.NotModified, exp.Message);
             }
-            return opStatus;
         }
 
         // DELETE api/<controller>/5
-        [HttpDelete]
-        public OperationStatus DeleteCustomer(int id)
+        public HttpResponseMessage DeleteCustomer(int id)
         {
             var opStatus = new OperationStatus();
             try
@@ -123,18 +118,17 @@ namespace CustomerManager.Controllers
                 {
                     _Context.Customers.Remove(cust);
                     _Context.SaveChanges();
-                    opStatus.Status = true;
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
                 else
                 {
-                    opStatus.Message = "Customer not found!";
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
             }
             catch (Exception exp)
             {
-                return OperationStatus.CreateFromException("Error deleting customer", exp);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, exp.Message);
             }
-            return opStatus;
         }
     }
 }

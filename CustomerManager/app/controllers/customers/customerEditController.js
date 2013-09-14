@@ -5,33 +5,30 @@ define(['app'], function (app) {
     app.register.controller('CustomerEditController', ['$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'dialogService',
         function ($scope, $location, $routeParams, $timeout, config, dataService, dialogService) {
 
-        var timer;
+        var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0,
+            timer;
 
-        $scope.customer = {};
+        $scope.customer;
         $scope.states = [];
-        $scope.title = 'Edit';
-        $scope.buttonText = 'Update';        
+        $scope.title = (customerID > 0) ? 'Edit' : 'Add';
+        $scope.buttonText = (customerID > 0) ? 'Update' : 'Add';
+        $scope.updateStatus = false;
+        $scope.errorMessage = '';
 
         init();
 
         function init() {
-            var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0;
             if (customerID > 0) {
-                dataService.getCustomer(customerID)
-                    .then(function (customer) {
-                        $scope.customer = customer;
-
-                        //Get States
-                        getStates();
-                        dataService.apply($scope); //Handles calling $apply() if needed (mainly for breeze since it's a 3rd party library)
-
-                    }, processError);
+                dataService.getCustomer(customerID).then(function (customer) {
+                    $scope.customer = customer;
+                }, processError);
+            } else {
+                dataService.newCustomer().then(function (customer) {
+                    $scope.customer = customer;
+                });
+                
             }
-            else {
-                $scope.title = 'Add';
-                $scope.buttonText = 'Add';
-                getStates();
-            }
+            getStates();
         }
 
         function getStates() {
@@ -46,18 +43,13 @@ define(['app'], function (app) {
 
         $scope.saveCustomer = function () {
             if ($scope.editForm.$valid) {
-                if ($scope.customer.id === undefined) {
-                    dataService.insertCustomer($scope.customer).then(processSuccess, processError).then(function () {
-                        alert('in')
-                    });
+                if (!$scope.customer.id) {
+                    dataService.insertCustomer($scope.customer).then(processSuccess, processError);
                 }
                 else {
                     dataService.updateCustomer($scope.customer).then(processSuccess, processError);
                 }
-            } else {
-                $scope.editForm.submitted = true;
-            };
-
+            }
         };
 
         $scope.deleteCustomer = function () {
@@ -67,13 +59,8 @@ define(['app'], function (app) {
                 headerText: 'Delete Customer?',
                 bodyText: 'Are you sure you want to delete this customer?',
                 callback: function () {
-                    dataService.deleteCustomer($scope.customer.id).then(function (opStatus) {
-                        if (opStatus.status) {
-                            $location.path('/customers');
-                        }
-                        else {
-                            processError(new Error(opStatus.message));
-                        }
+                    dataService.deleteCustomer($scope.customer.id).then(function () {
+                        $location.path('/customers');
                     }, processError);
                 }
             };
@@ -81,9 +68,10 @@ define(['app'], function (app) {
             dialogService.showModalDialog({}, dialogOptions);            
         };
 
-        function processSuccess(opStatus) {
-            $scope.updateStatus = opStatus.status;
-            $scope.errorMessage = (opStatus.status) ? '' : opStatus.message;
+        function processSuccess() {
+            $scope.updateStatus = true;
+            $scope.title = 'Edit';
+            $scope.buttonText = 'Update';
             startTimer();
         }
 

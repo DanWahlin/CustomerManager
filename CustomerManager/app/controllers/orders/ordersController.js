@@ -13,7 +13,6 @@ define(['app'], function (app) {
             dataService.getCustomers()
                 .then(function (customers) {
                     $scope.customers = customers;
-                    dataService.apply($scope);
                 }, function (error) {
                     alert(error.message);
                 });

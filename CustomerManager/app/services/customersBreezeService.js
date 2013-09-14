@@ -2,66 +2,119 @@
 
 define(['app'], function (app) {
 
-    //This handles retrieving data and is used by controllers. 3 options (server, factory, provider) with 
-    //each doing the same thing just structuring the functions/data differently.
-
     //Although this is a AngularJS factory, I prefer the term 'service' for data operations
     app.factory('customersBreezeService', function () {
         var customersFactory = {};
+        var EntityQuery = breeze.EntityQuery;
 
         // configure to use the model library for Angular
         breeze.config.initializeAdapterInstance('modelLibrary', 'backingStore', true);
         // configure to use camelCase
         breeze.NamingConvention.camelCase.setAsDefault();
-        // create entity manager
-        var manager = new breeze.EntityManager('breeze/breezedataservice');
+        // create entity Manager
+        var serviceName = 'breeze/breezedataservice';
+        var entityManager = new breeze.EntityManager(serviceName);
+       
+        function executeQuery(query, takeFirst) {
+            return query.using(entityManager).execute().to$q(querySuccess, queryError);
+
+            function querySuccess(data) {
+                return takeFirst ? data.results[0] : data.results;
+            }
+
+            function queryError(error) {
+                alert(error.message);
+            }
+        }
+
+        function getAll(entityName, expand) {
+            var query = EntityQuery.from(entityName);
+            if (expand) {
+                query = query.expand(expand);
+            }
+            return executeQuery(query);
+        }
+
+        function getMetadata() {
+            var store = entityManager.metadataStore;
+            if (store.hasMetadataFor(serviceName)) { //Have metadata
+                return Q(true);
+            }
+            else { //Get metadata
+                return store.fetchMetadata(serviceName);
+            }            
+        }    
 
         customersFactory.getCustomers = function () {
-            var query = breeze.EntityQuery.from('Customers').expand('orders');
-            return manager.executeQuery(query).then(function (data) {
-                return data.results;
-            });
+            return getAll('Customers', 'orders');
         };
 
         customersFactory.getCustomersSummary = function () {
-            var query = breeze.EntityQuery.from('CustomersSummary');
-            return manager.executeQuery(query).then(function (data) {
-                return data.results;
-            });
+            return getAll('CustomersSummary');
         };
 
-        customersFactory.insertCustomer = function (firstName, lastName, city) {
-            var topID = customers.length + 1;
-            customers.push({
-                id: topID,
-                firstName: firstName,
-                lastName: lastName,
-                city: city
-            });
-        };
-
-        customersFactory.deleteCustomer = function (id) {
-            for (var i = customers.length - 1; i >= 0; i--) {
-                if (customers[i].id === id) {
-                    customers.splice(i, 1);
-                    break;
-                }
-            }
+        customersFactory.getStates = function () {
+            return getAll('States');
         };
 
         customersFactory.getCustomer = function (id) {
-            var query = breeze.EntityQuery
+            var query = EntityQuery
                 .from('Customers')
-                .where('id', 'eq', id)
-                .expand('orders');
-            return manager.executeQuery(query).then(function (data) {
-                return data.results[0];
-            });
+                .where('id', '==', id)
+                .expand('Orders, State');
+            return executeQuery(query, true);
         };
 
-        //Must call $scope.$apply() for this one after async since third party is being used
-        customersFactory.apply = function (scope) {
-            scope.$apply();
+        customersFactory.checkUniqueValue = function (id, property, value) {
+            var propertyPredicate = new breeze.Predicate(property, "==", value);
+            var predicate = (id) ? propertyPredicate.and(new breeze.Predicate("id", "!=", id)) : propertyPredicate;
+
+            var query = EntityQuery.from('Customers').where(predicate);
+
+            return executeQuery(query);
+        };
+
+        customersFactory.insertCustomer = function (customer) {
+            return entityManager.saveChanges().to$q();
+        };
+
+        customersFactory.newCustomer = function () {
+            return getMetadata().to$q(function () {
+                return entityManager.createEntity('Customer', { firstName: '', lastName: '' });
+            });
+        }
+
+        customersFactory.deleteCustomer = function (id) {
+            if (!id) {
+                alert('ID was null - cannot delete');
+                return;
+            }
+            var customer = entityManager.getEntityByKey('Customer', id);
+
+            /*  When the customer is deleted the customerID is set to 0 for each order
+                since no parent exists
+                Detach orders since the customer is being deleted and server
+                is set to cascade deletes
+            */
+            if (customer) {
+                var orders = customer.orders.slice(); //Create a copy of the live list
+                orders.forEach(function (order) {
+                    entityManager.detachEntity(order);
+                });
+                customer.entityAspect.setDeleted();
+            }
+            else {
+                //Really a CustomerSummary so we're going to add a new Customer 
+                //and mark it as deleted. That allows us to save some code and avoid having
+                //a separate method to deal with the CustomerSummary projection
+                customer = entityManager.createEntity('Customer', { id: id, gender: 'Male' }, breeze.EntityState.Deleted);
+            }
+
+            return entityManager.saveChanges().to$q();
+        };
+
+        customersFactory.updateCustomer = function (customer) {
+            return entityManager.saveChanges().to$q();
         };
 
         var OrderCtor = function () { }
@@ -81,8 +134,8 @@ define(['app'], function (app) {
 
         };
 
-        manager.metadataStore.registerEntityTypeCtor('Order', OrderCtor);
-        manager.metadataStore.registerEntityTypeCtor('Customer', CustomerCtor);
+        entityManager.metadataStore.registerEntityTypeCtor('Order', OrderCtor);
+        entityManager.metadataStore.registerEntityTypeCtor('Customer', CustomerCtor);
 
         return customersFactory;
 

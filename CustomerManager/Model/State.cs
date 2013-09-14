@@ -7,7 +7,7 @@ namespace CustomerManager.Model
 {
     public class State
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Abbreviation { get; set; }
         public string Name { get; set; }
     }
