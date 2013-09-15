@@ -14,8 +14,9 @@ require(
         'services/customersBreezeService',
         'services/customersService',
         'services/dataService',
-        'services/dialogService',
+        'services/modalService',
         'filters/nameCityStateFilter',
+        'filters/nameProductFilter',
         'controllers/navbarController',
         'controllers/orders/orderChildController'
     ],

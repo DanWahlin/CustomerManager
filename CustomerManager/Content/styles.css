@@ -72,15 +72,15 @@ body {
 }
 
 .ordersTable {
-    width:800px;
+    width:85%;
 }
 
-.orders th, .customerOrders th {
-    width:25%;
+.orders th, .customers th {
+    width:20%;
     cursor: pointer;
 }
 
-.ordersTable tr:first-child th {
+.ordersTable tr:first-child th, .customersTable tr:first-child th {
     background-color: #027FF4;
     color: #fff;
     font-weight: bold;
@@ -213,6 +213,10 @@ input.ng-valid, select.ng-valid {
     padding: 5px;
     background-color: #E03930;
     color:black;
+}
+
+.editIcon {
+    margin-top: 2px;
 }
 
 /* wcOverlay directive CSS styles */

@@ -116,8 +116,11 @@
     <Content Include="app\directives\wcOverlay.js" />
     <Content Include="app\directives\wcUnique.js" />
     <Content Include="app\filters\nameCityStateFilter.js" />
+    <Content Include="app\filters\nameProductFilter.js" />
+    <Content Include="app\partials\modal.html" />
     <Content Include="app\partials\dialog.html" />
     <Content Include="app\services\dialogService.js" />
+    <Content Include="app\services\modalService.js" />
     <Content Include="app\services\routeResolver.js" />
     <Content Include="app\views\about.html" />
     <Content Include="app\views\customers\customerEdit.html" />
@@ -150,10 +153,10 @@
     <Content Include="Content\images\report.png" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angular-ui-bootstrap.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-ui.js" />
     <Content Include="Scripts\breeze.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\main.js" />
@@ -161,7 +164,7 @@
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\to%24q.js" />
-    <Content Include="Scripts\TweenMax.min.js" />
+    <Content Include="Scripts\tweenMax.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

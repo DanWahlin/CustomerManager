@@ -2,8 +2,8 @@
 
 define(['app'], function (app) {
 
-    app.register.controller('CustomerEditController', ['$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'dialogService',
-        function ($scope, $location, $routeParams, $timeout, config, dataService, dialogService) {
+    app.register.controller('CustomerEditController', ['$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'modalService',
+        function ($scope, $location, $routeParams, $timeout, config, dataService, modalService) {
 
         var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0,
             timer;
@@ -53,19 +53,19 @@ define(['app'], function (app) {
         };
 
         $scope.deleteCustomer = function () {
-            var dialogOptions = {
+            var custName = $scope.customer.firstName + ' ' + $scope.customer.lastName;
+            var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete Customer',
-                headerText: 'Delete Customer?',
-                bodyText: 'Are you sure you want to delete this customer?',
-                callback: function () {
-                    dataService.deleteCustomer($scope.customer.id).then(function () {
-                        $location.path('/customers');
-                    }, processError);
-                }
+                headerText: 'Delete ' + custName + '?',
+                bodyText: 'Are you sure you want to delete this customer?'
             };
 
-            dialogService.showModalDialog({}, dialogOptions);            
+            modalService.showModal({}, modalOptions).then(function (result) {
+                dataService.deleteCustomer($scope.customer.id).then(function () {
+                    $location.path('/customers');
+                }, processError);
+            });
         };
 
         function processSuccess() {

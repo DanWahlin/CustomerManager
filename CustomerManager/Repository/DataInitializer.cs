@@ -9,7 +9,9 @@ namespace CustomerManager.Repository
     {
         internal static void Initialize(CustomerManagerContext context)
         {
-            var random = new Random();
+            var random = new Random((int)DateTime.Now.Ticks);
+            var randomOrder = new Random((int)DateTime.Now.Ticks);
+            var randomQuantity = new Random((int)DateTime.Now.Ticks);
 
             var sortedStates = states.OrderBy(s => s.Name);
             foreach (var state in sortedStates)
@@ -37,12 +39,21 @@ namespace CustomerManager.Repository
                 context.Customers.Add(cust);
 
                 //Generate customer orders
-                var skip = random.Next(orders.Count - 1);
-                var take = orders.Count - skip;
-                var custOrders = orders.Skip(skip).Take(take);
+                var numToGrab = random.Next(orders.Count - 1);
+                var custOrders = new List<Order>();
+                for (int j = 0; j < numToGrab; j++)
+                {
+                    var orderPosition = randomOrder.Next(orders.Count - 1);
+                    custOrders.Add(orders[orderPosition]);
+                }
+
                 foreach (var order in custOrders)
                 {
+                    var quantity = randomQuantity.Next(5);
+                    var multiplier = (quantity % 2 == 0) ? 1 : -1;
                     var custOrder = order.Clone();
+                    custOrder.Quantity = (quantity == 0) ? 1 : quantity;
+                    custOrder.Date = DateTime.Now.AddDays(randomQuantity.Next(30) * multiplier);
                     custOrder.CustomerId = cust.Id;
                     context.Orders.Add(custOrder);
                 }
@@ -154,18 +165,21 @@ namespace CustomerManager.Repository
         {
             new Order { Product = "Basket", Price =  29.99M , Quantity=  1},
             new Order { Product = "Yarn", Price =  9.99M, Quantity=  1  },
-            new Order { Product = "Needes", Price =  5.99M, Quantity=  1 },
+            new Order { Product = "Needles", Price =  5.99M, Quantity=  1 },
             new Order { Product = "Speakers", Price = 499.99M, Quantity =  1 },
             new Order { Product = "iPod", Price =  399.99M, Quantity=  1 },
             new Order { Product = "Table", Price =  329.99M, Quantity=  1 },
             new Order { Product = "Chair", Price =  129.99M, Quantity=  4 },
             new Order { Product = "Lamp", Price =  89.99M, Quantity=  5 },
-            new Order { Product = "Call of Duty", Price =  59.99M, Quantity=  1},
+            new Order { Product = "Phone", Price =  599.99M, Quantity=  1},
             new Order { Product = "Controller", Price =  49.99M, Quantity=  1},
-            new Order { Product = "Gears of War", Price =  49.99M, Quantity=  1 },
+            new Order { Product = "Pen", Price =  0.99M, Quantity=  1 },
             new Order { Product = "Lego City", Price =  49.99M, Quantity=  1 },
             new Order { Product = "Baseball", Price =  9.99M, Quantity=  5 },
-            new Order { Product = "Bat", Price =  19.99M, Quantity=  1 }
+            new Order { Product = "Glove", Price =  99.99M, Quantity=  1 },
+            new Order { Product = "Monitor", Price =  199.99M, Quantity=  2 },
+            new Order { Product = "Camera", Price =  499.99M, Quantity=  1 },
+            new Order { Product = "Picture Frame", Price =  19.99M, Quantity=  5 }
         };    
     }
 }

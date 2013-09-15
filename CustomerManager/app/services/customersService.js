@@ -81,9 +81,9 @@ define(['app'], function (app) {
                 var ordersLen = cust.orders.length;
                 for (var j = 0; j < ordersLen; j++) {
                     var order = cust.orders[j];
-                    order.orderTotal = function () { return orderTotal(this); };
+                    order.orderTotal = order.quantity * order.price;
                 }
-                cust.ordersTotal = function () { return ordersTotal(this); };
+                cust.ordersTotal = ordersTotal(cust);
             }
         }
 
@@ -97,10 +97,9 @@ define(['app'], function (app) {
             var count = orders.length;
 
             for (var i = 0; i < count; i++) {
-                total += orders[i].orderTotal();
+                total += orders[i].orderTotal;
             }
             return total;
-
         };
 
         return customersFactory;

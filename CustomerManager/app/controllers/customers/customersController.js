@@ -2,12 +2,14 @@
 
 define(['app'], function (app) {
 
-    app.register.controller('CustomersController', ['$scope', '$location', '$filter', 'dataService', 'dialogService',
-        function ($scope, $location, $filter, dataService, dialogService) {
+    app.register.controller('CustomersController', ['$scope', '$location', '$filter', 'dataService', 'modalService',
+        function ($scope, $location, $filter, dataService, modalService) {
 
         $scope.customers = [];
         $scope.filteredCustomers = [];
         $scope.filteredCount = 0;
+        $scope.orderby = 'lastName';
+        $scope.reverse = false;
 
         //Watch searchText value and pass it and the customers to nameCityStateFilter
         //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
@@ -46,27 +48,26 @@ define(['app'], function (app) {
             var cust = getCustomerById(id);
             var custName = cust.firstName + ' ' + cust.lastName;
 
-            var dialogOptions = {
+            var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete Customer',
                 headerText: 'Delete ' + custName + '?',
-                bodyText: 'Are you sure you want to delete this customer?',
-                callback: function () {
-                    dataService.deleteCustomer(id).then(function () {
-                        for (var i = 0; i < $scope.customers.length; i++) {
-                            if ($scope.customers[i].id == id) {
-                                $scope.customers.splice(i, 1);
-                                break;
-                            }
-                        }
-                        filterCustomers($scope.filterText);                            
-                    }, function (error) {
-                        alert('Error deleting customer: ' + error.message);
-                    });
-                }
+                bodyText: 'Are you sure you want to delete this customer?'
             };
 
-            dialogService.showModalDialog({}, dialogOptions);
+            modalService.showModal({}, modalOptions).then(function (result) {
+                dataService.deleteCustomer(id).then(function () {
+                    for (var i = 0; i < $scope.customers.length; i++) {
+                        if ($scope.customers[i].id == id) {
+                            $scope.customers.splice(i, 1);
+                            break;
+                        }
+                    }
+                    filterCustomers($scope.filterText);
+                }, function (error) {
+                    alert('Error deleting customer: ' + error.message);
+                });
+            });
         };
 
         $scope.ViewEnum = {
@@ -88,6 +89,13 @@ define(['app'], function (app) {
         $scope.navigate = function (url) {
             $location.path(url);
         }
+
+        $scope.setOrder = function (orderby) {
+            if (orderby === $scope.orderby) {
+                $scope.reverse = !$scope.reverse;
+            }
+            $scope.orderby = orderby;
+        };
 
     }]);
 

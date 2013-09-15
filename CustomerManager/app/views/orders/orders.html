@@ -3,19 +3,28 @@
         <header>
             <h3>All Customer Orders</h3>
         </header>
-        <div>
-            <div class="row">
-                <div class="span12" data-ng-repeat="customer in customers | orderBy:'lastName'">
-                    <div>
-                        <h4><a href="#/customerorders/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
+        <div class="row">
+            <div class="span10">
+                <div class="navbar">
+                    <div class="navbar-inner toolbar">
+                        <form class="navbar-form">
+                            <span class="navbarText">&nbsp;&nbsp;Filter by Name or Product:</span>&nbsp;&nbsp;<input type="text" data-ng-model="searchText" class="novalidate" />
+                        </form>
                     </div>
-                    <div data-ng-include="'/app/views/orders/ordersTable.html'" />
                 </div>
             </div>
-            <div class="row" data-ng-show="customers.length == 0">
-                <div class="span12">
-                    <h4>No customers found</h4>
+        </div>
+        <div class="row">
+            <div class="span12 repeat-animation" data-ng-repeat="customer in customers | orderBy:'lastName' | nameProductFilter:searchText">
+                <div>
+                    <h4><a href="#/customerorders/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
                 </div>
+                <div data-ng-include="'/app/views/orders/ordersTable.html'" />
+            </div>
+        </div>
+        <div class="row show-hide-animation" data-ng-show="customers.length == 0">
+            <div class="span12">
+                <h4>No customers found</h4>
             </div>
         </div>
     </div>

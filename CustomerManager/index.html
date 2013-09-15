@@ -48,14 +48,15 @@
     </div>
 
     <!-- 3rd party libraries -->
-    <!-- jQuery only needed with Breeze -->
-    <script src="/Scripts/jquery.min.js"></script>
     <script src="/Scripts/angular.js"></script>
     <script src="/Scripts/angular-route.js"></script>
     <script src="/Scripts/angular-animate.js"></script>
-    <script src="/Scripts/angular-ui.js"></script>
-    <script src="/Scripts/TweenMax.min.js"></script>
+    <script src="/Scripts/angular-ui-bootstrap.js"></script>
+    <script src="/Scripts/tweenMax.min.js"></script>
 
+    <!-- jQuery only needed with Breeze so not loaded before AngularJS in this example-->
+    <!-- If you want jQuery to replace jqlite in AngularJS then load jQuery before angular.js (not needed in this app though) -->
+    <script src="/Scripts/jquery.min.js"></script>
     <script src="/Scripts/q.min.js"></script>
     <script src="/Scripts/breeze.min.js"></script>
     <script src="/Scripts/to$q.js"></script>

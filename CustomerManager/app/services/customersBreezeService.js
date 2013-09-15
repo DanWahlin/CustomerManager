@@ -117,25 +117,35 @@ define(['app'], function (app) {
             return entityManager.saveChanges().to$q();
         };
 
-        var OrderCtor = function () { }
-        OrderCtor.prototype.orderTotal = function () {
-            return this.quantity * this.price;
-        };
+        var OrderCtor = function () {
+            
+        }
 
-        var CustomerCtor = function () { }
-        CustomerCtor.prototype.ordersTotal = function () {
+        function orderInit(order) {
+            order.orderTotal = order.quantity * order.price;
+        }
+
+        var CustomerCtor = function () {
+
+        }
+
+        function customerInit(customer) {
+            customer.ordersTotal = ordersTotal(customer);
+        }
+
+        function ordersTotal(customer) {
             var total = 0;
-            var orders = this.orders;
+            var orders = customer.orders;
             var count = orders.length;
+
             for (var i = 0; i < count; i++) {
-                total += orders[i].orderTotal();
+                total += orders[i].orderTotal;
             }
             return total;
-
         };
 
-        entityManager.metadataStore.registerEntityTypeCtor('Order', OrderCtor);
-        entityManager.metadataStore.registerEntityTypeCtor('Customer', CustomerCtor);
+        entityManager.metadataStore.registerEntityTypeCtor('Order', OrderCtor, orderInit);
+        entityManager.metadataStore.registerEntityTypeCtor('Customer', CustomerCtor, customerInit);
 
         return customersFactory;
 

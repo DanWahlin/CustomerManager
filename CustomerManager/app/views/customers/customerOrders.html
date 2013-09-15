@@ -1,4 +1,4 @@
-﻿<div class="customerOrders view">
+﻿<div class="orders view">
     <div class="container">
         <header>
             <h3>Customer Orders</h3>
@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="span12">
                     <div>
-                        <h4>Orders for <a href="#/customeredit/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
+                        <h4>Orders for <a href="#/customeredit/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }} <i class="icon-edit editIcon"></i></a></h4>
                         {{customer.address}}
                         <br />
                         {{customer.city}}, {{customer.state.name}}
