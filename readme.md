@@ -1,8 +1,6 @@
 ﻿Customer Manager with AngularJS
 ===============
 
-### Customer Manager AngularJS Application
-
 ![Customer Management App](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/customerApp.png)
 
 This application demonstrates:
