@@ -27,6 +27,12 @@
                 <h4>No customers found</h4>
             </div>
         </div>
+        <div class="row show-hide-animation" data-ng-show="customers.length > 0" style="margin-left:0px;">
+            <div class="span12">
+                <div data-pagination="" data-on-select-page="pageChanged(page)" data-total-items="totalRecords" data-page="currentPage" 
+                    data-boundary-links="true" class="pagination-small"></div>
+            </div>
+        </div>
     </div>
     <br /><br />
 </div>

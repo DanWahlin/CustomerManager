@@ -6,6 +6,7 @@ using System.Data.Objects;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace CustomerManager.Controllers
@@ -21,9 +22,16 @@ namespace CustomerManager.Controllers
         }
 
         [HttpGet]
-        public List<Customer> Customers()
+        [Queryable]
+        public IQueryable<Customer> Customers()
         {
-            return _Context.Customers.Include("Orders").Include("State").ToList();
+            var query = _Context.Customers
+                    .Include("Orders")
+                    .Include("State")
+                    .OrderBy(c => c.LastName);
+            var totalRecords = query.Count();
+            HttpContext.Current.Response.Headers.Add("X-InlineCount", totalRecords.ToString());
+            return query.AsQueryable();
         }
 
         [HttpGet]
@@ -33,9 +41,15 @@ namespace CustomerManager.Controllers
         }
 
         [HttpGet]
+        [Queryable]
         public IQueryable<CustomerSummary> CustomersSummary()
         {
-            return _Context.Customers.Include("States").Select(c => new CustomerSummary
+            var query = _Context.Customers
+                           .Include("States")
+                           .OrderBy(c => c.LastName);
+            var totalRecords = query.Count();
+            HttpContext.Current.Response.Headers.Add("X-InlineCount", totalRecords.ToString());
+            return query.Select(c => new CustomerSummary
             {
                 Id = c.Id,
                 FirstName = c.FirstName,
@@ -44,7 +58,7 @@ namespace CustomerManager.Controllers
                 State = c.State,
                 OrderCount = c.Orders.Count(),
                 Gender = c.Gender
-            });
+            }).AsQueryable();
         }
 
         [HttpGet]

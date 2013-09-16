@@ -11,17 +11,16 @@ define(['app'], function (app) {
             customers = null,
             customersFactory = {};
 
-        customersFactory.getCustomers = function () {
-            //then does not unwrap data so must go through .data property
-            //success unwraps data automatically (no need to call .data property)
-            return $http.get(serviceBase + 'Customers').then(function (results) {
-                extendCustomers(results.data);
-                return results.data;
-            });
+        customersFactory.getCustomers = function (pageIndex, pageSize) {
+            return getPagedResource('customers', pageIndex, pageSize);
+        };
+
+        customersFactory.getCustomersSummary = function (pageIndex, pageSize) {
+            return getPagedResource('customersSummary', pageIndex, pageSize);
         };
 
         customersFactory.getStates = function () {
-            return $http.get(serviceBase + 'States').then(
+            return $http.get(serviceBase + 'states').then(
                 function (results) {
                     return results.data;
                 });                
@@ -29,20 +28,14 @@ define(['app'], function (app) {
 
         customersFactory.checkUniqueValue = function (id, property, value) {
             if (!id) id = 0;
-            return $http.get(serviceBase + 'CheckUnique/' + id + '?property=' + property + '&value=' + escape(value)).then(
+            return $http.get(serviceBase + 'checkUnique/' + id + '?property=' + property + '&value=' + escape(value)).then(
                 function (results) {
                     return results.data.status;
                 });
         };
 
-        customersFactory.getCustomersSummary = function () {
-            return $http.get(serviceBase + 'CustomersSummary').then(function (results) {
-                return results.data;
-            });
-        };
-
         customersFactory.insertCustomer = function (customer) {
-            return $http.post(serviceBase + 'PostCustomer', customer).then(function (results) {
+            return $http.post(serviceBase + 'postCustomer', customer).then(function (results) {
                 customer.id = results.data.id;
                 return results.data;
             });
@@ -53,13 +46,13 @@ define(['app'], function (app) {
         };
 
         customersFactory.updateCustomer = function (customer) {
-            return $http.put(serviceBase + 'PutCustomer/' + customer.id, customer).then(function (status) {
+            return $http.put(serviceBase + 'putCustomer/' + customer.id, customer).then(function (status) {
                 return status.data;
             });
         };
 
         customersFactory.deleteCustomer = function (id) {
-            return $http.delete(serviceBase + 'DeleteCustomer/' + id).then(function (status) {
+            return $http.delete(serviceBase + 'deleteCustomer/' + id).then(function (status) {
                 return status.data;
             });
         };
@@ -67,7 +60,7 @@ define(['app'], function (app) {
         customersFactory.getCustomer = function (id) {
             //then does not unwrap data so must go through .data property
             //success unwraps data automatically (no need to call .data property)
-            return $http.get(serviceBase + 'CustomerById/' + id).then(function (results) {
+            return $http.get(serviceBase + 'customerById/' + id).then(function (results) {
                 extendCustomers([results.data]);
                 return results.data;
             });
@@ -86,6 +79,23 @@ define(['app'], function (app) {
                 cust.ordersTotal = ordersTotal(cust);
             }
         }
+
+        function getPagedResource(baseResource, pageIndex, pageSize) {
+            var resource = baseResource;
+            resource += (arguments.length == 3) ? buildPagingUri(pageIndex, pageSize) : '';
+            return $http.get(serviceBase + resource).then(function (data) {
+                return {
+                    totalRecords: parseInt(data.headers('X-InlineCount')),
+                    results: data.data
+                };
+            });
+        }
+
+        function buildPagingUri(pageIndex, pageSize) {
+            var uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
+            return uri;
+        }
+        
 
         function orderTotal(order) {
             return order.quantity * order.price;

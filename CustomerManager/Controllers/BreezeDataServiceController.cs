@@ -31,7 +31,7 @@ namespace CustomerManager.Controllers
         [HttpGet]
         public IQueryable<Customer> Customers()
         {
-            return _contextProvider.Context.Customers;
+            return _contextProvider.Context.Customers.OrderBy(c => c.LastName);
         }
 
         [HttpGet]
@@ -43,7 +43,8 @@ namespace CustomerManager.Controllers
         [HttpGet]
         public IQueryable<CustomerSummary> CustomersSummary()
         {
-            return _contextProvider.Context.Customers.Include("States").Select(c => 
+            var query = _contextProvider.Context.Customers.Include("States").OrderBy(c => c.LastName);
+            return query.Select(c => 
                 new CustomerSummary
                 { 
                     Id = c.Id,

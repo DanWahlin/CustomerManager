@@ -32,7 +32,6 @@
                                 <a href="#/customeredit/{{customer.id}}" class="white"><img data-ng-src="/Content/Images/{{customer.gender}}.png" class="cardImage" /></a>
                             </div>
                             <div class="pull-left cardBodyRight">
-                                <div>{{customer.address}}</div>
                                 <div>{{customer.city}}, {{customer.state.name}}</div>
                                 <div><a href="#/customerorders/{{customer.id}}" class="btn-link">{{ customer.orderCount }} Orders</a></div>
                             </div>
@@ -69,9 +68,12 @@
                     <h4>No customers found</h4>
                 </div>
             </div>
-            <div class="row" data-ng-show="customers.length > 0">
+            <div class="row show-hide-animation" data-ng-show="customers.length > 0">
                 <div class="span12">
-                    <h5>{{ filteredCount }} customers</h5>
+                    <div data-pagination="" data-on-select-page="pageChanged(page)" data-total-items="totalRecords" data-page="currentPage" 
+                         data-boundary-links="true" class="pagination-small"></div>
+
+                    <h5>Showing {{ filteredCount }} of {{ totalRecords}} total customers</h5>
                 </div>
             </div>
             <br />

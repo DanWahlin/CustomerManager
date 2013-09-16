@@ -77,7 +77,20 @@ namespace CustomerManager.Repository
             "Igor,Minar,Male,gmail.com", 
             "Miško,Hevery,Male,gmail.com", 
             "Michelle,Avery,Female,acmecorp.com", 
-            "Heedy,Wahlin,Female,hotmail.com" 
+            "Heedy,Wahlin,Female,hotmail.com",
+            "Thomas,Martin,Male,outlook.com",
+            "Jean,Martin,Female,outlook.com",
+            "Robin,Cleark,Female,acmecorp.com",
+            "Juan,Paulo,Male,yahoo.com",
+            "Gene,Thomas,Male,gmail.com",
+            "Pinal,Dave,Male,gmail.com",
+            "Fred,Roberts,Male,outlook.com",
+            "Tina,Roberts,Female,outlook.com",
+            "Cindy,Jamison,Female,gmail.com",
+            "Robyn,Flores,Female,yahoo.com",
+            "Jeff,Wahlin,Male,gmail.com",
+            "Danny,Wahlin,Male,gmail.com",
+            "Elaine,Jones,Female,yahoo.com"
         };
         static string[] addresses = 
         { 
@@ -87,9 +100,23 @@ namespace CustomerManager.Repository
             "85 Cedar Dr.", 
             "12 Ocean View St.", 
             "1600 Amphitheatre Parkway", 
-            "1600 Amphitheatre Parkway", 
-            "1600 Amphitheatre Parkway", 
-            "1578 Main St.", "85 Cedar Dr." 
+            "1604 Amphitheatre Parkway", 
+            "1607 Amphitheatre Parkway", 
+            "346 Cedar Ave.", 
+            "4576 Main St.", 
+            "964 Point St.", 
+            "98756 Center St.", 
+            "35632 Richmond Circle Apt B",
+            "2352 Angular Way", 
+            "23566 Directive Pl.", 
+            "235235 Yaz Blvd.", 
+            "7656 Crescent St.", 
+            "76543 Moon Ave.", 
+            "84533 Hardrock St.", 
+            "5687534 Jefferson Way",
+            "346346 Blue Pl.", 
+            "23423 Adams St.", 
+            "633 Main St.", 
         };
 
         static string[] citiesStates = 
@@ -103,7 +130,20 @@ namespace CustomerManager.Repository
             "Carey,NC", 
             "Anaheim,CA", 
             "Dallas,TX", 
-            "Chandler,AZ" 
+            "New York,NY",
+            "White Plains,NY",
+            "Las Vegas,NV",
+            "Los Angeles,CA",
+            "Portland,OR",
+            "Seattle,WA",
+            "Houston,TX",
+            "Chicago,IL",
+            "Atlanta,GA",
+            "Chandler,AZ",
+            "Buffalo,NY",
+            "Albuquerque,AZ",
+            "Boise,ID",
+            "Salt Lake City,UT",
         };
 
         static List<State> states = new List<State> {

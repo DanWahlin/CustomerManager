@@ -11,7 +11,7 @@
                   TweenMax.to(element, duration, { opacity: 1, left: '0px', ease: Back.easeInOut, delay: random2, onComplete: done });
               },
               leave: function (element, done) {
-                  TweenMax.to(element, duration, { opacity: 0, left: '-100px', onComplete: done });
+                  TweenMax.to(element, duration, { opacity: 0, left: '-50px', onComplete: done });
               }
           };
       });

@@ -11,23 +11,41 @@ define(['app'], function (app) {
         $scope.orderby = 'lastName';
         $scope.reverse = false;
 
-        //Watch searchText value and pass it and the customers to nameCityStateFilter
-        //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
-        //while also accessing the filtered count via $scope.filteredCount above
-        $scope.$watch("searchText", function (filterText) {
-            filterCustomers(filterText);
-        });
+        //paging
+        $scope.totalRecords = 0;
+        $scope.pageSize = 10;
+        $scope.currentPage = 1;
 
         init();
 
         function init() {
-            dataService.getCustomersSummary()
-                .then(function (customers) {
-                    $scope.customers = customers;
-                    filterCustomers(''); //Trigger initial filter
-                }, function (error) {
-                    alert(error.message);
-                });
+            createWatches();
+            getCustomersSummary();
+        }
+
+        function createWatches() {
+            //Watch searchText value and pass it and the customers to nameCityStateFilter
+            //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
+            //while also accessing the filtered count via $scope.filteredCount above
+            $scope.$watch("searchText", function (filterText) {
+                filterCustomers(filterText);
+            });
+        }
+
+        $scope.pageChanged = function (page) {
+            $scope.currentPage = page;
+            getCustomersSummary();
+        };
+
+        function getCustomersSummary() {
+            dataService.getCustomersSummary($scope.currentPage - 1, $scope.pageSize)
+            .then(function (data) {
+                $scope.totalRecords = data.totalRecords;
+                $scope.customers = data.results;
+                filterCustomers(''); //Trigger initial filter
+            }, function (error) {
+                alert(error.message);
+            });
         }
 
         function filterCustomers(filterText) {
