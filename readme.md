@@ -10,7 +10,7 @@ This application demonstrates:
 * Using BreezeJS in a factory to access a backend Web API Service
 * Techniques for showing multiple views of data (card view and list view)
 * A custom filter for filtering customer data
-* A custom routing mechanism that allows a controller & template to be downloaded dynamically "on the fly" and provides a standard convention for controller and view names (see ![this post](http://weblogs.asp.net/dwahlin/archive/2013/05/22/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs.aspx)
+* A custom routing mechanism that allows a controller & template to be downloaded dynamically "on the fly" and provides a standard convention for controller and view names (see [this post](http://weblogs.asp.net/dwahlin/archive/2013/05/22/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs.aspx)
  for more details)
 * A custom directive to ensure unique values in a form for email 
 * A custom directive that intercepts $http and jQuery XHR requests (in case either are used) and displays a loading dialog
