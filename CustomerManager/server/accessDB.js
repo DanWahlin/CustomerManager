@@ -65,7 +65,7 @@ module.exports = {
     customer.stateId = state[0].id;
     customer.zip = req_body.zip;
     customer.gender = req_body.gender;
-    customer.id = 1;
+    customer.id = 1; // The id is calculated by the Mongoose pre 'save'.
 
     customer.save(function(err, customer) {
       if (err) {console.log('*** new customer save err: ' + err); return callback(err); }

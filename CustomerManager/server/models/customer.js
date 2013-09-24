@@ -76,9 +76,8 @@ var Settings = mongoose.model('settings', SettingsSchema);
 
 CustomerSchema.pre('save', function(next) {
   var doc = this;
-  // You have to know the settings_id
+  // Calculate the next id on new Customers only.
   if (this.isNew) {
-    // Settings.findByIdAndUpdate( "customers", { $inc: { nextSeqNumber: 1 } }, function (err, settings) {
     Settings.findOneAndUpdate( {"collectionName": "customers"}, { $inc: { nextSeqNumber: 1 } }, function (err, settings) {
       if (err) next(err);
       doc.id = settings.nextSeqNumber - 1; // substract 1 because I need the 'current' sequence number, not the next

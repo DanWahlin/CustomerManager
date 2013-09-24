@@ -25,7 +25,6 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/../'));
   app.use(app.router);
-  // app.use(express.csrf()); //*
 });
 
 var conn = 'mongodb://localhost/custmgr';
