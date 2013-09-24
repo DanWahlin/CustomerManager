@@ -155,6 +155,9 @@
     <Content Include="Content\images\report.png" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="initMongoCustData.js" />
+    <Content Include="initMongoSettingsData.js" />
+    <Content Include="initMongoStateData.js" />
     <Content Include="Scripts\angular-ui-bootstrap.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular-animate.js" />
@@ -167,6 +170,13 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\to%24q.js" />
     <Content Include="Scripts\tweenMax.min.js" />
+    <Content Include="server\accessDB.js" />
+    <Content Include="server\app.js" />
+    <Content Include="server\lib\protectJSON.js" />
+    <Content Include="server\models\customer.js" />
+    <Content Include="server\models\state.js" />
+    <Content Include="server\routes\api.js" />
+    <Content Include="server\routes\index.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +200,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="server\views\index.jade" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
