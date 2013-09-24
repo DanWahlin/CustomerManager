@@ -25,7 +25,9 @@ The AngularJS portion of the app is structured using the following folders:
 
 ![Customer Management App Structure](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/appFolders.png)
 
-#### Requirements:
+## Requirements:
+
+###If you're using Visual Studio and .NET:
 
 The following is required to support the backend services:
 
@@ -33,20 +35,19 @@ The following is required to support the backend services:
 
 * ASP.NET MVC and Web API are used for the back-end services along with Entity Framework for database access (included if you have VS 2012 express installed)
 
-To get started, double-click the CustomerManager.sln file located at the root of the CustomerManager repository.
+To get started, double-click the CustomerManager.sln file located at the root of the CustomerManager repository. Once the solution loads press F5 to run the project.
 
 
-**I'm interested in porting the backend to NodeJS/MongoDB as well so if anyone has any interest there let me know!**
+###If you're using Node.js/Express/MongoDB
 
-**Node.js/Express/MongoDB
+If you don't already have Node.js on your machine install it from http://nodejs.org. You'll also need to install MongoDB from http://www.mongodb.org if you don't have it already and get it configured and running using the instructions on their site.
 
-If you haven't already got Node.js install Node.
+In the CustomerManager directory execute 'npm install' to install Express, MongoDB and Mongoose (package.json).
 
-In the CustomerManager/CustomerManager directory execute 'npm install' to install Express, MongoDB and Mongoose (package.json).
+Load sample data into MongoDB by performing the following steps:
 
-Load the MongoDB seed data:
 * Execute 'mongod' to start the MongoDB daemon
-* Navigate to the CustomerManager/CustomerManager directory then execute 'mongo' to start the MongDB shell
+* Navigate to the CustomerManager directory (the one that has initMongoCustData.js in it) then execute 'mongo' to start the MongoDB shell
 * Enter the following in the mongo shell to load the seed files:
  * use custmgr
  * load("initMongoCustData.js")
@@ -54,7 +55,9 @@ Load the MongoDB seed data:
  * load("initMongoStateData.js")
 
 Start the Node/Express server:
-* navigate to the CustomerManager/CustomerManager/server directory then execute 'node app.js'
+* navigate to the CustomerManager/server directory then execute 'node app.js'
 
-View the application at http://localhost:3000/
+View the application at http://localhost:3000
+
+Thanks to [Tony Quinn](https://github.com/tonyq) for contributing the initial Node.js/MongoDB code!
 
