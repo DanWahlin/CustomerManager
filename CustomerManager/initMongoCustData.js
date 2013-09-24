@@ -96,9 +96,6 @@ for (i = 0; i < l; i++) {
         firstOrder = lastOrder;
         lastOrder = tempOrder;
     }
-    // if (firstOrder < 0) {
-    //   firstOrder = 0;
-    // }
 
     c.orders = [];
     print('firstOrder: ' + firstOrder + ", lastOrder: " + lastOrder);
