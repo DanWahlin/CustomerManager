@@ -8,7 +8,7 @@ define(['app'], function (app) {
             require: 'ngModel',
             link: function (scope, element, attrs, ngModel) {
                 element.bind('blur', function (e) {
-                    if (!element.val()) return;
+                    if (!ngModel || !element.val()) return;
                     var keyProperty = scope.$eval(attrs.wcUnique);
                     dataService.checkUniqueValue(keyProperty.key, keyProperty.property, element.val())
                         .then(function (unique) {
