@@ -10,10 +10,17 @@ define(['app'], function (app) {
                 element.bind('blur', function (e) {
                     if (!ngModel || !element.val()) return;
                     var keyProperty = scope.$eval(attrs.wcUnique);
-                    dataService.checkUniqueValue(keyProperty.key, keyProperty.property, element.val())
+                    var currentValue = element.val();
+                    dataService.checkUniqueValue(keyProperty.key, keyProperty.property, currentValue)
                         .then(function (unique) {
-                            ngModel.$setValidity('unique',  unique);
+                            //Ensure value that being checked hasn't changed
+                            //since the Ajax call was made
+                            if (currentValue == element.val()) {
+                                ngModel.$setValidity('unique', unique);
+                            }
                         }, function () {
+                            //Probably want a more robust way to handle an error
+                            //For this demo we'll set unique to true though
                             ngModel.$setValidity('unique', true);
                         });
                 });
