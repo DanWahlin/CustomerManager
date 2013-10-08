@@ -2,11 +2,7 @@
 
 define(['app'], function (app) {
 
-    //This handles retrieving data and is used by controllers. 3 options (server, factory, provider) with 
-    //each doing the same thing just structuring the functions/data differently.
-
-    //Although this is an AngularJS factory I prefer the term "service" for data operations
-    app.factory('customersService', ['$http', '$q', function ($http, $q) {
+    var customersService = function ($http, $q) {
         var serviceBase = '/api/dataservice/',
             customers = null,
             customersFactory = {};
@@ -23,7 +19,7 @@ define(['app'], function (app) {
             return $http.get(serviceBase + 'states').then(
                 function (results) {
                     return results.data;
-                });                
+                });
         }
 
         customersFactory.checkUniqueValue = function (id, property, value) {
@@ -95,7 +91,7 @@ define(['app'], function (app) {
             var uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
             return uri;
         }
-        
+
 
         function orderTotal(order) {
             return order.quantity * order.price;
@@ -114,6 +110,8 @@ define(['app'], function (app) {
 
         return customersFactory;
 
-    }]);
+    };
+
+    app.factory('customersService', ['$http', '$q', customersService]);
 
 });

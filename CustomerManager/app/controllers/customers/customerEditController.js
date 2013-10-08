@@ -2,11 +2,11 @@
 
 define(['app'], function (app) {
 
-    app.register.controller('CustomerEditController', ['$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'modalService',
-        function ($scope, $location, $routeParams, $timeout, config, dataService, modalService) {
+    var customersController = function ($rootScope, $scope, $location, $routeParams, $timeout, config, dataService, modalService) {
 
         var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0,
-            timer;
+            timer,
+            onRouteChangeOff;
 
         $scope.customer;
         $scope.states = [];
@@ -16,26 +16,6 @@ define(['app'], function (app) {
         $scope.errorMessage = '';
 
         init();
-
-        function init() {
-            if (customerID > 0) {
-                dataService.getCustomer(customerID).then(function (customer) {
-                    $scope.customer = customer;
-                }, processError);
-            } else {
-                dataService.newCustomer().then(function (customer) {
-                    $scope.customer = customer;
-                });
-                
-            }
-            getStates();
-        }
-
-        function getStates() {
-            dataService.getStates().then(function (states) {
-                $scope.states = states;
-            }, processError);
-        }
 
         $scope.isStateSelected = function (customerStateId, stateId) {
             return customerStateId === stateId;
@@ -62,13 +42,66 @@ define(['app'], function (app) {
             };
 
             modalService.showModal({}, modalOptions).then(function (result) {
-                dataService.deleteCustomer($scope.customer.id).then(function () {
-                    $location.path('/customers');
-                }, processError);
+                if (result === 'ok') {
+                    dataService.deleteCustomer($scope.customer.id).then(function () {
+                        onRouteChangeOff(); //Stop listening for location changes
+                        $location.path('/customers');
+                    }, processError);
+                }
             });
         };
 
+        function init() {
+            if (customerID > 0) {
+                dataService.getCustomer(customerID).then(function (customer) {
+                    $scope.customer = customer;
+                }, processError);
+            } else {
+                dataService.newCustomer().then(function (customer) {
+                    $scope.customer = customer;
+                });
+
+            }
+            getStates();
+
+            //Make sure they're warned if they made a change but didn't save it
+            //Call to $on returns a "deregistration" function that can be called to
+            //remove the listener (see routeChange() for an example of using it)
+            onRouteChangeOff = $rootScope.$on('$locationChangeStart', routeChange);
+        }
+
+        function routeChange(event, newView) {
+            //Navigate to newView if the form isn't dirty
+            if (!$scope.editForm.$dirty) return;
+
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ignore Changes',
+                headerText: 'Unsaved Changes',
+                bodyText: 'You have unsaved changes. Leave the page?'
+            };
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+                if (result === 'ok') {
+                    onRouteChangeOff(); //Stop listening for location changes
+                    $location.path(newView); //Go to page they're interested in
+                }
+            });
+
+            //prevent navigation by default since we'll handle it
+            //once the user selects a dialog option
+            event.preventDefault();
+            return;
+        }
+
+        function getStates() {
+            dataService.getStates().then(function (states) {
+                $scope.states = states;
+            }, processError);
+        }
+
         function processSuccess() {
+            $scope.editForm.$dirty = false;
             $scope.updateStatus = true;
             $scope.title = 'Edit';
             $scope.buttonText = 'Update';
@@ -87,7 +120,9 @@ define(['app'], function (app) {
                 $scope.updateStatus = false;
             }, 3000);
         }
+    };
 
-    }]);
+    app.register.controller('CustomerEditController',
+       ['$rootScope', '$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'modalService', customersController]);
 
 });

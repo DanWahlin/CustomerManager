@@ -2,7 +2,7 @@
 
 define(['app'], function (app) {
 
-    app.directive('wcUnique', ['dataService', function (dataService) {
+    var wcUniqueDirective = function (dataService) {
         return {
             restrict: 'A',
             require: 'ngModel',
@@ -26,6 +26,8 @@ define(['app'], function (app) {
                 });
             }
         }
-    }]);
+    };
+
+    app.directive('wcUnique', ['dataService', wcUniqueDirective]);
 
 });

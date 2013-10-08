@@ -4,7 +4,7 @@ define(['app'], function (app) {
 
     //This controller retrieves data from the customersService and associates it with the $scope
     //The $scope is bound to the orders view
-    app.register.controller('OrdersController', ['$scope', 'dataService', function ($scope, dataService) {
+    var ordersController = function ($scope, dataService) {
         $scope.customers = [];
 
         //paging
@@ -33,6 +33,8 @@ define(['app'], function (app) {
                 });
         }
 
-    }]);
+    };
+
+    app.register.controller('OrdersController', ['$scope', 'dataService', ordersController]);
 
 });

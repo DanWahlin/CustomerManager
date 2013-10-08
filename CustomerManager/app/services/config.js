@@ -2,10 +2,10 @@
 
 define(['app'], function (app) {
 
-    app.value('config',
-        {
-            useBreeze: false
-        }
-    );
+    var value = {
+        useBreeze: false
+    };
+
+    app.value('config', value);
 
 });

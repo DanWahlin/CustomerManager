@@ -5,7 +5,7 @@ define(['app'], function (app) {
     //This controller is a child controller that will inherit functionality from a parent
     //It's used to track the orderby parameter and ordersTotal for a customer. Put it here rather than duplicating 
     //setOrder and orderby across multiple controllers.
-    app.controller('OrderChildController', ['$scope', function ($scope) {
+    var orderChildController = function ($scope) {
         $scope.orderby = 'product';
         $scope.reverse = false;
         $scope.ordersTotal = 0.00;
@@ -32,5 +32,7 @@ define(['app'], function (app) {
             $scope.orderby = orderby;
         };
 
-    }]);
+    };
+
+    app.controller('OrderChildController', ['$scope', orderChildController]);
 });

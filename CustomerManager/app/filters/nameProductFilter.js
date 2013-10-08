@@ -1,7 +1,8 @@
 ﻿'use strict';
 
 define(['app'], function (app) {
-    app.filter('nameProductFilter', function () {
+
+    var nameProductFilter = function () {
 
         function matchesProduct(customer, filterValue) {
             if (customer.orders) {
@@ -31,5 +32,8 @@ define(['app'], function (app) {
             }
             return matches;
         };
-    });
+    };
+
+    app.filter('nameProductFilter', nameProductFilter);
+
 });

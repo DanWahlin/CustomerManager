@@ -2,8 +2,10 @@
 
 define(['app'], function (app) {
 
-    app.register.controller('AboutController', ['$scope', function ($scope) {
+    var aboutController = function ($scope) {
 
-    }]);
+    };
+
+    app.register.controller('AboutController', ['$scope', aboutController]);
 
 });

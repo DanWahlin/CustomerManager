@@ -2,8 +2,8 @@
 
 define(['app'], function (app) {
 
-    //Although this is a AngularJS factory, I prefer the term 'service' for data operations
-    app.factory('customersBreezeService', function () {
+    var customersBreezeService = function () {
+
         var customersFactory = {};
         var EntityQuery = breeze.EntityQuery;
 
@@ -14,7 +14,7 @@ define(['app'], function (app) {
         // create entity Manager
         var serviceName = 'breeze/breezedataservice';
         var entityManager = new breeze.EntityManager(serviceName);
-       
+
         customersFactory.getCustomers = function (pageIndex, pageSize) {
             return getPagedResource('Customers', 'orders', pageIndex, pageSize);
         };
@@ -140,7 +140,7 @@ define(['app'], function (app) {
 
 
         var OrderCtor = function () {
-            
+
         }
 
         function orderInit(order) {
@@ -171,6 +171,8 @@ define(['app'], function (app) {
 
         return customersFactory;
 
-    });
+    };
+
+    app.factory('customersBreezeService', customersBreezeService);
 
 });

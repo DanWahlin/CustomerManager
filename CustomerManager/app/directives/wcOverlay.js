@@ -2,35 +2,19 @@
 
 define([], function () {
 
-    var app = angular.module('wc.Directives', []);
 
-    //Empty factory to hook into $httpProvider.interceptors
-    //Directive will hookup request, response, and responseError interceptors
-    app.factory('httpInterceptor', function() {
-        return {} 
-    });
-
-    //Hook httpInterceptor factory into the $httpProvider interceptors so that we can monitor XHR calls
-    app.config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.interceptors.push('httpInterceptor');
-    }]);
-    
-    //Directive that uses the httpInterceptor factory above to monitor XHR calls
-    //When a call is made it displays an overlay and a content area 
-    //No attempt has been made at this point to test on older browsers
-    app.directive('wcOverlay', ['$q', '$timeout', '$window', 'httpInterceptor',
-        function ($q, $timeout, $window, httpInterceptor) {
+    var wcOverlayDirective = function ($q, $timeout, $window, httpInterceptor) {
         return {
             restrict: 'EA',
             transclude: true,
             scope: {
                 wcOverlayDelay: "@"
             },
-            template: '<div id="overlay-container" class="overlayContainer">' + 
-                          '<div id="overlay-background" class="overlayBackground"></div>' +
-                          '<div id="overlay-content" class="overlayContent" data-ng-transclude>' +
-                          '</div>' + 
-                      '</div>',
+            template: '<div id="overlay-container" class="overlayContainer">' +
+                            '<div id="overlay-background" class="overlayBackground"></div>' +
+                            '<div id="overlay-content" class="overlayContent" data-ng-transclude>' +
+                            '</div>' +
+                        '</div>',
             link: function (scope, element, attrs) {
                 var overlayContainer = null,
                     timerPromise = null,
@@ -98,7 +82,7 @@ define([], function () {
                         timerPromiseHide = $timeout(function () {
                             //Make sure queue is still 0 since a new XHR request may have come in
                             //while timer was running
-                            if (queue.length == 0) { 
+                            if (queue.length == 0) {
                                 hideOverlay();
                                 if (timerPromiseHide) $timeout.cancel(timerPromiseHide);
                             }
@@ -154,6 +138,28 @@ define([], function () {
                 }();
             }
         }
-    }]);
+    },
+
+    httpProvider = function ($httpProvider) {
+        $httpProvider.interceptors.push('httpInterceptor');
+    },
+
+    httpInterceptor = function () {
+        return {}
+    };
+
+    var wcDirectivesApp = angular.module('wc.Directives', []);
+
+    //Empty factory to hook into $httpProvider.interceptors
+    //Directive will hookup request, response, and responseError interceptors
+    wcDirectivesApp.factory('httpInterceptor', httpInterceptor);
+
+    //Hook httpInterceptor factory into the $httpProvider interceptors so that we can monitor XHR calls
+    wcDirectivesApp.config(['$httpProvider', httpProvider]);
+
+    //Directive that uses the httpInterceptor factory above to monitor XHR calls
+    //When a call is made it displays an overlay and a content area 
+    //No attempt has been made at this point to test on older browsers
+    wcDirectivesApp.directive('wcOverlay', ['$q', '$timeout', '$window', 'httpInterceptor', wcOverlayDirective]);
 
 });

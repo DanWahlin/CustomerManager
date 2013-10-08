@@ -1,7 +1,9 @@
 ﻿'use strict';
 
 define(['app'], function (app) {
-    app.filter('nameCityStateFilter', function () {
+
+    var nameCityStateFilter = function () {
+
         return function (customers, filterValue) {
             if (!filterValue) return customers;
 
@@ -20,5 +22,8 @@ define(['app'], function (app) {
             }
             return matches;
         };
-    });
+    };
+
+    app.filter('nameCityStateFilter', nameCityStateFilter);
+
 });

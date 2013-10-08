@@ -58,6 +58,7 @@ define(['services/routeResolver'], function () {
     }]);
 
     return app;
+
 });
 
 

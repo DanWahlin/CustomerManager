@@ -118,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="span12">
-                        <button type="submit" class="btn btn-primary" data-ng-click="saveCustomer()" ng-disabled="editForm.$invalid">{{buttonText}}</button>
+                        <button type="submit" class="btn btn-primary" data-ng-click="saveCustomer()" ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}</button>
                         &nbsp;&nbsp;
                         <button class="btn btn-danger" data-ng-if="customer.id > 0" data-ng-click="deleteCustomer()">Delete</button>
                     </div>

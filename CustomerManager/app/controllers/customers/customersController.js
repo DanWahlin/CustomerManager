@@ -1,9 +1,8 @@
 ﻿'use strict';
 
 define(['app'], function (app) {
-
-    app.register.controller('CustomersController', ['$scope', '$location', '$filter', 'dataService', 'modalService',
-        function ($scope, $location, $filter, dataService, modalService) {
+    
+    var customersController = function ($scope, $location, $filter, dataService, modalService) {
 
         $scope.customers = [];
         $scope.filteredCustomers = [];
@@ -18,49 +17,10 @@ define(['app'], function (app) {
 
         init();
 
-        function init() {
-            createWatches();
-            getCustomersSummary();
-        }
-
-        function createWatches() {
-            //Watch searchText value and pass it and the customers to nameCityStateFilter
-            //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
-            //while also accessing the filtered count via $scope.filteredCount above
-            $scope.$watch("searchText", function (filterText) {
-                filterCustomers(filterText);
-            });
-        }
-
         $scope.pageChanged = function (page) {
             $scope.currentPage = page;
             getCustomersSummary();
         };
-
-        function getCustomersSummary() {
-            dataService.getCustomersSummary($scope.currentPage - 1, $scope.pageSize)
-            .then(function (data) {
-                $scope.totalRecords = data.totalRecords;
-                $scope.customers = data.results;
-                filterCustomers(''); //Trigger initial filter
-            }, function (error) {
-                alert(error.message);
-            });
-        }
-
-        function filterCustomers(filterText) {
-            $scope.filteredCustomers = $filter("nameCityStateFilter")($scope.customers, filterText);
-            $scope.filteredCount = $scope.filteredCustomers.length;
-        }
-
-        function getCustomerById(id) {
-            for (var i = 0; i < $scope.customers.length; i++) {
-                var cust = $scope.customers[i];
-                if (cust.id === id) {
-                    return cust;
-                }
-            }
-        }        
 
         $scope.deleteCustomer = function (id) {
             var cust = getCustomerById(id);
@@ -74,17 +34,19 @@ define(['app'], function (app) {
             };
 
             modalService.showModal({}, modalOptions).then(function (result) {
-                dataService.deleteCustomer(id).then(function () {
-                    for (var i = 0; i < $scope.customers.length; i++) {
-                        if ($scope.customers[i].id == id) {
-                            $scope.customers.splice(i, 1);
-                            break;
+                if (result === 'ok') {
+                    dataService.deleteCustomer(id).then(function () {
+                        for (var i = 0; i < $scope.customers.length; i++) {
+                            if ($scope.customers[i].id == id) {
+                                $scope.customers.splice(i, 1);
+                                break;
+                            }
                         }
-                    }
-                    filterCustomers($scope.filterText);
-                }, function (error) {
-                    alert('Error deleting customer: ' + error.message);
-                });
+                        filterCustomers($scope.filterText);
+                    }, function (error) {
+                        alert('Error deleting customer: ' + error.message);
+                    });
+                }
             });
         };
 
@@ -115,6 +77,48 @@ define(['app'], function (app) {
             $scope.orderby = orderby;
         };
 
-    }]);
+        function init() {
+            createWatches();
+            getCustomersSummary();
+        }
+
+        function createWatches() {
+            //Watch searchText value and pass it and the customers to nameCityStateFilter
+            //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
+            //while also accessing the filtered count via $scope.filteredCount above
+            $scope.$watch("searchText", function (filterText) {
+                filterCustomers(filterText);
+            });
+        }
+
+        function getCustomersSummary() {
+            dataService.getCustomersSummary($scope.currentPage - 1, $scope.pageSize)
+            .then(function (data) {
+                $scope.totalRecords = data.totalRecords;
+                $scope.customers = data.results;
+                filterCustomers(''); //Trigger initial filter
+            }, function (error) {
+                alert(error.message);
+            });
+        }
+
+        function filterCustomers(filterText) {
+            $scope.filteredCustomers = $filter("nameCityStateFilter")($scope.customers, filterText);
+            $scope.filteredCount = $scope.filteredCustomers.length;
+        }
+
+        function getCustomerById(id) {
+            for (var i = 0; i < $scope.customers.length; i++) {
+                var cust = $scope.customers[i];
+                if (cust.id === id) {
+                    return cust;
+                }
+            }
+        }
+
+    };
+
+    app.register.controller('CustomersController',
+        ['$scope', '$location', '$filter', 'dataService', 'modalService', customersController]);
 
 });
