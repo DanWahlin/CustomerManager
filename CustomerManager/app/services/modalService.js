@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     "use strict";
 
-    var modalService = function ($q, $modal) {
+    var modalService = function ($modal) {
 
         var modalDefaults = {
             backdrop: true,
@@ -51,6 +51,6 @@
 
     };
 
-    app.service('modalService', ['$q', '$modal', modalService]);
+    app.service('modalService', ['$modal', modalService]);
 
 });

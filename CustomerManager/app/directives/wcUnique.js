@@ -15,7 +15,7 @@ define(['app'], function (app) {
                         .then(function (unique) {
                             //Ensure value that being checked hasn't changed
                             //since the Ajax call was made
-                            if (currentValue == element.val()) {
+                            if (currentValue === element.val()) {
                                 ngModel.$setValidity('unique', unique);
                             }
                         }, function () {
