@@ -42,7 +42,7 @@ define(['app'], function (app) {
                                 break;
                             }
                         }
-                        filterCustomers($scope.filterText);
+                        filterCustomers($scope.searchText);
                     }, function (error) {
                         alert('Error deleting customer: ' + error.message);
                     });

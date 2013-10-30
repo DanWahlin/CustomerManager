@@ -67,6 +67,8 @@ define(['app'], function (app) {
             //Iterate through customers
             for (var i = 0; i < custsLen; i++) {
                 var cust = customers[i];
+                if (!cust.orders) cust.orders = [];
+
                 var ordersLen = cust.orders.length;
                 for (var j = 0; j < ordersLen; j++) {
                     var order = cust.orders[j];
@@ -79,10 +81,12 @@ define(['app'], function (app) {
         function getPagedResource(baseResource, pageIndex, pageSize) {
             var resource = baseResource;
             resource += (arguments.length == 3) ? buildPagingUri(pageIndex, pageSize) : '';
-            return $http.get(serviceBase + resource).then(function (data) {
+            return $http.get(serviceBase + resource).then(function (response) {
+                var custs = response.data;
+                extendCustomers(custs);
                 return {
-                    totalRecords: parseInt(data.headers('X-InlineCount')),
-                    results: data.data
+                    totalRecords: parseInt(response.headers('X-InlineCount')),
+                    results: custs
                 };
             });
         }
