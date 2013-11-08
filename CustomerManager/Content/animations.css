@@ -5,7 +5,6 @@
   -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 
-  position:absolute;
   top:0;
   left:0;
   right:0;
@@ -45,6 +44,8 @@ body.skip-animations * {
   -moz-transition:all linear 0.3s;
   -o-transition:all linear 0.3s;
   transition:all linear 0.3s;
+  display:block!important;
+  min-height: 1000px;
 }
  
 .show-hide-animation.ng-hide-remove {
