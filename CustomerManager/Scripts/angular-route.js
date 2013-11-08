@@ -1,33 +1,22 @@
 ﻿/**
- * @license AngularJS v1.2.0rc1
+ * @license AngularJS v1.2.0-rc.3
  * (c) 2010-2012 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function (window, angular, undefined) {
     'use strict';
 
-    var copy = angular.copy,
-        equals = angular.equals,
-        extend = angular.extend,
-        forEach = angular.forEach,
-        isDefined = angular.isDefined,
-        isFunction = angular.isFunction,
-        isString = angular.isString,
-        jqLite = angular.element,
-        noop = angular.noop,
-        toJson = angular.toJson;
-
-
-    function inherit(parent, extra) {
-        return extend(new (extend(function () { }, { prototype: parent }))(), extra);
-    }
-
     /**
      * @ngdoc overview
      * @name ngRoute
      * @description
      *
-     * Module that provides routing and deeplinking services and directives for angular apps.
+     * # ngRoute
+     *
+     * The `ngRoute` module provides routing and deeplinking services and directives for angular apps.
+     *
+     * {@installModule route}
+     *
      */
 
     var ngRouteModule = angular.module('ngRoute', ['ng']).
@@ -41,8 +30,14 @@
      * @description
      *
      * Used for configuring routes. See {@link ngRoute.$route $route} for an example.
+     *
+     * Requires the {@link ngRoute `ngRoute`} module to be installed.
      */
     function $RouteProvider() {
+        function inherit(parent, extra) {
+            return angular.extend(new (angular.extend(function () { }, { prototype: parent }))(), extra);
+        }
+
         var routes = {};
 
         /**
@@ -58,8 +53,8 @@
          *      * `path` can contain named groups starting with a colon (`:name`). All characters up
          *        to the next slash are matched and stored in `$routeParams` under the given `name`
          *        when the route matches.
-         *      * `path` can contain named groups starting with a colon and ending with a star (`:name*`). 
-         *        All characters are eagerly stored in `$routeParams` under the given `name` 
+         *      * `path` can contain named groups starting with a colon and ending with a star (`:name*`).
+         *        All characters are eagerly stored in `$routeParams` under the given `name`
          *        when the route matches.
          *      * `path` can contain optional named groups with a question mark (`:name?`).
          *
@@ -124,8 +119,8 @@
          *      The custom `redirectTo` function is expected to return a string which will be used
          *      to update `$location.path()` and `$location.search()`.
          *
-         *    - `[reloadOnSearch=true]` - {boolean=} - reload route when only $location.search()
-         *    changes.
+         *    - `[reloadOnSearch=true]` - {boolean=} - reload route when only `$location.search()`
+         *      or `$location.hash()` changes.
          *
          *      If the option is set to `false` and url in the browser changes, then
          *      `$routeUpdate` event is broadcasted on the root scope.
@@ -141,7 +136,7 @@
          * Adds a new route definition to the `$route` service.
          */
         this.when = function (path, route) {
-            routes[path] = extend(
+            routes[path] = angular.extend(
               { reloadOnSearch: true },
               route,
               path && pathRegExp(path, route)
@@ -150,10 +145,10 @@
             // create redirection for trailing slashes
             if (path) {
                 var redirectPath = (path[path.length - 1] == '/')
-                    ? path.substr(0, path.length - 1)
-                    : path + '/';
+                      ? path.substr(0, path.length - 1)
+                      : path + '/';
 
-                routes[redirectPath] = extend(
+                routes[redirectPath] = angular.extend(
                   { redirectTo: path },
                   pathRegExp(redirectPath, route)
                 );
@@ -192,7 +187,9 @@
                     + (optional ? '' : slash)
                     + '(?:'
                     + (optional ? slash : '')
-                    + (star && '(.+)?' || '([^/]+)?') + ')'
+                    + (star && '(.+?)' || '([^/]+)')
+                    + (optional || '')
+                    + ')'
                     + (optional || '');
               })
               .replace(/([\/$\*])/g, '\\$1');
@@ -242,13 +239,15 @@
                  * @property {Array.<Object>} routes Array of all configured routes.
                  *
                  * @description
-                 * Is used for deep-linking URLs to controllers and views (HTML partials).
+                 * `$route` is used for deep-linking URLs to controllers and views (HTML partials).
                  * It watches `$location.url()` and tries to map the path to an existing route definition.
+                 *
+                 * Requires the {@link ngRoute `ngRoute`} module to be installed.
                  *
                  * You can define routes through {@link ngRoute.$routeProvider $routeProvider}'s API.
                  *
-                 * The `$route` service is typically used in conjunction with {@link ngRoute.directive:ngView ngView}
-                 * directive and the {@link ngRoute.$routeParams $routeParams} service.
+                 * The `$route` service is typically used in conjunction with the {@link ngRoute.directive:ngView `ngView`}
+                 * directive and the {@link ngRoute.$routeParams `$routeParams`} service.
                  *
                  * @example
                    This example shows how changing the URL hash causes the `$route` to match a route against the
@@ -359,6 +358,7 @@
                  * defined in `resolve` route property. Once  all of the dependencies are resolved
                  * `$routeChangeSuccess` is fired.
                  *
+                 * @param {Object} angularEvent Synthetic event object.
                  * @param {Route} next Future route information.
                  * @param {Route} current Current route information.
                  */
@@ -386,6 +386,7 @@
                  * @description
                  * Broadcasted if any of the resolve promises are rejected.
                  *
+                 * @param {Object} angularEvent Synthetic event object
                  * @param {Route} current Current route information.
                  * @param {Route} previous Previous route information.
                  * @param {Route} rejection Rejection of the promise. Usually the error of the failed promise.
@@ -450,13 +451,12 @@
                     var m = route.regexp.exec(on);
                     if (!m) return null;
 
-                    var N = 0;
                     for (var i = 1, len = m.length; i < len; ++i) {
                         var key = keys[i - 1];
 
                         var val = 'string' == typeof m[i]
-                          ? decodeURIComponent(m[i])
-                          : m[i];
+                              ? decodeURIComponent(m[i])
+                              : m[i];
 
                         if (key && val) {
                             params[key.name] = val;
@@ -470,9 +470,9 @@
                         last = $route.current;
 
                     if (next && last && next.$$route === last.$$route
-                        && equals(next.pathParams, last.pathParams) && !next.reloadOnSearch && !forceReload) {
+                        && angular.equals(next.pathParams, last.pathParams) && !next.reloadOnSearch && !forceReload) {
                         last.params = next.params;
-                        copy(last.params, $routeParams);
+                        angular.copy(last.params, $routeParams);
                         $rootScope.$broadcast('$routeUpdate', last);
                     } else if (next || last) {
                         forceReload = false;
@@ -480,7 +480,7 @@
                         $route.current = next;
                         if (next) {
                             if (next.redirectTo) {
-                                if (isString(next.redirectTo)) {
+                                if (angular.isString(next.redirectTo)) {
                                     $location.path(interpolate(next.redirectTo, next.params)).search(next.params)
                                              .replace();
                                 } else {
@@ -493,29 +493,29 @@
                         $q.when(next).
                           then(function () {
                               if (next) {
-                                  var locals = extend({}, next.resolve),
+                                  var locals = angular.extend({}, next.resolve),
                                       template, templateUrl;
 
-                                  forEach(locals, function (value, key) {
-                                      locals[key] = isString(value) ? $injector.get(value) : $injector.invoke(value);
+                                  angular.forEach(locals, function (value, key) {
+                                      locals[key] = angular.isString(value) ? $injector.get(value) : $injector.invoke(value);
                                   });
 
-                                  if (isDefined(template = next.template)) {
-                                      if (isFunction(template)) {
+                                  if (angular.isDefined(template = next.template)) {
+                                      if (angular.isFunction(template)) {
                                           template = template(next.params);
                                       }
-                                  } else if (isDefined(templateUrl = next.templateUrl)) {
-                                      if (isFunction(templateUrl)) {
+                                  } else if (angular.isDefined(templateUrl = next.templateUrl)) {
+                                      if (angular.isFunction(templateUrl)) {
                                           templateUrl = templateUrl(next.params);
                                       }
                                       templateUrl = $sce.getTrustedResourceUrl(templateUrl);
-                                      if (isDefined(templateUrl)) {
+                                      if (angular.isDefined(templateUrl)) {
                                           next.loadedTemplateUrl = templateUrl;
                                           template = $http.get(templateUrl, { cache: $templateCache }).
                                               then(function (response) { return response.data; });
                                       }
                                   }
-                                  if (isDefined(template)) {
+                                  if (angular.isDefined(template)) {
                                       locals['$template'] = template;
                                   }
                                   return $q.all(locals);
@@ -526,7 +526,7 @@
                               if (next == $route.current) {
                                   if (next) {
                                       next.locals = locals;
-                                      copy(next.params, $routeParams);
+                                      angular.copy(next.params, $routeParams);
                                   }
                                   $rootScope.$broadcast('$routeChangeSuccess', next, last);
                               }
@@ -545,10 +545,10 @@
                 function parseRoute() {
                     // Match a route
                     var params, match;
-                    forEach(routes, function (route, path) {
+                    angular.forEach(routes, function (route, path) {
                         if (!match && (params = switchRouteMatcher($location.path(), route))) {
                             match = inherit(route, {
-                                params: extend({}, $location.search(), params),
+                                params: angular.extend({}, $location.search(), params),
                                 pathParams: params
                             });
                             match.$$route = route;
@@ -563,8 +563,8 @@
                  */
                 function interpolate(string, params) {
                     var result = [];
-                    forEach((string || '').split(':'), function (segment, i) {
-                        if (i == 0) {
+                    angular.forEach((string || '').split(':'), function (segment, i) {
+                        if (i === 0) {
                             result.push(segment);
                         } else {
                             var segmentMatch = segment.match(/(\w+)(.*)/);
@@ -588,9 +588,13 @@
      * @requires $route
      *
      * @description
-     * Current set of route parameters. The route parameters are a combination of the
-     * {@link ng.$location $location} `search()`, and `path()`. The `path` parameters
-     * are extracted when the {@link ngRoute.$route $route} path is matched.
+     * The `$routeParams` service allows you to retrieve the current set of route parameters.
+     *
+     * Requires the {@link ngRoute `ngRoute`} module to be installed.
+     *
+     * The route parameters are a combination of {@link ng.$location `$location`}'s
+     * {@link ng.$location#search `search()`} and {@link ng.$location#path `path()`}.
+     * The `path` parameters are extracted when the {@link ngRoute.$route `$route`} path is matched.
      *
      * In case of parameter name collision, `path` params take precedence over `search` params.
      *
@@ -615,6 +619,8 @@
         this.$get = function () { return {}; };
     }
 
+    ngRouteModule.directive('ngView', ngViewFactory);
+
     /**
      * @ngdoc directive
      * @name ngRoute.directive:ngView
@@ -627,6 +633,8 @@
      * Every time the current route changes, the included view changes with it according to the
      * configuration of the `$route` service.
      *
+     * Requires the {@link ngRoute `ngRoute`} module to be installed.
+     *
      * @animations
      * enter - animation is used to bring new content into the browser.
      * leave - animation is used to animate existing content away.
@@ -634,6 +642,7 @@
      * The enter and leave animation occur concurrently.
      *
      * @scope
+     * @priority 400
      * @example
         <example module="ngViewExample" deps="angular-route.js" animations="true">
           <file name="index.html">
@@ -782,81 +791,76 @@
      * @description
      * Emitted every time the ngView content is reloaded.
      */
-    var NG_VIEW_PRIORITY = 500;
-    var ngViewDirective = ['$route', '$anchorScroll', '$compile', '$controller', '$animate',
-                   function ($route, $anchorScroll, $compile, $controller, $animate) {
-                       return {
-                           restrict: 'ECA',
-                           terminal: true,
-                           priority: NG_VIEW_PRIORITY,
-                           compile: function (element, attr) {
-                               var onloadExp = attr.onload || '';
+    ngViewFactory.$inject = ['$route', '$anchorScroll', '$compile', '$controller', '$animate'];
+    function ngViewFactory($route, $anchorScroll, $compile, $controller, $animate) {
+        return {
+            restrict: 'ECA',
+            terminal: true,
+            priority: 400,
+            transclude: 'element',
+            compile: function (element, attr, linker) {
+                return function (scope, $element, attr) {
+                    var currentScope,
+                        currentElement,
+                        onloadExp = attr.onload || '';
 
-                               element.html('');
-                               var anchor = jqLite(document.createComment(' ngView '));
-                               element.replaceWith(anchor);
+                    scope.$on('$routeChangeSuccess', update);
+                    update();
 
-                               return function (scope) {
-                                   var currentScope, currentElement;
+                    function cleanupLastView() {
+                        if (currentScope) {
+                            currentScope.$destroy();
+                            currentScope = null;
+                        }
+                        if (currentElement) {
+                            $animate.leave(currentElement);
+                            currentElement = null;
+                        }
+                    }
 
-                                   scope.$on('$routeChangeSuccess', update);
-                                   update();
+                    function update() {
+                        var locals = $route.current && $route.current.locals,
+                            template = locals && locals.$template;
 
-                                   function cleanupLastView() {
-                                       if (currentScope) {
-                                           currentScope.$destroy();
-                                           currentScope = null;
-                                       }
-                                       if (currentElement) {
-                                           $animate.leave(currentElement);
-                                           currentElement = null;
-                                       }
-                                   }
+                        if (template) {
+                            var newScope = scope.$new();
+                            linker(newScope, function (clone) {
+                                cleanupLastView();
 
-                                   function update() {
-                                       var locals = $route.current && $route.current.locals,
-                                           template = locals && locals.$template;
+                                clone.html(template);
+                                $animate.enter(clone, null, $element);
 
-                                       if (template) {
-                                           cleanupLastView();
+                                var link = $compile(clone.contents()),
+                                    current = $route.current;
 
-                                           currentScope = scope.$new();
-                                           currentElement = element.clone();
-                                           currentElement.html(template);
-                                           $animate.enter(currentElement, null, anchor);
+                                currentScope = current.scope = newScope;
+                                currentElement = clone;
 
-                                           var link = $compile(currentElement, false, NG_VIEW_PRIORITY - 1),
-                                               current = $route.current;
+                                if (current.controller) {
+                                    locals.$scope = currentScope;
+                                    var controller = $controller(current.controller, locals);
+                                    if (current.controllerAs) {
+                                        currentScope[current.controllerAs] = controller;
+                                    }
+                                    clone.data('$ngControllerController', controller);
+                                    clone.children().data('$ngControllerController', controller);
+                                }
 
-                                           if (current.controller) {
-                                               locals.$scope = currentScope;
-                                               var controller = $controller(current.controller, locals);
-                                               if (current.controllerAs) {
-                                                   currentScope[current.controllerAs] = controller;
-                                               }
-                                               currentElement.data('$ngControllerController', controller);
-                                               currentElement.children().data('$ngControllerController', controller);
-                                           }
+                                link(currentScope);
+                                currentScope.$emit('$viewContentLoaded');
+                                currentScope.$eval(onloadExp);
 
-                                           current.scope = currentScope;
-
-                                           link(currentScope);
-
-                                           currentScope.$emit('$viewContentLoaded');
-                                           currentScope.$eval(onloadExp);
-
-                                           // $anchorScroll might listen on event...
-                                           $anchorScroll();
-                                       } else {
-                                           cleanupLastView();
-                                       }
-                                   }
-                               }
-                           }
-                       };
-                   }];
-
-    ngRouteModule.directive('ngView', ngViewDirective);
+                                // $anchorScroll might listen on event...
+                                $anchorScroll();
+                            });
+                        } else {
+                            cleanupLastView();
+                        }
+                    }
+                }
+            }
+        };
+    }
 
 
 })(window, window.angular);
