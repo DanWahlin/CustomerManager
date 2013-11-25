@@ -6,6 +6,6 @@ define(['app'], function (app) {
 
     };
 
-    app.register.controller('AboutController', ['$scope', aboutController]);
+    app.register.controller('aboutController', ['$scope', aboutController]);
 
 });

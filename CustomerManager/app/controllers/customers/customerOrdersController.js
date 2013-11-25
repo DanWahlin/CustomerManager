@@ -24,7 +24,7 @@ define(['app'], function (app) {
 
     };
 
-    app.register.controller('CustomerOrdersController',
+    app.register.controller('customerOrdersController',
         ['$scope', '$routeParams', 'dataService', customerOrdersController]);
 
 });

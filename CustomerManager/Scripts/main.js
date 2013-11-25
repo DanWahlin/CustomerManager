@@ -17,7 +17,7 @@ require(
         'services/modalService',
         'filters/nameCityStateFilter',
         'filters/nameProductFilter',
-        'controllers/navbarController',
+        'controllers/navBarController',
         'controllers/orders/orderChildController'
     ],
     function () {

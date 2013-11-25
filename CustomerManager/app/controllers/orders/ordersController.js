@@ -35,6 +35,6 @@ define(['app'], function (app) {
 
     };
 
-    app.register.controller('OrdersController', ['$scope', 'dataService', ordersController]);
+    app.register.controller('ordersController', ['$scope', 'dataService', ordersController]);
 
 });
