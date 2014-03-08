@@ -35,7 +35,7 @@
             angular.extend(tempModalOptions, modalOptions, customModalOptions);
 
             if (!tempModalDefaults.controller) {
-                tempModalDefaults.controller = function ($scope, $modalInstance) {
+                tempModalDefaults.controller = ['$scope','$modalInstance',function ($scope, $modalInstance) {
                     $scope.modalOptions = tempModalOptions;
                     $scope.modalOptions.ok = function (result) {
                         $modalInstance.close('ok');
@@ -43,7 +43,7 @@
                     $scope.modalOptions.close = function (result) {
                         $modalInstance.close('cancel');
                     };
-                }
+                }];
             }
 
             return $modal.open(tempModalDefaults).result;
