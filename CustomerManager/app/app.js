@@ -42,11 +42,11 @@ define(['services/routeResolver'], function () {
                 //The controllers for orders live in controllers/orders and the views are in views/orders
                 //The second parameter allows for putting related controllers/views into subfolders to better organize large projects
                 //Thanks to Ton Yeung for the idea and contribution
-                .when('/customers', route.resolve('Customers', 'customers/'))
-                .when('/customerorders/:customerID', route.resolve('CustomerOrders', 'customers/'))
-                .when('/customeredit/:customerID', route.resolve('CustomerEdit', 'customers/'))
-                .when('/orders', route.resolve('Orders', 'orders/'))
-                .when('/about', route.resolve('About'))
+                .when('/customers', route.resolve('customers', 'customers/'))
+                .when('/customerorders/:customerID', route.resolve('customerOrders', 'customers/'))
+                .when('/customeredit/:customerID', route.resolve('customerEdit', 'customers/'))
+                .when('/orders', route.resolve('orders', 'orders/'))
+                .when('/about', route.resolve('about'))
                 .otherwise({ redirectTo: '/customers' });
 
     }]);

@@ -122,7 +122,7 @@ define(['app'], function (app) {
         }
     };
 
-    app.register.controller('CustomerEditController',
+    app.register.controller('customerEditController',
        ['$rootScope', '$scope', '$location', '$routeParams', '$timeout', 'config', 'dataService', 'modalService', customersController]);
 
 });

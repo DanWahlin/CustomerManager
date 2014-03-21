@@ -94,8 +94,8 @@ define(['app'], function (app) {
         function getCustomersSummary() {
             dataService.getCustomersSummary($scope.currentPage - 1, $scope.pageSize)
             .then(function (data) {
-                $scope.totalRecords = data.totalRecords;
-                $scope.customers = data.results;
+                $scope.totalRecords = data.results.totalRecords;
+                $scope.customers = data.results.customers;
                 filterCustomers(''); //Trigger initial filter
             }, function (error) {
                 alert(error.message);
@@ -118,7 +118,7 @@ define(['app'], function (app) {
 
     };
 
-    app.register.controller('CustomersController',
+    app.register.controller('customersController',
         ['$scope', '$location', '$filter', 'dataService', 'modalService', customersController]);
 
 });

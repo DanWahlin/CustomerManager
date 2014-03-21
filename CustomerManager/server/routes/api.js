@@ -120,7 +120,7 @@ exports.customersSummary = function (req, res) {
       });
     } else {
       console.log('*** customersSummary ok');
-      res.json(customersSummary);
+      res.json({ customers: customersSummary, totalRecords: customersSummary.length});
     }
   });
 };
