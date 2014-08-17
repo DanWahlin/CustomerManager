@@ -62,7 +62,7 @@ var orders =
 
 db = db.getSiblingDB('custmgr')
 
-db.customers.remove();
+db.customers.remove({});
 
 
 var l = customerNames.length

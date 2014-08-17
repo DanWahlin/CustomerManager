@@ -56,7 +56,7 @@ var states = [
 var l = states.length
   , i;
 
-db.states.remove();
+db.states.remove({});
 
 for (i = 0; i < l; i++) {
   var r = {'id': i + 1, 'name': states[i].name, 'abbreviation': states[i].abbreviation};
