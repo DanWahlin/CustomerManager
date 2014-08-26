@@ -1,6 +1,9 @@
 Customer Manager with AngularJS (with custom routing)
 ===============
 
+Note: This is a prototype project that is kept available for those looking how to dynamically load controllers and other scripts using AngularJS but not actively updated. 
+The actively updated version of the project (without custom routing) can be [found here](https://github.com/DanWahlin/CustomerManagerStandard).
+
 If you’re new to AngularJS check out my [AngularJS in 60-ish Minutes](http://weblogs.asp.net/dwahlin/archive/2013/04/12/video-tutorial-angularjs-fundamentals-in-60-ish-minutes.aspx) video tutorial or download the [free eBook](http://weblogs.asp.net/dwahlin/archive/2013/07/30/angularjs-in-60-ish-minutes-the-ebook.aspx). Also check out [The AngularJS Magazine](http://flip.it/bdyUX) for up-to-date information on using AngularJS to build Single Page Applications (SPAs).
 
 ![Customer Management App](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/customerApp.png)
