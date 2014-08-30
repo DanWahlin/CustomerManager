@@ -3,10 +3,10 @@ Customer Manager with AngularJS (with custom routing and dynamic controller scri
 
 If you’re new to AngularJS check out my [AngularJS in 60-ish Minutes](http://weblogs.asp.net/dwahlin/archive/2013/04/12/video-tutorial-angularjs-fundamentals-in-60-ish-minutes.aspx) video tutorial or download the [free eBook](http://weblogs.asp.net/dwahlin/archive/2013/07/30/angularjs-in-60-ish-minutes-the-ebook.aspx). Also check out [The AngularJS Magazine](http://flip.it/bdyUX) for up-to-date information on using AngularJS to build Single Page Applications (SPAs).
 
-Also check out my <a href="http://tinyurl.com/angularjs-jumpstart">AngularJS JumpStart</a> video course:
+Also check out my <a href="http://tinyurl.com/angularjsjumpstart">AngularJS JumpStart</a> video course:
 
-<a href="http://tinyurl.com/angularjs-jumpstart">
-    <img style="height:225px;width:400px;" src="CustomerManager/Content/images/CourseLogoYellow.png" border="0" />
+<a href="http://tinyurl.com/angularjsjumpstart">
+    <img height="225" width="400" src="CustomerManager/Content/images/CourseLogoYellow.png" border="0" />
 </a>
 
 ![Customer Management App](CustomerManager/Content/images/customerApp.png)
