@@ -1,32 +1,38 @@
-Customer Manager with AngularJS (with custom routing)
+Customer Manager with AngularJS (with custom routing and dynamic controller script loading)
 ===============
-
-Note: This is a prototype project that is kept available for those looking how to dynamically load controllers and other scripts using AngularJS but not actively updated. 
-The actively updated version of the project (without custom routing) can be [found here](https://github.com/DanWahlin/CustomerManagerStandard).
 
 If you’re new to AngularJS check out my [AngularJS in 60-ish Minutes](http://weblogs.asp.net/dwahlin/archive/2013/04/12/video-tutorial-angularjs-fundamentals-in-60-ish-minutes.aspx) video tutorial or download the [free eBook](http://weblogs.asp.net/dwahlin/archive/2013/07/30/angularjs-in-60-ish-minutes-the-ebook.aspx). Also check out [The AngularJS Magazine](http://flip.it/bdyUX) for up-to-date information on using AngularJS to build Single Page Applications (SPAs).
 
-![Customer Management App](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/customerApp.png)
+Also check out my <a href="http://tinyurl.com/angularjs-jumpstart">AngularJS JumpStart</a> video course:
 
-This version of the application has support for custom routing. See this [this post](http://weblogs.asp.net/dwahlin/archive/2013/05/22/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs.aspx) for more details. The standard version of the application with no custom routing can be [found here](https://github.com/DanWahlin/CustomerManagerStandard).
+<a href="http://tinyurl.com/angularjs-jumpstart">
+    <img style="height:225px;width:400px;" src="CustomerManager/Content/images/CourseLogoYellow.png" border="0" />
+</a>
+
+![Customer Management App](CustomerManager/Content/images/customerApp.png)
+
+This version of the application has support for custom routing and dynamic controller script loading. See this [this post](http://weblogs.asp.net/dwahlin/archive/2013/05/22/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs.aspx) for more details. The standard version of the application with no custom routing can be [found here](https://github.com/DanWahlin/CustomerManagerStandard).
 
 This application demonstrates:
 
 * A complete application with read-only and editable data
-* Using AngularJS with $http in a factory to access a backend Web API service
-* Using BreezeJS in a factory to access a backend Web API Service
+* Using AngularJS with $http in a factory to access a backend RESTful service
+* Using BreezeJS in a factory to access a backend RESTful Service
 * Techniques for showing multiple views of data (card view and list view)
-* A custom filter for filtering customer data
+* Custom filters for filtering customer and product data
+* A custom directive to ensure unique values in a form for email 
+* A custom directive that intercepts $http and jQuery XHR requests (in case either are used) and displays a loading dialog
+* A custom directive that handles highlighting menu items automatically based upon the path navigated to by the user
+* Form validation using AngularJS
+* Provides login and authentication functionality (currently client-side only - plan to add server-side part too which is absolutely required in a "real" app)
 * A custom routing mechanism that allows a controller & template to be downloaded dynamically "on the fly" and provides a standard convention for controller and view names (see [this post](http://weblogs.asp.net/dwahlin/archive/2013/05/22/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs.aspx)
  for more details)
-* A custom directive to ensure unique values in a form for email
-* A custom directive that intercepts $http and jQuery XHR requests (in case either are used) and displays a loading dialog
 
-The factories can be switched by changing the app/services/config useBreeze setting to true.
+The factories can be switched by changing the app/customersApp/services/config useBreeze setting to true.
 
 The AngularJS portion of the app is structured using the following folders:
 
-![Customer Management App Structure](https://raw.github.com/DanWahlin/CustomerManager/master/CustomerManager/Content/images/appFolders.png)
+![Customer Management App Structure](CustomerManager/Content/images/appFolders.png)
 
 ## Requirements:
 
@@ -47,18 +53,31 @@ If you don't already have Node.js on your machine install it from http://nodejs.
 
 In the CustomerManager directory execute 'npm install' to install Express, MongoDB and Mongoose (package.json).
 
-Load sample data into MongoDB by performing the following steps:
+Load MongoDB Sample Data Option 1: 
+
+Load data into MongoDB by performing the following steps:
 
 * Execute 'mongod' to start the MongoDB daemon
-* Navigate to the CustomerManager directory (the one that has initMongoCustData.js in it) then execute 'mongo' to start the MongoDB shell
-* Enter the following in the mongo shell to load the seed files:
- * use custmgr
- * load("initMongoCustData.js")
- * load("initMongoSettingsData.js")
- * load("initMongoStateData.js")
+* Navigate to the CustomerManager/server directory (the one that has initMongoData.js in it)
+* Execute 'mongo' to start the MongoDB shell
+* Enter the following in the mongo shell to load the data seed file:
+ * use customermanager
+ * load("initMongoData.js")
+
+Load Sample Data Option 2: 
+
+Alternatively you can navigate to CustomerManager/server and double-click the initMongoData.bat (Windows) or initMongoData.sh (Mac/Linux) file to initialize MongoDB with the data. 
+
+The Windows script assumes that MongoDB is installed at c:\mongodb while the Linux/Mac script relies on the fact that you have the monogo executable
+in the path.
 
 Start the Node/Express server:
-* navigate to the CustomerManager/server directory then execute 'node app.js'
+
+* Open a command prompt
+* Navigate to the CustomerManager directory
+* Run 'npm install' at the command prompt
+* Navigate to the CustomerManager/server directory
+* Run 'node server.js'
 
 View the application at http://localhost:3000
 

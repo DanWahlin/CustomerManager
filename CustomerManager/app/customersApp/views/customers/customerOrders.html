@@ -1,0 +1,22 @@
+﻿<div class="orders view">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Customer Orders</h3>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div>
+                        <h4>Orders for <a href="#/customeredit/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }} <i class="icon-edit editIcon"></i></a></h4>
+                        {{customer.address}}
+                        <br />
+                        {{customer.city}}, {{customer.state.name}}
+                        <br /><br />
+                    </div>
+                    <div data-ng-include="'/app/customersApp/views/orders/ordersTable.html'" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

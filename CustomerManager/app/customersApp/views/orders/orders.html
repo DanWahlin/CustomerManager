@@ -1,0 +1,49 @@
+﻿<div class="orders view">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;All Customer Orders</h3>
+        </header>
+        <br />
+        <div class="customerEdit">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="navbarText col-sm-2">Filter by Name/Product:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control novalidate"
+                               data-ng-model="searchText"
+                               data-ng-change="searchTextChanged();" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 repeat-animation" data-ng-repeat="customer in filteredCustomers | orderBy:'lastName'">
+                    <div>
+                        <h4><a href="#/customerorders/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }}</a></h4>
+                    </div>
+                    <div data-ng-include="'/app/customersApp/views/orders/ordersTable.html'" />
+                </div>
+            </div>
+            <div class="row show-hide-animation" data-ng-show="filteredCustomers.length == 0">
+                <div class="col-md-12">
+                    <h4>No customers found</h4>
+                </div>
+            </div>
+            <div class="row show-hide-animation" data-ng-show="customers.length > 0" style="margin-left:0px;">
+                <div class="col-md-12">
+                    <div data-pagination
+                         data-on-select-page="pageChanged(page)"
+                         data-total-items="totalRecords"
+                         data-page="currentPage"
+                         data-boundary-links="true"
+                         class="pagination-sm">
+                    </div>
+                    <h5>Showing {{ filteredCount }} of {{ totalRecords}} total customers</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+</div>
+

@@ -4,14 +4,14 @@
 }
 
 .slide-animation.ng-enter, .slide-animation.ng-leave {
-    -webkit-transition: 0.5s linear all;
     -moz-transition: 0.5s linear all;
     -o-transition: 0.5s linear all;
+    -webkit-transition: 0.5s linear all;
     transition: 0.5s linear all;
-    position:absolute;
-    top: 0;
+    position: relative;
+    /*top: 0;
     left: 0;
-    right: 0;
+    right: 0;*/
     height: 1000px;
 }
 
@@ -51,7 +51,7 @@ body.skip-animations * {
   -o-transition:all linear 0.3s;
   transition:all linear 0.3s;
   display:block!important;
-  min-height: 1000px;
+  height: 1000px;
 }
  
 .show-hide-animation.ng-hide-remove {

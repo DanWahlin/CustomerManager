@@ -1,6 +1,5 @@
 ﻿using CustomerManager.Model;
 using CustomerManager.Repository;
-using Breeze.WebApi;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Breeze.WebApi2;
+using Breeze.ContextProvider.EF6;
+using Breeze.ContextProvider;
 
 namespace CustomerManager.Controllers
 {
@@ -44,9 +46,9 @@ namespace CustomerManager.Controllers
         public IQueryable<CustomerSummary> CustomersSummary()
         {
             var query = _contextProvider.Context.Customers.Include("States").OrderBy(c => c.LastName);
-            return query.Select(c => 
+            return query.Select(c =>
                 new CustomerSummary
-                { 
+                {
                     Id = c.Id,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
@@ -79,7 +81,7 @@ namespace CustomerManager.Controllers
                 return _contextProvider.SaveChanges(saveBundle);
             }
             catch (Exception exp)
-            {                
+            {
                 throw;
             }
 

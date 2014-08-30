@@ -1,15 +1,72 @@
-﻿html {
+﻿@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/Pru33qjShpZSmG3z6VYwnT8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/Xyjz-jNkfiYuJf8UC3Lizw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto Medium'), local('Roboto-Medium'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/oOeFwZNlrTefzLYmlVV1UD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/97uahxiqZRoncBaCEI3aWz8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Roboto Light Italic'), local('Roboto-LightItalic'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/7m8l7TlFO-S3VkhHuR0at9Ih4imgI8P11RFo6YPCPC0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roboto Italic'), local('Roboto-Italic'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/dFWsweFqlD8ExfyN7Gh_GPesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 500;
+  src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/OLffGBTaF0XFOW1gnuHF0dIh4imgI8P11RFo6YPCPC0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Roboto Bold Italic'), local('Roboto-BoldItalic'), url(https://themes.googleusercontent.com/static/fonts/roboto/v9/t6Nd4cfPRhZP44Q5QAjcC9Ih4imgI8P11RFo6YPCPC0.woff) format('woff');
+}
+
+html {
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
 body {
-
+    font-family: 'Roboto'
 }
 
 #ng-view {
     position: relative;
-    padding-top: 65px;
+    padding-top: 50px;
+}
+
+#nav-login {
+    margin-left:30px;
+}
+
+.appTitle {
+    line-height:50px;
 }
 
 .view {
@@ -28,7 +85,6 @@ body {
     background-color:#fff;
     border: 1px solid #d4d4d4;
     height:100px;
-    width: 225px;
     margin-bottom: 20px;
     position: relative;
 }
@@ -38,6 +94,7 @@ body {
     font-size:14pt;
     color:white;
     padding:5px;
+    width:100%;
 }
 
 .cardClose {
@@ -47,16 +104,24 @@ body {
 }
 
 .cardContainer {
-    width:95%;
+    width:85%;
 }
 
 .cardBody {
     padding-left: 5px;
 }
 
+.cardBodyLeft {
+    margin-top: -5px;
+}
+
 .cardBodyRight {
-    margin-left:20px;
-    margin-top:10px;
+    margin-left: 20px;
+    margin-top: 2px;
+}
+
+.cardBodyContent {
+    width: 100px;
 }
 
 .cardImage {
@@ -101,8 +166,54 @@ footer {
     font-weight: bold;
 }
 
+.customerEdit input[type='text'], 
+.customerEdit input[type='number'],
+.customerEdit input[type='email'],
+.customerEdit select,
+.login input[type='text'], 
+.login input[type='email'],
+.login input[type='password'] {
+    width:250px;
+}
+
+.statusRow {
+    height:50px;
+}
 
 /* Bootstrap overrides */
+
+/* Added to fix Bootstrap 3 issue with Angular UI Bootstrap modal dialog*/
+.modal { 
+  display: block;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #027FF4;
+  border-color: #027FF4;
+}
+
+.cardContainer .col-md-3 {
+    padding-left: 0px;
+}
+
+.gridContainer  div {
+    padding-left: 0px;
+}
+
+.navbar-brand {
+    float:none;
+}
+
+a.navbar-brand {
+    color: #fff;
+}
 
 .navbar-inner {
     padding-left: 0px;
@@ -124,12 +235,14 @@ footer {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    height:50px;
 }
 
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
     background-color: #efefef;
     -webkit-box-shadow: none;
     box-shadow: none;
+    color: #808080;
 }
 
 .navbar .nav li.toolbaritem a:hover, .navbar .nav li a:hover {
@@ -145,6 +258,9 @@ footer {
         font-weight:bold;
         -webkit-text-shadow: none;
         text-shadow: none;
+        height:30px;
+        padding-top: 6px;
+        padding-bottom: 0px;
     }
 
     .navbar .nav > li.toolbaritem > a {
@@ -163,8 +279,8 @@ footer {
 }
 
 .nav.navBarPadding {
-    margin-left:10px;
-    margin-top:15px;
+    margin-left:25px;
+    margin-top: 10px;
 }
 
 .navbarText {
@@ -176,6 +292,14 @@ footer {
     color: #fff;
     -webkit-text-shadow: none;
     text-shadow: none;
+}
+
+.navbar-toggle {
+  border: 1px solid white;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: white;
 }
 
 .close {
@@ -201,7 +325,7 @@ footer {
     border-left: none !important;
 }
 
-input.ng-invalid, select.ng-invalid {
+input.ng-invalid, select.ng-invalid, input.ng-invalid-required, select.ng-invalid.required {
   border-left: 5px solid #E03930;
 }
 input.ng-valid, select.ng-valid {
@@ -212,7 +336,9 @@ input.ng-valid, select.ng-valid {
     position:absolute;
     padding: 5px;
     background-color: #E03930;
-    color:black;
+    color:white;
+    top:0px;
+    left:270px;
 }
 
 .editIcon {
@@ -229,3 +355,27 @@ input.ng-valid, select.ng-valid {
 .overlayContent { position:absolute; border: 1px solid #000; background-color:#fff; font-weight: bold;height: 100px;width: 300px;z-index:1000;text-align:center;}
 
 
+@media screen and (max-width: 640px) {
+
+    navbar-toggle { 
+        display: none;
+    }
+
+    #ng-view {
+        padding-top: 90px;
+    }
+
+    .navbar-brand {
+        font-size: 12pt;
+    }
+
+    .nav.navBarPadding {
+        margin-left: -10px;
+    }
+
+    .nav > li > a {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+}

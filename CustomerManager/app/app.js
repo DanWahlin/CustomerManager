@@ -13,12 +13,16 @@
 
 'use strict';
 
-define(['services/routeResolver'], function () {
+define(['customersApp/services/routeResolver'], function () {
 
-    var app = angular.module('customersApp', ['ngRoute', 'ngAnimate', 'routeResolverServices', 'wc.Directives', 'wc.Animations', 'ui.bootstrap']);
+    var app = angular.module('customersApp', ['ngRoute', 'ngAnimate', 'routeResolverServices',
+                                              'wc.directives', 'wc.animations', 'ui.bootstrap', 'breeze.angular.q']);
 
-    app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
-        function ($routeProvider, routeResolverProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $httpProvider) {
+    app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider',
+                '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
+
+        function ($routeProvider, routeResolverProvider, $controllerProvider,
+                  $compileProvider, $filterProvider, $provide, $httpProvider) {
 
             //Change default views and controllers directory using the following:
             //routeResolverProvider.routeConfig.setBaseDirectories('/app/views', '/app/controllers');
@@ -43,18 +47,30 @@ define(['services/routeResolver'], function () {
                 //The second parameter allows for putting related controllers/views into subfolders to better organize large projects
                 //Thanks to Ton Yeung for the idea and contribution
                 .when('/customers', route.resolve('Customers', 'customers/'))
-                .when('/customerorders/:customerID', route.resolve('CustomerOrders', 'customers/'))
-                .when('/customeredit/:customerID', route.resolve('CustomerEdit', 'customers/'))
+                .when('/customerorders/:customerId', route.resolve('CustomerOrders', 'customers/'))
+                .when('/customeredit/:customerId', route.resolve('CustomerEdit', 'customers/', true))
                 .when('/orders', route.resolve('Orders', 'orders/'))
                 .when('/about', route.resolve('About'))
+                .when('/login/:redirect*?', route.resolve('Login'))
                 .otherwise({ redirectTo: '/customers' });
 
     }]);
 
-    //Only needed for Breeze. Maps Q (used by default in Breeze) to Angular's $q to avoid having to call scope.$apply() 
-    app.run(['$q', '$rootScope',
-        function ($q, $rootScope) {
-            breeze.core.extendQ($rootScope, $q);
+    app.run(['$q', 'use$q', '$rootScope', '$location', 'authService',
+        function ($q, use$q, $rootScope, $location, authService) {
+
+            use$q($q); //for Breeze.js so that it uses $q instead of Q
+            
+            //Client-side security. Server-side framework MUST add it's 
+            //own security as well since client-based security is easily hacked
+            $rootScope.$on("$routeChangeStart", function (event, next, current) {
+                if (next && next.$$route && next.$$route.secure) {
+                    if (!authService.user.isAuthenticated) {
+                        authService.redirectToLogin();
+                    }
+                }
+            });
+
     }]);
 
     return app;

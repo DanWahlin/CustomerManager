@@ -1,29 +1,56 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Customer Manager</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="Content/bootstrap-responsive.min.css" rel="stylesheet" />
-    <link href="Content/styles.css" rel="stylesheet" />
     <link href="Content/animations.css" rel="stylesheet" />
+    <link href="Content/styles.css" rel="stylesheet" />
 </head>
 <body data-ng-cloak="">
 
-    <div class="navbar navbar-fixed-top" data-ng-controller="NavbarController">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand " href="#/">
-                    <img src="Content/Images/people.png" alt="logo"> {{ appTitle }}
+    <header class="navbar navbar-inner navbar-fixed-top" data-ng-controller="NavbarController">
+        <nav class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-ng-click="isCollapsed = !isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/">
+                    <img src="Content/Images/people.png" alt="logo">
+                    <span class="appTitle">{{ appTitle }}</span>
                 </a>
-                <ul class="nav nav-pills navBarPadding">
+            </div>
+            <div class="nav-container" data-collapse="isCollapsed">
+
+                <!-- With menu-highlighter directive -->
+                <ul class="nav navbar-nav nav-pills navBarPadding"
+                    data-menu-highlighter data-highlight-class-name="active">
+                    <li><a href="#/customers">Customers</a></li>
+                    <li><a href="#/orders">Orders</a></li>
+                    <li><a href="#/about">About</a></li>
+                    <li id="nav-login" data-ng-click="loginOrOut()">
+                        <!-- href not used but needed to compare against path in menu-highlighter -->
+                        <a data-href="#/login">{{ loginLogoutText }}</a>
+                    </li>
+                </ul>
+
+                <!-- Without menu-highlighter directive -->
+                <!--<ul class="nav navbar-nav nav-pills navBarPadding">
                     <li data-ng-class="{'active':highlight('/customers')}"><a href="#/customers">Customers</a></li>
                     <li data-ng-class="{'active':highlight('/orders')}"><a href="#/orders">Orders</a></li>
                     <li data-ng-class="{'active':highlight('/about')}"><a href="#/about">About</a></li>
-                </ul>
+                    <li data-ng-class="{'active':highlight('/login')}" id="nav-login"
+                        data-ng-click="loginOrOut()">
+                        <a>{{ loginLogoutText }}</a>
+                    </li>
+                </ul>-->
             </div>
-        </div>
-    </div>
+        </nav>
+    </header>
 
     <div class="slide-animation-container">
         <div data-ng-view="" id="ng-view" class="slide-animation"></div>
@@ -35,7 +62,7 @@
                 <div class="container">
                     <footer>
                         <div class="row">
-                            <div class="span12">
+                            <div class="col-md-12">
                                 Created by <a href="http://twitter.com/DanWahlin" target="_blank">Dan Wahlin</a>
                             </div>
                         </div>
@@ -50,18 +77,20 @@
     </div>
 
     <!-- 3rd party libraries -->
-    <script src="/Scripts/angular.js"></script>
-    <script src="/Scripts/angular-route.js"></script>
-    <script src="/Scripts/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular-animate.min.js"></script>
     <script src="/Scripts/angular-ui-bootstrap.js"></script>
     <script src="/Scripts/tweenMax.min.js"></script>
 
+    <script src="/app/wc.directives/directives/wcOverlay.js"></script>
+    <script src="/app/wc.directives/directives/menuHighlighter.js"></script>
+
     <!-- jQuery only needed with Breeze so not loaded before AngularJS in this example-->
     <!-- If you want jQuery to replace jqlite in AngularJS then load jQuery before angular.js (not needed in this app though) -->
-    <script src="/Scripts/jquery.min.js"></script>
-    <script src="/Scripts/q.min.js"></script>
+    <script src="/Scripts/jquery-2.1.1.min.js"></script>
     <script src="/Scripts/breeze.min.js"></script>
-    <script src="/Scripts/to$q.js"></script>
+    <script src="/Scripts/breeze.angular.q.js"></script>
 
     <!-- Load custom scripts via RequireJS -->
     <script src="/Scripts/require.js" data-main="/scripts/main"></script>

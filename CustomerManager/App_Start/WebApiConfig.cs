@@ -22,7 +22,7 @@ namespace CustomerManager.App_Start
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
-             // Remove default XML handler
+            // Remove default XML handler
             var matches = config.Formatters
                                 .Where(f => f.SupportedMediaTypes
                                              .Where(m => m.MediaType.ToString() == "application/xml" ||
@@ -30,7 +30,7 @@ namespace CustomerManager.App_Start
                                              .Count() > 0)
                                 .ToList();
             foreach (var match in matches)
-                config.Formatters.Remove(match);   
-         }
+                config.Formatters.Remove(match);
+        }
     }
 }
