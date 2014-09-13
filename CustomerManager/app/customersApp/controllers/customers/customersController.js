@@ -15,7 +15,7 @@ define(['app'], function (app) {
 
         //paging
         $scope.totalRecords = 0;
-        $scope.pageSize = 10;
+        $scope.pageSize = 5;
         $scope.currentPage = 1;
 
         $scope.pageChanged = function (page) {
