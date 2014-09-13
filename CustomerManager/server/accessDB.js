@@ -131,11 +131,21 @@ module.exports = {
     },
 
     // get a  customer's email
-    getCustomerEmail: function (email, callback) {
-        console.log('*** accessDB.getCustomerEmail');
-        Customer.find({ 'email': email }, { '_id': 1 }, function (err, customer) {
-            callback(null, customer[0]);
-        });
+    checkUnique: function (id, property, value, callback) {
+        console.log('*** accessDB.checkUnique');
+        console.log(id + ' ' + value)
+        switch (property) {
+            case 'email':
+                Customer.findOne({ 'email': value, 'id': { $ne: id} })
+                        .select('email')
+                        .exec(function (err, customer) {
+                            console.log(customer)
+                            var status = (customer) ? false : true;
+                            callback(null, {status: status});
+                        });
+                break;
+        }
+
     },
 
     // get all the states

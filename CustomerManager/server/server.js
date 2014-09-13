@@ -65,7 +65,7 @@ app.delete(baseUrl + 'DeleteCustomer/:id', api.deleteCustomer);
 
 app.get(baseUrl + 'States', api.states);
 
-app.get(baseUrl + 'CheckUnique', api.checkEmail);
+app.get(baseUrl + 'CheckUnique/:id', api.checkUnique);
 
 app.post(baseUrl + 'Login', api.login);
 app.post(baseUrl + 'Logout', api.logout);

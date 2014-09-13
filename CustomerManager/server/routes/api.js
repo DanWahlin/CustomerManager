@@ -127,18 +127,22 @@ exports.customersSummary = function (req, res) {
     });
 };
 
-exports.checkEmail = function (req, res) {
-    console.log('*** checkemail');
+exports.checkUnique = function (req, res) {
+    console.log('*** checkUnique');
 
-    db.getCustomerEmail(req.query.value, function (err, customer) {
+    var id = req.params.id,
+    	value = req.query.value,
+    	property = req.query.property;
+
+    db.checkUnique(id, property, value, function (err, opStatus) {
         if (err) {
-            console.log('*** getCustomerEmail err');
+            console.log('*** checkUnique err');
             res.json({
-                customer: customer
+                'status': false
             });
         } else {
-            console.log('*** getCustomerEmail ok');
-            res.json({ 'status': (customer === undefined) });
+            console.log('*** checkUnique ok');
+            res.json(opStatus);
         }
     });
 };
