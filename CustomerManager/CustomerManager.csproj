@@ -137,7 +137,6 @@
     <Content Include="app\customersApp\filters\nameCityStateFilter.js" />
     <Content Include="app\customersApp\filters\nameProductFilter.js" />
     <Content Include="app\customersApp\partials\modal.html" />
-    <Content Include="app\customersApp\partials\dialog.html" />
     <Content Include="app\customersApp\services\authService.js" />
     <Content Include="app\customersApp\services\httpInterceptors.js" />
     <Content Include="app\customersApp\services\modalService.js" />

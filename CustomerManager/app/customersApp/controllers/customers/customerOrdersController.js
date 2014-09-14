@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
     
+    var injectParams = ['$scope', '$routeParams', '$window', 'dataService'];
+
     var CustomerOrdersController = function ($scope, $routeParams, $window, dataService) {
         //Grab customerId off of the route        
         var customerId = ($routeParams.customerId) ? parseInt($routeParams.customerId) : 0;
@@ -23,7 +25,7 @@ define(['app'], function (app) {
         }
     };
 
-    CustomerOrdersController.$inject = ['$scope', '$routeParams', '$window', 'dataService'];
+    CustomerOrdersController.$inject = injectParams;
 
     app.register.controller('CustomerOrdersController', CustomerOrdersController);
 

@@ -2,6 +2,9 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$rootScope', '$scope', '$location', '$routeParams',
+                        '$timeout', 'config', 'dataService', 'modalService'];
+
     var CustomerEditController = function ($rootScope, $scope, $location, $routeParams,
                                            $timeout, config, dataService, modalService) {
 
@@ -123,8 +126,7 @@ define(['app'], function (app) {
         }
     };
 
-    CustomerEditController.$inject = ['$rootScope', '$scope', '$location', '$routeParams',
-                                      '$timeout', 'config', 'dataService', 'modalService'];
+    CustomerEditController.$inject = injectParams;
 
     app.register.controller('CustomerEditController', CustomerEditController);
 

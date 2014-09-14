@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$http', '$rootScope'];
+
     var authFactory = function ($http, $rootScope) {
         var serviceBase = '/api/dataservice/',
             factory = {
@@ -42,7 +44,7 @@ define(['app'], function (app) {
         return factory;
     };
 
-    authFactory.$inject = ['$http', '$rootScope'];
+    authFactory.$inject = injectParams;
 
     app.factory('authService', authFactory);
 

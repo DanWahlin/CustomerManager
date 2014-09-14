@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$scope', '$filter', '$window', 'dataService'];
+
     var OrdersController = function ($scope, $filter, $window, dataService) {
         $scope.customers = [];
         $scope.filteredCustomers;
@@ -56,7 +58,7 @@ define(['app'], function (app) {
         }
     };
 
-    OrdersController.$inject = ['$scope', '$filter', '$window', 'dataService'];
+    OrdersController.$inject = injectParams;
 
 
     app.register.controller('OrdersController', OrdersController);

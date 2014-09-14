@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$scope'];
+
     var OrderChildController = function ($scope) {
         $scope.orderby = 'product';
         $scope.reverse = false;
@@ -30,7 +32,7 @@ define(['app'], function (app) {
         }
     };
 
-    OrderChildController.$inject = ['$scope'];
+    OrderChildController.$inject = injectParams;
 
     app.controller('OrderChildController', OrderChildController);
 });

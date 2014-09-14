@@ -1,6 +1,9 @@
 ﻿'use strict';
 
 define(['app'], function (app) {
+
+    var injectParams = ['$scope', '$location', '$filter', '$window',
+                        '$timeout', 'authService', 'dataService', 'modalService'];
     
     var CustomersController = function ($scope, $location, $filter, $window,
                                         $timeout, authService, dataService, modalService) {
@@ -15,7 +18,7 @@ define(['app'], function (app) {
 
         //paging
         $scope.totalRecords = 0;
-        $scope.pageSize = 5;
+        $scope.pageSize = 10;
         $scope.currentPage = 1;
 
         $scope.pageChanged = function (page) {
@@ -137,8 +140,7 @@ define(['app'], function (app) {
         init();
     };
 
-    CustomersController.$inject = ['$scope', '$location', '$filter', '$window', '$timeout',
-                                   'authService', 'dataService', 'modalService'];
+    CustomersController.$inject = injectParams;
 
     app.register.controller('CustomersController', CustomersController);
 

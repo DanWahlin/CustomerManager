@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$parse', 'dataService'];
+
     var wcUniqueDirective = function ($parse, dataService) {
         return {
             restrict: 'A',
@@ -28,7 +30,7 @@ define(['app'], function (app) {
         };
     };
 
-    wcUniqueDirective.$inject = ['$parse', 'dataService'];
+    wcUniqueDirective.$inject = injectParams;
 
     app.directive('wcUnique', wcUniqueDirective);
 

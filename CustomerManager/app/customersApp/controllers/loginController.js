@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$scope', '$location', '$routeParams', 'authService'];
+
     var LoginController = function ($scope, $location, $routeParams, authService) {
         var path = '/';
         $scope.email = null;
@@ -27,7 +29,7 @@ define(['app'], function (app) {
         };
     };
 
-    LoginController.$inject = ['$scope', '$location', '$routeParams', 'authService'];
+    LoginController.$inject = injectParams;
 
 
     app.register.controller('LoginController', LoginController);

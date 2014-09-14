@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$scope', '$location', 'config', 'authService'];
+
     var NavbarController = function ($scope, $location, config, authService) {
         var appTitle = 'Customer Management';
         $scope.isCollapsed = false;
@@ -45,7 +47,7 @@ define(['app'], function (app) {
 
     };
 
-    NavbarController.$inject = ['$scope', '$location', 'config', 'authService'];
+    NavbarController.$inject = injectParams;
 
     //Loaded normally since the script is loaded upfront 
     //Dynamically loaded controller use app.register.controller

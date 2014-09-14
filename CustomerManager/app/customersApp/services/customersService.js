@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$http', '$q'];
+
     var customersFactory = function ($http, $q) {
         var serviceBase = '/api/dataservice/',
             factory = {};
@@ -114,8 +116,7 @@ define(['app'], function (app) {
         return factory;
     };
 
-    customersFactory.$inject = ['$http', '$q'];
-
+    customersFactory.$inject = injectParams;
 
     app.factory('customersService', customersFactory);
 

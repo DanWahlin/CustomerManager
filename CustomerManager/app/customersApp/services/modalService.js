@@ -1,7 +1,9 @@
 ﻿"use strict";
 
 define(['app'], function (app) {
-    
+
+    var injectParams = ['$modal'];
+
     var modalService = function ($modal) {
 
         var modalDefaults = {
@@ -52,6 +54,8 @@ define(['app'], function (app) {
             return $modal.open(tempModalDefaults).result;
         };
     };
+
+    modalService.$inject = injectParams;
 
     app.service('modalService', modalService);
 

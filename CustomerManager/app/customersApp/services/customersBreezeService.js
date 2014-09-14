@@ -2,6 +2,8 @@
 
 define(['app'], function (app) {
 
+    var injectParams = ['$q', '$window'];
+
     var customersBreezeService = function ($q, $window) {
 
         var factory = {};
@@ -173,9 +175,7 @@ define(['app'], function (app) {
         return factory;
     };
 
-    customersBreezeService.$inject = ['$q', '$window'];
-
-
+    customersBreezeService.$inject = injectParams;
 
     app.factory('customersBreezeService', customersBreezeService);
 

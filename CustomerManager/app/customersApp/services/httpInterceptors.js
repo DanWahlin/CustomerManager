@@ -4,6 +4,8 @@ define(['app'], function (app) {
 
     app.config(['$httpProvider', function ($httpProvider) {
 
+        var injectParams = ['$q', '$rootScope'];
+
         var httpInterceptor401 = function ($q, $rootScope) {
 
             var success = function (response) {
@@ -25,7 +27,7 @@ define(['app'], function (app) {
 
         };
 
-        httpInterceptor401.$inject = ['$q', '$rootScope'];
+        httpInterceptor401.$inject = injectParams;
 
         $httpProvider.interceptors.push(httpInterceptor401);
 

@@ -1,6 +1,8 @@
 ﻿'use strict';
 
-(function() {
+(function () {
+
+    var injectParams = ['$q', '$timeout', '$window', 'httpInterceptor'];
 
     var wcOverlayDirective = function ($q, $timeout, $window, httpInterceptor) {
         return {
@@ -154,6 +156,7 @@
     //Directive that uses the httpInterceptor factory above to monitor XHR calls
     //When a call is made it displays an overlay and a content area 
     //No attempt has been made at this point to test on older browsers
-    wcDirectivesApp.directive('wcOverlay', ['$q', '$timeout', '$window', 'httpInterceptor', wcOverlayDirective]);
+    wcOverlayDirective.$inject = injectParams;
 
+    wcDirectivesApp.directive('wcOverlay', wcOverlayDirective);
 }());
