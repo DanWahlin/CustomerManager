@@ -16,7 +16,7 @@
 define(['customersApp/services/routeResolver'], function () {
 
     var app = angular.module('customersApp', ['ngRoute', 'ngAnimate', 'routeResolverServices',
-                                              'wc.directives', 'wc.animations', 'ui.bootstrap', 'breeze.angular.q']);
+                                              'wc.directives', 'wc.animations', 'ui.bootstrap', 'breeze.angular']);
 
     app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider',
                 '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
@@ -56,10 +56,8 @@ define(['customersApp/services/routeResolver'], function () {
 
     }]);
 
-    app.run(['$q', 'use$q', '$rootScope', '$location', 'authService',
-        function ($q, use$q, $rootScope, $location, authService) {
-
-            use$q($q); //for Breeze.js so that it uses $q instead of Q
+    app.run(['$rootScope', '$location', 'authService',
+        function ($rootScope, $location, authService) {
             
             //Client-side security. Server-side framework MUST add it's 
             //own security as well since client-based security is easily hacked

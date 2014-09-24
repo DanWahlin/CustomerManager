@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$q', '$window'];
+    var injectParams = ['breeze', '$q', '$window'];
 
-    var customersBreezeService = function ($q, $window) {
+    var customersBreezeService = function (breeze, $q, $window) {
 
         var factory = {};
         var EntityQuery = breeze.EntityQuery;
