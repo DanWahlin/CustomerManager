@@ -2,30 +2,36 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$parse', 'dataService'];
+    var injectParams = ['$q', '$parse', 'dataService'];
 
-    var wcUniqueDirective = function ($parse, dataService) {
+    var wcUniqueDirective = function ($q, $parse, dataService) {
         return {
             restrict: 'A',
             require: 'ngModel',
             link: function (scope, element, attrs, ngModel) {
-                element.bind('blur', function (e) {
-                    if (!ngModel || !element.val()) return;
-                    var keyProperty = $parse(attrs.wcUnique)();
-                    var currentValue = element.val();
-                    dataService.checkUniqueValue(keyProperty.key, keyProperty.property, currentValue)
+                ngModel.$asyncValidators.unique = function (modelValue, viewValue) {
+                    var deferred = $q.defer(),
+                        currentValue = modelValue || viewValue,
+                        key = attrs.wcUniqueKey,
+                        property = attrs.wcUniqueProperty;
+
+                    //First time the asyncValidators function is loaded the
+                    //key won't be set  so ensure that we have 
+                    //key and propertyName before checking with the server 
+                    if (key && property) {
+                        dataService.checkUniqueValue(key, property, currentValue)
                         .then(function (unique) {
-                            //Ensure value that being checked hasn't changed
-                            //since the Ajax call was made
-                            if (currentValue === element.val()) {
-                                ngModel.$setValidity('unique', unique);
+                            if (unique) {
+                                deferred.resolve(); //It's unique
                             }
-                        }, function () {
-                            //Probably want a more robust way to handle an error
-                            //For this demo we'll set unique to true though
-                            ngModel.$setValidity('unique', true);
+                            else {
+                                deferred.reject(); //Add unique to $errors
+                            }
                         });
-                });
+                    }
+
+                    return deferred.promise;
+                };
             }
         };
     };

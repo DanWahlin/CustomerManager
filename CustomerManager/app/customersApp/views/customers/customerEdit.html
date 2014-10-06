@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="text" name="firstName" class="form-control" data-ng-model="customer.firstName" required />
-                        <span class="errorMessage" ng-show="editForm.firstName.$dirty && editForm.firstName.$invalid">
+                        <span class="errorMessage" ng-show="editForm.firstName.$touched && editForm.firstName.$invalid">
                             First name is required
                         </span>
                     </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="text" name="lastName" class="form-control" data-ng-model="customer.lastName" required />
-                        <span class="errorMessage" ng-show="editForm.lastName.$dirty && editForm.lastName.$invalid">
+                        <span class="errorMessage" ng-show="editForm.lastName.$touched && editForm.lastName.$invalid">
                             Last name is required
                         </span>
                     </div>
@@ -65,13 +65,17 @@
                         Email:
                     </div>
                     <div class="col-md-10">
-                        <!-- type="email" causing a problem with Breeze so using regex -->
                         <input type="text" name="email"
                                class="form-control"
                                data-ng-model="customer.email"
-                               data-wc-unique="{key: {{customer.id}}, property: 'email'}"
+                               data-ng-model-options="{ updateOn: 'blur' }"
+                               data-wc-unique
+                               data-wc-unique-key="{{customer.id}}"
+                               data-wc-unique-property="email"
+                               data-ng-minlength="3"
                                required />
-                        <span class="errorMessage" ng-show="editForm.email.$dirty && editForm.email.$error.unique">
+                        <!-- Show error if touched and unique is in error -->
+                        <span class="errorMessage" ng-show="editForm.email.$touched && editForm.email.$error.unique">
                             Email already in use
                         </span>
                     </div>
@@ -83,7 +87,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="text" name="address" class="form-control" data-ng-model="customer.address" required />
-                        <span class="errorMessage" ng-show="editForm.address.$dirty && editForm.address.$invalid">
+                        <span class="errorMessage" ng-show="editForm.address.$touched && editForm.address.$invalid">
                             Address is required
                         </span>
                     </div>
@@ -95,7 +99,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="text" name="city" class="form-control" data-ng-model="customer.city" required />
-                        <span class="errorMessage" ng-show="editForm.city.$dirty && editForm.city.$invalid">
+                        <span class="errorMessage" ng-show="editForm.city.$touched && editForm.city.$invalid">
                             City is required
                         </span>
                     </div>
@@ -111,7 +115,7 @@
                                 data-ng-options="state.id as state.name for state in states">
                             <option value=""></option>
                         </select>
-                        <span class="errorMessage" ng-show="editForm.state.$dirty && editForm.state.$invalid">
+                        <span class="errorMessage" ng-show="editForm.state.$touched && editForm.state.$invalid">
                             2 character state is required
                         </span>
                     </div>
@@ -123,7 +127,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="number" name="zip" class="form-control" data-ng-model="customer.zip" required />
-                        <span class="errorMessage" ng-show="editForm.zip.$dirty && editForm.zip.$invalid">
+                        <span class="errorMessage" ng-show="editForm.zip.$touched && editForm.zip.$invalid">
                             Zip is required
                         </span>
                     </div>

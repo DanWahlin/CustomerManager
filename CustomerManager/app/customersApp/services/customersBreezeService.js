@@ -41,9 +41,11 @@ define(['app'], function (app) {
             var propertyPredicate = new breeze.Predicate(property, "==", value);
             var predicate = (id) ? propertyPredicate.and(new breeze.Predicate("id", "!=", id)) : propertyPredicate;
 
-            var query = EntityQuery.from('Customers').where(predicate);
+            var query = EntityQuery.from('Customers').where(predicate).take(0).inlineCount();
 
-            return executeQuery(query);
+            return query.using(entityManager).execute().then(function (data) {
+                return (data && data.inlineCount == 0) ? true : false;
+            });
         };
 
         factory.insertCustomer = function (customer) {

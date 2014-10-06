@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="email" name="email" class="form-control" data-ng-model="email" required />
-                        <span class="errorMessage" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                        <span class="errorMessage" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
                             Email is required
                         </span>
                     </div>
@@ -26,7 +26,7 @@
                                data-ng-model="password"
                                data-ng-minlength="6"
                                required />
-                        <span class="errorMessage" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                        <span class="errorMessage" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
                             Password is required
                         </span>
                     </div>
