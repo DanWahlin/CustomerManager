@@ -328,7 +328,8 @@ a.navbar-brand {
 input.ng-invalid, select.ng-invalid, input.ng-invalid-required, select.ng-invalid.required {
   border-left: 5px solid #E03930;
 }
-input.ng-valid, select.ng-valid {
+
+input.ng-valid, select.ng-valid, input.ng-valid-required, select.ng-valid.required {
   border-left: 5px solid #57A83F;
 }
 
