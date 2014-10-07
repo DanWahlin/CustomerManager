@@ -29,6 +29,9 @@ define(['app'], function (app) {
                             }
                         });
                     }
+                    else {
+                        deferred.resolve();
+                    }
 
                     return deferred.promise;
                 };
