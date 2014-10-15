@@ -64,7 +64,9 @@ define(['customersApp/services/routeResolver'], function () {
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 if (next && next.$$route && next.$$route.secure) {
                     if (!authService.user.isAuthenticated) {
-                        authService.redirectToLogin();
+                        $rootScope.$evalAsync(function () {
+                            authService.redirectToLogin();
+                        });
                     }
                 }
             });
