@@ -46,7 +46,7 @@ define(['app'], function (app) {
                 if (result === 'ok') {
                     dataService.deleteCustomer(id).then(function () {
                         for (var i = 0; i < $scope.customers.length; i++) {
-                            if ($scope.customers[i].id == id) {
+                            if ($scope.customers[i].id === id) {
                                 $scope.customers.splice(i, 1);
                                 break;
                             }

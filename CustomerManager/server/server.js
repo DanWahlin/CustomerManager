@@ -1,57 +1,48 @@
+var express = require('express'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    errorhandler = require('errorhandler'),
+    csrf = require('csurf'),
+    routes = require('./routes'),
+    api = require('./routes/api'),
+    DB = require('./accessDB'),
+    protectJSON = require('./lib/protectJSON'),
+    app = express();
 
-/**
- * Module dependencies.
- */
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(session({ 
+    secret: 'customermanagerstandard', 
+    saveUninitialized: true,
+    resave: true }));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/../'));
+app.use(errorhandler());
+app.use(protectJSON);
+app.use(csrf());
 
-var express = require('express')
-  , routes = require('./routes')
-  , api = require('./routes/api')
-  , DB = require('./accessDB').AccessDB
-  , protectJSON = require('./lib/protectJSON');
+app.use(function (req, res, next) {
+    var csrf = req.csrfToken();
+    res.cookie('XSRF-TOKEN', csrf);
+    res.locals._csrf = csrf;
+    next();
+})
 
-var app = module.exports = express();
-
-var DB = require('./accessDB');
-
-// Configuration
-
-app.configure(function () {
-    app.use(protectJSON);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
-    app.use(express.cookieParser()); //*
-    app.use(express.session({ secret: 'gopalapuram' })); //*
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.static(__dirname + '/../'));
-    app.use(app.router);
+process.on('uncaughtException', function (err) {
+    if (err) console.log(err, err.stack);
 });
 
 //Local Connection 
 var conn = 'mongodb://localhost/customermanager';
-
-var db;
-db = new DB.startup(conn);
-
-app.configure('development', function () {
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function () {
-    app.use(express.errorHandler());
-});
-
-function csrf(req, res, next) {
-    res.locals.token = req.session._csrf;
-    next();
-}
+var db = new DB.startup(conn);
 
 // Routes
-
 app.get('/', routes.index);
 
 // JSON API
-
 var baseUrl = '/api/dataservice/';
 
 app.get(baseUrl + 'Customers', api.customers);
