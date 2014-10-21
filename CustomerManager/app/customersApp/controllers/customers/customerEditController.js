@@ -19,8 +19,6 @@ define(['app'], function (app) {
         $scope.updateStatus = false;
         $scope.errorMessage = '';
 
-        init();
-
         $scope.isStateSelected = function (customerStateId, stateId) {
             return customerStateId === stateId;
         };
@@ -56,6 +54,9 @@ define(['app'], function (app) {
         };
 
         function init() {
+
+            getStates();
+
             if (customerId > 0) {
                 dataService.getCustomer(customerId).then(function (customer) {
                     $scope.customer = customer;
@@ -64,14 +65,16 @@ define(['app'], function (app) {
                 dataService.newCustomer().then(function (customer) {
                     $scope.customer = customer;
                 });
+
             }
-            getStates();
 
             //Make sure they're warned if they made a change but didn't save it
             //Call to $on returns a "deregistration" function that can be called to
             //remove the listener (see routeChange() for an example of using it)
             onRouteChangeOff = $scope.$on('$locationChangeStart', routeChange);
         }
+
+        init();
 
         function routeChange(event, newUrl) {
             //Navigate to newUrl if the form isn't dirty
