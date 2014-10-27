@@ -47,7 +47,7 @@
                         <div class="cardBody">
                             <div class="clearfix">
                                 <div class="pull-left cardBodyLeft">
-                                    <a href="#/customeredit/{{customer.id}}" class="white"><img data-ng-src="Content/Images/{{customer.gender | lowercase}}.png" class="cardImage" /></a>
+                                    <a href="#/customeredit/{{customer.id}}" class="white"><img data-ng-src="Content/images/{{customer.gender | lowercase}}.png" class="cardImage" /></a>
                                 </div>
                                 <div class="pull-left cardBodyRight">
                                     <div class="cardBodyContent">{{customer.city}}, {{customer.state.name}}</div>
@@ -80,7 +80,7 @@
                             </thead>
                             <tbody>
                                 <tr data-ng-repeat="customer in filteredCustomers | orderBy:orderby:reverse" class="repeat-animation">
-                                    <td><a href="#/customeredit/{{customer.id}}"><img data-ng-src="Content/Images/{{customer.gender | lowercase}}.png" class="cardImage" alt="Customer Image" /></a></td>
+                                    <td><a href="#/customeredit/{{customer.id}}"><img data-ng-src="Content/images/{{customer.gender | lowercase}}.png" class="cardImage" alt="Customer Image" /></a></td>
                                     <td><a href="#/customeredit/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></td>
                                     <td>{{customer.city}}, {{customer.state.name}}</td>
                                     <td>
