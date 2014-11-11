@@ -31,6 +31,10 @@ define([], function () {
                 getViewsDirectory: getViewsDirectory
             };
         }();
+        
+        function toTitleCase(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1);
+        }
 
         this.route = function (routeConfig) {
 
@@ -39,7 +43,7 @@ define([], function () {
 
                 var routeDef = {};
                 routeDef.templateUrl = routeConfig.getViewsDirectory() + path + baseName + '.html';
-                routeDef.controller = baseName + 'Controller';
+                routeDef.controller = toTitleCase(baseName) + 'Controller';
                 routeDef.secure = (secure) ? secure : false;
                 routeDef.resolve = {
                     load: ['$q', '$rootScope', function ($q, $rootScope) {
