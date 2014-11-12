@@ -4,3 +4,5 @@ obj
 packages
 *.mdf
 *.ldf
+node_modules
+

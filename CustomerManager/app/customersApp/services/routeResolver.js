@@ -38,12 +38,13 @@ define([], function () {
                 if (!path) path = '';
 
                 var routeDef = {};
-                routeDef.templateUrl = routeConfig.getViewsDirectory() + path + baseName + '.html';
+                var baseFileName = baseName.charAt(0).toLowerCase() + baseName.substr(1);
+                routeDef.templateUrl = routeConfig.getViewsDirectory() + path + baseFileName + '.html';
                 routeDef.controller = baseName + 'Controller';
                 routeDef.secure = (secure) ? secure : false;
                 routeDef.resolve = {
                     load: ['$q', '$rootScope', function ($q, $rootScope) {
-                        var dependencies = [routeConfig.getControllersDirectory() + path + baseName + 'Controller.js'];
+                        var dependencies = [routeConfig.getControllersDirectory() + path + baseFileName + 'Controller.js'];
                         return resolveDependencies($q, $rootScope, dependencies);
                     }]
                 };
