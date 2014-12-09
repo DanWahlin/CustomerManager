@@ -1,20 +1,20 @@
-﻿<table class="table table-hover table-striped table-condensed table-bordered ordersTable" data-ng-controller="OrderChildController">
+﻿<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
     <thead>
         <tr>
-            <th data-ng-click="setOrder('product')">Product</th>
-            <th data-ng-click="setOrder('date')">Date</th>
-            <th data-ng-click="setOrder('quantity')">Quantity</th>
-            <th data-ng-click="setOrder('price')">Unit Price</th>
-            <th data-ng-click="setOrder('orderTotal')">Total</th>
+            <th data-ng-click="vm.setOrder('product')">Product</th>
+            <th data-ng-click="vm.setOrder('date')">Date</th>
+            <th data-ng-click="vm.setOrder('quantity')">Quantity</th>
+            <th data-ng-click="vm.setOrder('price')">Unit Price</th>
+            <th data-ng-click="vm.setOrder('orderTotal')">Total</th>
         </tr>
     </thead>
     <tbody>
-        <tr data-ng-hide="customer.orders || customer.orders.length > 0" class="error">
+        <tr data-ng-hide="vm.customer.orders || vm.customer.orders.length > 0" class="error">
             <td colspan="5">
                 <div class="text-center"><strong>No orders found</strong></div>
             </td>
         </tr>
-        <tr data-ng-repeat="order in customer.orders | orderBy:orderby:reverse" class="repeat-animation">
+        <tr data-ng-repeat="order in vm.customer.orders | orderBy:vm.orderby:vm.reverse" class="repeat-animation">
             <td>
                 {{ order.product }}
             </td>
@@ -36,7 +36,7 @@
                 &nbsp;
             </td>
             <td>
-                <strong>{{ customer.ordersTotal | currency }}</strong>
+                <strong>{{ vm.customer.ordersTotal | currency }}</strong>
             </td>
         </tr>
     </tbody>

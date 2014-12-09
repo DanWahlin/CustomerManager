@@ -1,13 +1,13 @@
 ﻿<div class="view">
     <div class="container">
         <header>
-            <h3><span class="glyphicon glyphicon-edit"></span> {{title}} Customer</h3>
+            <h3><span class="glyphicon glyphicon-edit"></span> {{vm.title}} Customer</h3>
         </header>
         <form name="editForm" novalidate>
             <div class="customerEdit">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>{{ customer.firstName + ' ' + customer.lastName }} <span data-ng-hide="customer.id == 0">(<a style="font-size:12pt" href="#/customerorders/{{customer.id}}">View Orders</a>)</span></h4>
+                        <h4>{{ vm.customer.firstName + ' ' + vm.customer.lastName }} <span data-ng-hide="vm.customer.id == 0">(<a style="font-size:12pt" href="#/customerorders/{{vm.customer.id}}">View Orders</a>)</span></h4>
                         <br />
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                         First Name:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="firstName" class="form-control" data-ng-model="customer.firstName" required />
+                        <input type="text" name="firstName" class="form-control" data-ng-model="vm.customer.firstName" required />
                         <span class="errorMessage" ng-show="editForm.firstName.$touched && editForm.firstName.$invalid">
                             First name is required
                         </span>
@@ -28,7 +28,7 @@
                         Last Name:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="lastName" class="form-control" data-ng-model="customer.lastName" required />
+                        <input type="text" name="lastName" class="form-control" data-ng-model="vm.customer.lastName" required />
                         <span class="errorMessage" ng-show="editForm.lastName.$touched && editForm.lastName.$invalid">
                             Last name is required
                         </span>
@@ -43,16 +43,16 @@
                         <div class="radio">
                             <label class="radio">
                                 <input type="radio" name="gender" value="Male"
-                                       data-ng-checked="customer.gender == 'Male'"
-                                       data-ng-model="customer.gender" />
+                                       data-ng-checked="vm.customer.gender == 'Male'"
+                                       data-ng-model="vm.customer.gender" />
                                 Male
                             </label>
                         </div>
                         <div class="radio">
                             <label class="radio">
                                 <input type="radio" name="gender" value="Female"
-                                       data-ng-checked="customer.gender == 'Female'"
-                                       data-ng-model="customer.gender" />
+                                       data-ng-checked="vm.customer.gender == 'Female'"
+                                       data-ng-model="vm.customer.gender" />
                                 Female
                                 <br />
                             </label>
@@ -65,12 +65,14 @@
                         Email:
                     </div>
                     <div class="col-md-10">
+                        <!-- allowInvalid added below so that the model isn't wiped
+                        out (the default behavior) if email is determined to be invalid due to being a duplicate-->
                         <input type="text" name="email"
                                class="form-control"
-                               data-ng-model="customer.email"
-                               data-ng-model-options="{ updateOn: 'blur' }"
+                               data-ng-model="vm.customer.email"
+                               data-ng-model-options="{ updateOn: 'blur', allowInvalid: true }"
                                data-wc-unique
-                               data-wc-unique-key="{{customer.id}}"
+                               data-wc-unique-key="{{vm.customer.id}}"
                                data-wc-unique-property="email"
                                data-ng-minlength="3"
                                required />
@@ -86,7 +88,7 @@
                         Address:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="address" class="form-control" data-ng-model="customer.address" required />
+                        <input type="text" name="address" class="form-control" data-ng-model="vm.customer.address" required />
                         <span class="errorMessage" ng-show="editForm.address.$touched && editForm.address.$invalid">
                             Address is required
                         </span>
@@ -98,7 +100,7 @@
                         City:
                     </div>
                     <div class="col-md-10">
-                        <input type="text" name="city" class="form-control" data-ng-model="customer.city" required />
+                        <input type="text" name="city" class="form-control" data-ng-model="vm.customer.city" required />
                         <span class="errorMessage" ng-show="editForm.city.$touched && editForm.city.$invalid">
                             City is required
                         </span>
@@ -111,8 +113,8 @@
                     </div>
                     <div class="col-md-10">
                         <select name="state" required class="form-control"
-                                data-ng-model="customer.stateId"
-                                data-ng-options="state.id as state.name for state in states">
+                                data-ng-model="vm.customer.stateId"
+                                data-ng-options="state.id as state.name for state in vm.states">
                             <option value=""></option>
                         </select>
                         <span class="errorMessage" ng-show="editForm.state.$touched && editForm.state.$invalid">
@@ -126,7 +128,7 @@
                         Zip:
                     </div>
                     <div class="col-md-10">
-                        <input type="number" name="zip" class="form-control" data-ng-model="customer.zip" required />
+                        <input type="number" name="zip" class="form-control" data-ng-model="vm.customer.zip" required />
                         <span class="errorMessage" ng-show="editForm.zip.$touched && editForm.zip.$invalid">
                             Zip is required
                         </span>
@@ -135,22 +137,25 @@
                 <br />
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary" data-ng-click="saveCustomer()" ng-disabled="editForm.$invalid || !editForm.$dirty">{{buttonText}}</button>
+                        <button type="submit" class="btn btn-primary" data-ng-click="vm.saveCustomer()"
+                                ng-disabled="editForm.$invalid || !editForm.$dirty">
+                            {{vm.buttonText}}
+                        </button>
                         &nbsp;&nbsp;
-                        <button class="btn btn-danger" data-ng-if="customer.id > 0" data-ng-click="deleteCustomer()">Delete</button>
+                        <button class="btn btn-danger" data-ng-if="vm.customer.id > 0" data-ng-click="vm.deleteCustomer()">Delete</button>
                     </div>
                 </div>
                 <br />
                 <div class="statusRow">
                     <br />
-                    <div class="label label-success" data-ng-show="updateStatus">
+                    <div class="label label-success" data-ng-show="vm.updateStatus">
                         <span class="glyphicon glyphicon-thumbs-up icon-white"></span>&nbsp;&nbsp;Customer updated!
                     </div>
                 </div>
                 <div class="statusRow">
                     <br />
-                    <div class="label label-important" data-ng-show="errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
+                    <div class="label label-important" data-ng-show="vm.errorMessage">
+                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ vm.errorMessage }}
                     </div>
                 </div>
             </div>

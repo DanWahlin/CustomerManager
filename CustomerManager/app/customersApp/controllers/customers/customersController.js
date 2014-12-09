@@ -2,31 +2,33 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$scope', '$location', '$filter', '$window',
+    var injectParams = ['$location', '$filter', '$window',
                         '$timeout', 'authService', 'dataService', 'modalService'];
-    
-    var CustomersController = function ($scope, $location, $filter, $window,
-                                        $timeout, authService, dataService, modalService) {
 
-        $scope.customers = [];
-        $scope.filteredCustomers = [];
-        $scope.filteredCount = 0;
-        $scope.orderby = 'lastName';
-        $scope.reverse = false;
-        $scope.searchText = null;
-        $scope.cardAnimationClass = '.card-animation';
+    var CustomersController = function ($location, $filter, $window,
+        $timeout, authService, dataService, modalService) {
+
+        var vm = this;
+
+        vm.customers = [];
+        vm.filteredCustomers = [];
+        vm.filteredCount = 0;
+        vm.orderby = 'lastName';
+        vm.reverse = false;
+        vm.searchText = null;
+        vm.cardAnimationClass = '.card-animation';
 
         //paging
-        $scope.totalRecords = 0;
-        $scope.pageSize = 10;
-        $scope.currentPage = 1;
+        vm.totalRecords = 0;
+        vm.pageSize = 10;
+        vm.currentPage = 1;
 
-        $scope.pageChanged = function (page) {
-            $scope.currentPage = page;
+        vm.pageChanged = function (page) {
+            vm.currentPage = page;
             getCustomersSummary();
         };
 
-        $scope.deleteCustomer = function (id) {
+        vm.deleteCustomer = function (id) {
             if (!authService.user.isAuthenticated) {
                 $location.path(authService.loginPath + $location.$$path);
                 return;
@@ -45,13 +47,13 @@ define(['app'], function (app) {
             modalService.showModal({}, modalOptions).then(function (result) {
                 if (result === 'ok') {
                     dataService.deleteCustomer(id).then(function () {
-                        for (var i = 0; i < $scope.customers.length; i++) {
-                            if ($scope.customers[i].id === id) {
-                                $scope.customers.splice(i, 1);
+                        for (var i = 0; i < vm.customers.length; i++) {
+                            if (vm.customers[i].id === id) {
+                                vm.customers.splice(i, 1);
                                 break;
                             }
                         }
-                        filterCustomers($scope.searchText);
+                        filterCustomers(vm.searchText);
                     }, function (error) {
                         $window.alert('Error deleting customer: ' + error.message);
                     });
@@ -59,35 +61,35 @@ define(['app'], function (app) {
             });
         };
 
-        $scope.DisplayModeEnum = {
+        vm.DisplayModeEnum = {
             Card: 0,
             List: 1
         };
 
-        $scope.changeDisplayMode = function (displayMode) {
+        vm.changeDisplayMode = function (displayMode) {
             switch (displayMode) {
-                case $scope.DisplayModeEnum.Card:
-                    $scope.listDisplayModeEnabled = false;
+                case vm.DisplayModeEnum.Card:
+                    vm.listDisplayModeEnabled = false;
                     break;
-                case $scope.DisplayModeEnum.List:
-                    $scope.listDisplayModeEnabled = true;
+                case vm.DisplayModeEnum.List:
+                    vm.listDisplayModeEnabled = true;
                     break;
             }
         };
 
-        $scope.navigate = function (url) {
+        vm.navigate = function (url) {
             $location.path(url);
         };
 
-        $scope.setOrder = function (orderby) {
-            if (orderby === $scope.orderby) {
-                $scope.reverse = !$scope.reverse;
+        vm.setOrder = function (orderby) {
+            if (orderby === vm.orderby) {
+                vm.reverse = !vm.reverse;
             }
-            $scope.orderby = orderby;
+            vm.orderby = orderby;
         };
 
-        $scope.searchTextChanged = function () {
-            filterCustomers($scope.searchText);
+        vm.searchTextChanged = function () {
+            filterCustomers(vm.searchText);
         };
 
         function init() {
@@ -98,23 +100,23 @@ define(['app'], function (app) {
         //function createWatches() {
         //    //Watch searchText value and pass it and the customers to nameCityStateFilter
         //    //Doing this instead of adding the filter to ng-repeat allows it to only be run once (rather than twice)
-        //    //while also accessing the filtered count via $scope.filteredCount above
+        //    //while also accessing the filtered count via vm.filteredCount above
 
         //    //Better to handle this using ng-change on <input>. See searchTextChanged() function.
-        //    $scope.$watch("searchText", function (filterText) {
+        //    vm.$watch("searchText", function (filterText) {
         //        filterCustomers(filterText);
         //    });
         //}
 
         function getCustomersSummary() {
-            dataService.getCustomersSummary($scope.currentPage - 1, $scope.pageSize)
+            dataService.getCustomersSummary(vm.currentPage - 1, vm.pageSize)
             .then(function (data) {
-                $scope.totalRecords = data.totalRecords;
-                $scope.customers = data.results;
+                vm.totalRecords = data.totalRecords;
+                vm.customers = data.results;
                 filterCustomers(''); //Trigger initial filter
 
                 $timeout(function () {
-                    $scope.cardAnimationClass = ''; //Turn off animation since it won't keep up with filtering
+                    vm.cardAnimationClass = ''; //Turn off animation since it won't keep up with filtering
                 }, 1000);
 
             }, function (error) {
@@ -123,13 +125,13 @@ define(['app'], function (app) {
         }
 
         function filterCustomers(filterText) {
-            $scope.filteredCustomers = $filter("nameCityStateFilter")($scope.customers, filterText);
-            $scope.filteredCount = $scope.filteredCustomers.length;
+            vm.filteredCustomers = $filter("nameCityStateFilter")(vm.customers, filterText);
+            vm.filteredCount = vm.filteredCustomers.length;
         }
 
         function getCustomerById(id) {
-            for (var i = 0; i < $scope.customers.length; i++) {
-                var cust = $scope.customers[i];
+            for (var i = 0; i < vm.customers.length; i++) {
+                var cust = vm.customers[i];
                 if (cust.id === id) {
                     return cust;
                 }

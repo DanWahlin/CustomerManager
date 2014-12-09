@@ -7,16 +7,15 @@
             <div class="row">
                 <div class="span12">
                     <div>
-                        <h4>Orders for <a href="#/customeredit/{{customer.id}}">{{ customer.firstName + ' ' + customer.lastName }} <i class="icon-edit editIcon"></i></a></h4>
-                        {{customer.address}}
+                        <h4>Orders for <a href="#/customeredit/{{vm.customer.id}}">{{ vm.customer.firstName + ' ' + vm.customer.lastName }} <i class="icon-edit editIcon"></i></a></h4>
+                        {{vm.customer.address}}
                         <br />
-                        {{customer.city}}, {{customer.state.name}}
+                        {{vm.customer.city}}, {{vm.customer.state.name}}
                         <br /><br />
                     </div>
-                    <div data-ng-include="'/app/customersApp/views/orders/ordersTable.html'" />
-                </div>
+                    <div data-ng-include="'/app/customersApp/views/orders/ordersTable.html'" data-ng-controller="OrderChildController as vm" />
+                </div>                
             </div>
         </div>
     </div>
 </div>
-

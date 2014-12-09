@@ -5,30 +5,42 @@ define(['app'], function (app) {
     var injectParams = ['$scope'];
 
     var OrderChildController = function ($scope) {
-        $scope.orderby = 'product';
-        $scope.reverse = false;
-        $scope.ordersTotal = 0.00;
+        var vm = this;
+
+        vm.orderby = 'product';
+        vm.reverse = false;
+        vm.ordersTotal = 0.00;
+        vm.customer;
 
         init();
 
-        $scope.setOrder = function (orderby) {
-            if (orderby === $scope.orderby) {
-                $scope.reverse = !$scope.reverse;
+        vm.setOrder = function (orderby) {
+            if (orderby === vm.orderby) {
+                vm.reverse = !vm.reverse;
             }
-            $scope.orderby = orderby;
+            vm.orderby = orderby;
         };
 
         function init() {
-            //Calculate grand total
-            //Handled at this level so we don't duplicate it across parent controllers
-            if ($scope.customer && $scope.customer.orders) {
-                var total = 0.00;
-                for (var i = 0; i < $scope.customer.orders.length; i++) {
-                    var order = $scope.customer.orders[i];
-                    total += order.orderTotal;
-                }
-                $scope.ordersTotal = total;
+            if ($scope.customer) {
+                vm.customer = $scope.customer;
+                updateTotal($scope.customer);
             }
+            else {
+                $scope.$on('customer', function (event, customer) {
+                    vm.customer = customer;
+                    updateTotal(customer);
+                });
+            }
+        }
+
+        function updateTotal(customer) {
+            var total = 0.00;
+            for (var i = 0; i < customer.orders.length; i++) {
+                var order = customer.orders[i];
+                total += order.orderTotal;
+            }
+            vm.ordersTotal = total;
         }
     };
 

@@ -5,15 +5,17 @@ define(['app'], function (app) {
     var injectParams = ['$scope', '$location', 'config', 'authService'];
 
     var NavbarController = function ($scope, $location, config, authService) {
-        var appTitle = 'Customer Management';
-        $scope.isCollapsed = false;
-        $scope.appTitle = (config.useBreeze) ? appTitle + ' Breeze' : appTitle;
+        var vm = this,
+            appTitle = 'Customer Management';
 
-        $scope.highlight = function (path) {
+        vm.isCollapsed = false;
+        vm.appTitle = (config.useBreeze) ? appTitle + ' Breeze' : appTitle;
+
+        vm.highlight = function (path) {
             return $location.path().substr(0, path.length) === path;
         };
 
-        $scope.loginOrOut = function () {
+        vm.loginOrOut = function () {
             setLoginLogoutText();
             var isAuthenticated = authService.user.isAuthenticated;
             if (isAuthenticated) { //logout 
@@ -40,7 +42,7 @@ define(['app'], function (app) {
         });
 
         function setLoginLogoutText() {
-            $scope.loginLogoutText = (authService.user.isAuthenticated) ? 'Logout' : 'Login';
+            vm.loginLogoutText = (authService.user.isAuthenticated) ? 'Logout' : 'Login';
         }
 
         setLoginLogoutText();
@@ -48,6 +50,7 @@ define(['app'], function (app) {
     };
 
     NavbarController.$inject = injectParams;
+
 
     //Loaded normally since the script is loaded upfront 
     //Dynamically loaded controller use app.register.controller

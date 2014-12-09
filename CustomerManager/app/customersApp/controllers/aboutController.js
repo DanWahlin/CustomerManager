@@ -2,9 +2,9 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$scope'];
+    var injectParams = [];
 
-    var AboutController = function ($scope) {
+    var AboutController = function () {
 
     };
 

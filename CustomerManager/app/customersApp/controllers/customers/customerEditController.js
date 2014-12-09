@@ -8,34 +8,35 @@ define(['app'], function (app) {
     var CustomerEditController = function ($scope, $location, $routeParams,
                                            $timeout, config, dataService, modalService) {
 
-        var customerId = ($routeParams.customerId) ? parseInt($routeParams.customerId) : 0,
+        var vm = this,
+            customerId = ($routeParams.customerId) ? parseInt($routeParams.customerId) : 0,
             timer,
             onRouteChangeOff;
 
-        $scope.customer = {};
-        $scope.states = [];
-        $scope.title = (customerId > 0) ? 'Edit' : 'Add';
-        $scope.buttonText = (customerId > 0) ? 'Update' : 'Add';
-        $scope.updateStatus = false;
-        $scope.errorMessage = '';
+        vm.customer = {};
+        vm.states = [];
+        vm.title = (customerId > 0) ? 'Edit' : 'Add';
+        vm.buttonText = (customerId > 0) ? 'Update' : 'Add';
+        vm.updateStatus = false;
+        vm.errorMessage = '';
 
-        $scope.isStateSelected = function (customerStateId, stateId) {
+        vm.isStateSelected = function (customerStateId, stateId) {
             return customerStateId === stateId;
         };
 
-        $scope.saveCustomer = function () {
+        vm.saveCustomer = function () {
             if ($scope.editForm.$valid) {
-                if (!$scope.customer.id) {
-                    dataService.insertCustomer($scope.customer).then(processSuccess, processError);
+                if (!vm.customer.id) {
+                    dataService.insertCustomer(vm.customer).then(processSuccess, processError);
                 }
                 else {
-                    dataService.updateCustomer($scope.customer).then(processSuccess, processError);
+                    dataService.updateCustomer(vm.customer).then(processSuccess, processError);
                 }
             }
         };
 
-        $scope.deleteCustomer = function () {
-            var custName = $scope.customer.firstName + ' ' + $scope.customer.lastName;
+        vm.deleteCustomer = function () {
+            var custName = vm.customer.firstName + ' ' + vm.customer.lastName;
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete Customer',
@@ -45,7 +46,7 @@ define(['app'], function (app) {
 
             modalService.showModal({}, modalOptions).then(function (result) {
                 if (result === 'ok') {
-                    dataService.deleteCustomer($scope.customer.id).then(function () {
+                    dataService.deleteCustomer(vm.customer.id).then(function () {
                         onRouteChangeOff(); //Stop listening for location changes
                         $location.path('/customers');
                     }, processError);
@@ -55,18 +56,18 @@ define(['app'], function (app) {
 
         function init() {
 
-            getStates();
+            getStates().then(function () {
+                if (customerId > 0) {
+                    dataService.getCustomer(customerId).then(function (customer) {
+                        vm.customer = customer;
+                    }, processError);
+                } else {
+                    dataService.newCustomer().then(function (customer) {
+                        vm.customer = customer;
+                    });
+                }
+            });
 
-            if (customerId > 0) {
-                dataService.getCustomer(customerId).then(function (customer) {
-                    $scope.customer = customer;
-                }, processError);
-            } else {
-                dataService.newCustomer().then(function (customer) {
-                    $scope.customer = customer;
-                });
-
-            }
 
             //Make sure they're warned if they made a change but didn't save it
             //Call to $on returns a "deregistration" function that can be called to
@@ -76,9 +77,9 @@ define(['app'], function (app) {
 
         init();
 
-        function routeChange(event, newUrl) {
+        function routeChange(event, newUrl, oldUrl) {
             //Navigate to newUrl if the form isn't dirty
-            if (!$scope.editForm || !$scope.editForm.$dirty) return;
+            if (!vm.editForm || !vm.editForm.$dirty) return;
 
             var modalOptions = {
                 closeButtonText: 'Cancel',
@@ -101,29 +102,29 @@ define(['app'], function (app) {
         }
 
         function getStates() {
-            dataService.getStates().then(function (states) {
-                $scope.states = states;
+            return dataService.getStates().then(function (states) {
+                vm.states = states;
             }, processError);
         }
 
         function processSuccess() {
             $scope.editForm.$dirty = false;
-            $scope.updateStatus = true;
-            $scope.title = 'Edit';
-            $scope.buttonText = 'Update';
+            vm.updateStatus = true;
+            vm.title = 'Edit';
+            vm.buttonText = 'Update';
             startTimer();
         }
 
         function processError(error) {
-            $scope.errorMessage = error.message;
+            vm.errorMessage = error.message;
             startTimer();
         }
 
         function startTimer() {
             timer = $timeout(function () {
                 $timeout.cancel(timer);
-                $scope.errorMessage = '';
-                $scope.updateStatus = false;
+                vm.errorMessage = '';
+                vm.updateStatus = false;
             }, 3000);
         }
     };

@@ -10,7 +10,7 @@
                         Email:
                     </div>
                     <div class="col-md-10">
-                        <input type="email" name="email" class="form-control" data-ng-model="email" required />
+                        <input type="email" name="email" class="form-control" data-ng-model="vm.email" required />
                         <span class="errorMessage" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
                             Email is required
                         </span>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-10">
                         <input type="password" name="password" class="form-control"
-                               data-ng-model="password"
+                               data-ng-model="vm.password"
                                data-ng-minlength="6"
                                required />
                         <span class="errorMessage" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
@@ -34,9 +34,8 @@
                 <br />
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit"
-                                class="btn btn-primary"
-                                data-ng-click="login()"
+                        <button type="submit" class="btn btn-primary"
+                                data-ng-click="vm.login()"
                                 ng-disabled="loginForm.$invalid || !loginForm.$dirty">
                             Login
                         </button>
@@ -45,8 +44,8 @@
                 <br />
                 <div class="statusRow">
                     <br />
-                    <div class="label label-important" data-ng-show="errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
+                    <div class="label label-important" data-ng-show="vm.errorMessage">
+                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ vm.errorMessage }}
                     </div>
                 </div>
             </div>

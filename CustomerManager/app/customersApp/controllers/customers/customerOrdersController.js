@@ -5,11 +5,11 @@ define(['app'], function (app) {
     var injectParams = ['$scope', '$routeParams', '$window', 'dataService'];
 
     var CustomerOrdersController = function ($scope, $routeParams, $window, dataService) {
-        //Grab customerId off of the route        
-        var customerId = ($routeParams.customerId) ? parseInt($routeParams.customerId) : 0;
+        var vm = this,
+            customerId = ($routeParams.customerId) ? parseInt($routeParams.customerId) : 0;
 
-        $scope.customer = {};
-        $scope.ordersTotal = 0.00;
+        vm.customer = {};
+        vm.ordersTotal = 0.00;
 
         init();
 
@@ -17,7 +17,8 @@ define(['app'], function (app) {
             if (customerId > 0) {
                 dataService.getCustomer(customerId)
                 .then(function (customer) {
-                    $scope.customer = customer;
+                    vm.customer = customer;
+                    $scope.$broadcast('customer', customer);
                 }, function (error) {
                     $window.alert("Sorry, an error occurred: " + error.message);
                 });
