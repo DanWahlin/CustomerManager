@@ -1,22 +1,16 @@
-﻿'use strict';
-
-(function () {
+﻿(function () {
 
     var injectParams = ['$q', '$timeout', '$window', 'httpInterceptor'];
 
     var wcOverlayDirective = function ($q, $timeout, $window, httpInterceptor) {
-        return {
-            restrict: 'EA',
-            transclude: true,
-            scope: {
-                wcOverlayDelay: "@"
-            },
-            template: '<div id="overlay-container" class="overlayContainer">' +
+
+        var template = '<div id="overlay-container" class="overlayContainer">' +
                             '<div id="overlay-background" class="overlayBackground"></div>' +
                             '<div id="overlay-content" class="overlayContent" data-ng-transclude>' +
                             '</div>' +
                         '</div>',
-            link: function (scope, element, attrs) {
+
+            link = function (scope, element, attrs) {
                 var overlayContainer = null,
                     timerPromise = null,
                     timerPromiseHide = null,
@@ -136,7 +130,16 @@
                         return func(element, null)[style];
                     };
                 }();
-            }
+            };
+
+        return {
+            restrict: 'EA',
+            transclude: true,
+            scope: {
+                wcOverlayDelay: "@"
+            },
+            template: template,
+            link: link
         };
     };
 
@@ -159,4 +162,5 @@
     wcOverlayDirective.$inject = injectParams;
 
     wcDirectivesApp.directive('wcOverlay', wcOverlayDirective);
+
 }());
