@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 
     var injectParams = ['$q', '$timeout', '$window', 'httpInterceptor'];
 
@@ -20,11 +20,11 @@
 
                 function init() {
                     wireUpHttpInterceptor();
-                    if (window.jQuery) wirejQueryInterceptor();
+                    if ($window.jQuery) wirejQueryInterceptor();
                     overlayContainer = element[0].firstChild; //Get to template
                 }
 
-                //Hook into httpInterceptor factory request/response/responseError functions                
+                //Hook into httpInterceptor factory request/response/responseError functions
                 function wireUpHttpInterceptor() {
 
                     httpInterceptor.request = function (config) {
@@ -157,7 +157,7 @@
     }]);
 
     //Directive that uses the httpInterceptor factory above to monitor XHR calls
-    //When a call is made it displays an overlay and a content area 
+    //When a call is made it displays an overlay and a content area
     //No attempt has been made at this point to test on older browsers
     wcOverlayDirective.$inject = injectParams;
 
