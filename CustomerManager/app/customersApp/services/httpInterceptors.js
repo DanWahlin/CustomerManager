@@ -21,9 +21,20 @@ define(['app'], function (app) {
                 return $q.reject(res);
             };
 
-            return function (promise) {
-                return promise.then(success, error);
-            };
+            return {
+                request: function (config) {
+                    return config || $q.when(config);
+                },
+                requestError: function (rejection) {
+                    return error(rejection);
+                },
+                response: function (response) {
+                    return response || $q.when(response);
+                },
+                responseError: function (rejection) {
+                    return error(rejection);
+                }
+            }; 
 
         };
 
