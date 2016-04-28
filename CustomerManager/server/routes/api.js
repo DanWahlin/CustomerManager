@@ -4,8 +4,8 @@ var db = require('../accessDB')
 // GET
 exports.customers = function (req, res) {
     console.log('*** customers');
-    var top = req.query.$top;
-    var skip = req.query.$skip;
+    var top = parseInt(req.query.$top);
+    var skip = parseInt(req.query.$skip);
 
     db.getCustomers(skip, top, function (err, data) {
         res.setHeader('X-InlineCount', data.count);
@@ -110,8 +110,8 @@ exports.states = function (req, res) {
 
 exports.customersSummary = function (req, res) {
     console.log('*** customersSummary');
-    var top = req.query.$top;
-    var skip = req.query.$skip;
+    var top = parseInt(req.query.$top);
+    var skip = parseInt(req.query.$skip);
 
     db.getCustomersSummary(skip, top, function (err, summary) {
         res.setHeader('X-InlineCount', summary.count);

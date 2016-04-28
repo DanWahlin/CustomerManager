@@ -6,7 +6,7 @@ var mongoose = require('mongoose')
   , util = require('util');
 
 // connect to database
-module.exports = {
+var self = module.exports = {
     // Define class variable
     myEventID: null,
 
@@ -25,21 +25,28 @@ module.exports = {
         mongoose.disconnect();
     },
 
+    //get total customers count
+    patchCustomersCount: function (result, callback) {
+        console.log('*** accessDB.asyncGetCustomersCount');
+        Customer.count({}, function (err, count) {
+                if (err) { console.log('*** get customers count err: ' + err) };
+                result.count = count;
+                callback(null, result);
+            });
+    },
+
     // get all the customers
     getCustomers: function (skip, top, callback) {
         console.log('*** accessDB.getCustomers');
         var count = 0;
         Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'orders': 1, 'orderCount': 1, 'gender': 1, 'id': 1 },
             function (err, customers) {
-                count = customers.length;
+                if (err) { console.log('*** get customers err: ' + err) };
             })
         .skip(skip)
         .limit(top)
         .exec(function (err, customers) {
-            callback(null, {
-                count: count,
-                customers: customers
-            });
+            self.patchCustomersCount({customers: customers}, callback);
         });
     },
 
@@ -48,16 +55,13 @@ module.exports = {
         console.log('*** accessDB.getCustomersSummary');
         var count = 0;
         Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'orders': 1, 'orderCount': 1, 'gender': 1, 'id': 1 },
-            function (err, customersSummary) {
-                count = customersSummary.length;
+            function (err, customersSummary){ 
+                if (err) { console.log('*** get customers summary err: ' + err)};
             })
       .skip(skip)
       .limit(top)
       .exec(function (err, customersSummary) {
-          callback(null, {
-              count: count,
-              customersSummary: customersSummary
-          });
+          self.patchCustomersCount({customersSummary: customersSummary}, callback);
       });
     },
 
@@ -65,6 +69,7 @@ module.exports = {
     getCustomer: function (id, callback) {
         console.log('*** accessDB.getCustomer');
         Customer.find({ 'id': id }, {}, function (err, customer) {
+            if (err) { console.log('*** get customer err: ' + err)};
             callback(null, customer[0]);
         });
     },
@@ -100,7 +105,7 @@ module.exports = {
         var s = { 'id': state[0].id, 'abbreviation': state[0].abbreviation, 'name': state[0].name }
 
         Customer.findOne({ 'id': id }, { '_id': 1, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'gender': 1, 'id': 1 }, function (err, customer) {
-            if (err) { return callback(err); }
+            if (err) { console.log('*** edit customer doesn\'t exist err: ' + err); return callback(err); }
 
             customer.firstName = req_body.firstName || customer.firstName;
             customer.lastName = req_body.lastName || customer.lastName;
@@ -114,8 +119,7 @@ module.exports = {
 
 
             customer.save(function (err) {
-                if (err) { console.log('*** accessDB.editCustomer err: ' + err); return callback(err); }
-
+                if (err) { console.log('*** edit customer save err: ' + err); return callback(err); }
                 callback(null);
             });
 
@@ -126,6 +130,10 @@ module.exports = {
     deleteCustomer: function (id, callback) {
         console.log('*** accessDB.deleteCustomer');
         Customer.remove({ 'id': id }, function (err, customer) {
+            if (err) {
+                console.log('*** delete customer err' + err);
+            }
+            console.log("customer: " + customer);
             callback(null);
         });
     },
@@ -139,6 +147,9 @@ module.exports = {
                 Customer.findOne({ 'email': value, 'id': { $ne: id} })
                         .select('email')
                         .exec(function (err, customer) {
+                            if (err) {
+                                console.log('*** check unique err' + err);
+                            } 
                             console.log(customer)
                             var status = (customer) ? false : true;
                             callback(null, {status: status});
@@ -152,6 +163,9 @@ module.exports = {
     getStates: function (callback) {
         console.log('*** accessDB.getStates');
         State.find({}, {}, function (err, states) {
+            if (err) {
+                console.log('*** get states err' + err);
+            } 
             callback(null, states);
         });
     },
@@ -160,6 +174,9 @@ module.exports = {
     getState: function (stateId, callback) {
         console.log('*** accessDB.getState');
         State.find({ 'id': stateId }, {}, function (err, state) {
+            if (err) {
+                console.log('*** get state err' + err);
+            } 
             callback(null, state);
         });
     }
