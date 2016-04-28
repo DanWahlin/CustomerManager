@@ -2,24 +2,6 @@ var db = require('../accessDB')
   , util = require('util');
 
 // GET
-exports.customers = function (req, res) {
-    console.log('*** customers');
-    var top = req.query.$top;
-    var skip = req.query.$skip;
-
-    db.getCustomers(skip, top, function (err, data) {
-        res.setHeader('X-InlineCount', data.count);
-        if (err) {
-            console.log('*** customers err');
-            res.json({
-                customers: data.customers
-            });
-        } else {
-            console.log('*** customers ok');
-            res.json(data.customers);
-        }
-    });
-};
 
 exports.customer = function (req, res) {
     console.log('*** customer');
@@ -108,10 +90,33 @@ exports.states = function (req, res) {
     });
 };
 
+exports.customers = function (req, res) {
+    console.log('*** customers');
+    var topVal = req.query.$top,
+        skipVal = req.query.$skip,
+        top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
+        skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
+
+    db.getCustomers(skip, top, function (err, data) {
+        res.setHeader('X-InlineCount', data.count);
+        if (err) {
+            console.log('*** customers err');
+            res.json({
+                customers: data.customers
+            });
+        } else {
+            console.log('*** customers ok');
+            res.json(data.customers);
+        }
+    });
+};
+
 exports.customersSummary = function (req, res) {
     console.log('*** customersSummary');
-    var top = req.query.$top;
-    var skip = req.query.$skip;
+    var topVal = req.query.$top,
+        skipVal = req.query.$skip,
+        top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
+        skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
 
     db.getCustomersSummary(skip, top, function (err, summary) {
         res.setHeader('X-InlineCount', summary.count);

@@ -28,37 +28,54 @@ module.exports = {
     // get all the customers
     getCustomers: function (skip, top, callback) {
         console.log('*** accessDB.getCustomers');
-        var count = 0;
-        Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'orders': 1, 'orderCount': 1, 'gender': 1, 'id': 1 },
-            function (err, customers) {
-                count = customers.length;
-            })
-        .skip(skip)
-        .limit(top)
-        .exec(function (err, customers) {
-            callback(null, {
-                count: count,
-                customers: customers
+        Customer.count(function(err, custsCount) {
+            var count = custsCount;
+            console.log('Customers count: ' + count);
+
+            Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'orders': 1, 'orderCount': 1, 'gender': 1, 'id': 1 })
+                /*
+                //This stopped working (not sure if it's a mongo or mongoose change) so doing 2 queries now
+                function (err, customers) {
+                    console.log('Customers count: ' + customers.length);
+                    count = customers.length;
+                })*/
+            .skip(skip)
+            .limit(top)
+            .exec(function (err, customers) {
+                callback(null, {
+                    count: count,
+                    customers: customers
+                });
             });
+
         });
     },
 
     // get the customer summary
     getCustomersSummary: function (skip, top, callback) {
         console.log('*** accessDB.getCustomersSummary');
-        var count = 0;
-        Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'stateId': 1, 'orders': 1, 'orderCount': 1, 'gender': 1, 'id': 1 },
+        Customer.count(function(err, custsCount) {
+            var count = custsCount;
+            console.log('Customers count: ' + count);
+
+            Customer.find({}, { '_id': 0, 'firstName': 1, 'lastName': 1, 'city': 1, 'state': 1, 'orderCount': 1, 'gender': 1, 'id': 1 })
+            /*
+            //This stopped working (not sure if it's a mongo or mongoose change) so doing 2 queries now
             function (err, customersSummary) {
+                console.log('Customers Summary count: ' + customersSummary.length);
                 count = customersSummary.length;
             })
-      .skip(skip)
-      .limit(top)
-      .exec(function (err, customersSummary) {
-          callback(null, {
-              count: count,
-              customersSummary: customersSummary
-          });
-      });
+            */
+            .skip(skip)
+            .limit(top)
+            .exec(function (err, customersSummary) {
+                callback(null, {
+                    count: count,
+                    customersSummary: customersSummary
+                });
+            });
+
+        });
     },
 
     // get a  customer
@@ -151,7 +168,7 @@ module.exports = {
     // get all the states
     getStates: function (callback) {
         console.log('*** accessDB.getStates');
-        State.find({}, {}, function (err, states) {
+        State.find({}, {}, { sort: { name: 1 } }, function (err, states) {
             callback(null, states);
         });
     },
