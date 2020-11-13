@@ -40,7 +40,7 @@ The AngularJS portion of the app is structured using the following folders:
 
 The following is required to support the backend services:
 
-* Visual Studio 2015 Community (free version) - https://www.visualstudio.com
+* Visual Studio 2015 Community (free version) - https://www.visualstudio.com/?WT.mc_id=m365-0000-dwahlin
 
 * ASP.NET MVC and Web API are used for the back-end services along with Entity Framework for database access (included if you have VS 2015 community installed with the LocalDB option selected)
 
